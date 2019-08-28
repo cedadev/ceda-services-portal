@@ -1,0 +1,19 @@
+{% extends "fwtheme_django/layout.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Profile" %}{% endblock %}
+{% block page_title %}
+<h1>{% trans "Profile" %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<p>
+  {{ request.user.username }}
+</p>
+
+<a class="btn btn-primary" href="{% url 'account_logout' %}">Logout</a>
+
+{% endblock %}
