@@ -1,0 +1,19 @@
+certifi==2019.6.16
+chardet==3.0.4
+defusedxml==0.6.0
+Django==2.2.4
+django-allauth==0.39.1
+django-classy-tags==0.9.0
+django-cookie-law==2.0.2
+django-crispy-forms==1.7.2
+-e git+https://github.com/cedadev/fwtheme-django.git@0.2#egg=fwtheme_django
+-e git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@1.4.0#egg=fwtheme_django_ceda_serv
+idna==2.8
+oauthlib==3.1.0
+pytest-runner==5.1
+python3-openid==3.1.0
+pytz==2019.2
+requests==2.22.0
+requests-oauthlib==1.2.0
+sqlparse==0.3.0
+urllib3==1.25.3
