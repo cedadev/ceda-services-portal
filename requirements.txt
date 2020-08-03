@@ -8,6 +8,14 @@ django-cookie-law==2.0.2
 django-crispy-forms==1.7.2
 -e git+https://github.com/cedadev/fwtheme-django.git@0.2#egg=fwtheme_django
 -e git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@1.4.0#egg=fwtheme_django_ceda_serv
+
+-e git+https://github.com/cedadev/jasmin-django-utils.git#egg=jasmin_django_utils
+-e git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d#egg=jasmin_ldap
+-e git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9#egg=jasmin_ldap_django
+-e git+https://github.com/cedadev/jasmin-metadata.git@e48b03597f96ec9494719b8103103c603832b47c#egg=jasmin_metadata
+-e git+https://github.com/cedadev/jasmin-notifications.git@794316ae3473eb950f2c22cc5d6438054f84d53f#egg=jasmin_notifications
+# -e git+https://github.com/cedadev/ceda-services.git#egg=ceda_services
+
 idna==2.8
 oauthlib==3.1.0
 pytest-runner==5.1
@@ -17,3 +25,7 @@ requests==2.22.0
 requests-oauthlib==1.2.0
 sqlparse==0.3.0
 urllib3==1.25.3
+
+unidecode
+django_countries
+sshpubkeys

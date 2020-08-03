@@ -28,6 +28,7 @@ setup(
     packages = find_packages(),
     install_requires = [
         "django",
+        "python-dateutil",
         "django-allauth",
         "django-crispy-forms",
         "fwtheme-django",

@@ -8,7 +8,6 @@ __license__ = "BSD - see LICENSE file in top-level directory"
 
 import os
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -28,8 +27,17 @@ INSTALLED_APPS = [
     'fwtheme_django',
     'crispy_forms',
     'allauth',
+    'dateutil',
     'allauth.account',
     'allauth.socialaccount',
+    'mozilla_django_oidc',
+    'jasmin_ldap',
+    'jasmin_ldap_django',
+    'jasmin_django_utils',
+    'jasmin_metadata',
+    'jasmin_notifications',
+    'ceda_services',
+    'django_countries',
     # Add social auth provider apps here:
     # e.g. 'allauth.socialaccount.providers.github',
 ]
@@ -62,10 +70,15 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+
+AUTHENTICATION_BACKENDS = [
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+]
+
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
 
 WSGI_APPLICATION = 'ceda_account_site.wsgi.application'
 

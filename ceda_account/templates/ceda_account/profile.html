@@ -10,10 +10,14 @@
 
 {% block content %}
 
-<p>
-  {{ request.user.username }}
-</p>
-
-<a class="btn btn-primary" href="{% url 'account_logout' %}">Logout</a>
+{% if user.is_authenticated %}
+<!--   <p>Current user: {{ user.email }}</p>
+  <p>Current user: {{ user.groups }}</p> -->
+  <form action="{% url 'oidc_logout' %}" method="post">
+    <input class="btn btn-primary" type="submit" value="Logout">
+  </form>
+{% else %}
+  <a class="btn btn-primary" href="{% url 'oidc_authentication_init' %}">Login</a>
+{% endif %}
 
 {% endblock %}

@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('oidc/', include('mozilla_django_oidc.urls')),
+    path('services/', include('ceda_services.urls')),
 ]
