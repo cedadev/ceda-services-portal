@@ -33,6 +33,7 @@ setup(
         "fwtheme-django",
         "fwtheme-django-ceda-serv",
         "python-dateutil",
+        "mozilla-django-oidc",
     ],
     classifiers = [
         "Development Status :: 1 - Planning",

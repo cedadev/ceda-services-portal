@@ -29,3 +29,4 @@ unidecode
 django_countries
 sshpubkeys
 python-dateutil
+mozilla-django-oidc
