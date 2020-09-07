@@ -1,0 +1,23 @@
+{% block content %}{% endblock %}
+Thanks,
+The JASMIN Team
+
+
+************************************************************************************
+
+We have lots of documentation for getting started on JASMIN and overcoming
+common issues at https://help.jasmin.ac.uk.
+
+If you can’t find an answer in the documentation, contact us at support@ceda.ac.uk.
+
+Useful links:
+
+  JASMIN Website: https://www.jasmin.ac.uk
+
+  JASMIN Documentation: https://help.jasmin.ac.uk
+
+  JASMIN Accounts Portal: https://accounts.jasmin.ac.uk
+
+Follow @cedanews on Twitter for news and updates about CEDA and JASMIN.
+
+************************************************************************************
