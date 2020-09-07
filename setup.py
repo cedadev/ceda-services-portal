@@ -32,6 +32,7 @@ setup(
         "django-crispy-forms",
         "fwtheme-django",
         "fwtheme-django-ceda-serv",
+        "python-dateutil",
     ],
     classifiers = [
         "Development Status :: 1 - Planning",
