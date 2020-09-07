@@ -1,0 +1,87 @@
+{% extends "fwtheme_django/layout.html" %}
+{% load staticfiles notifications %}
+
+
+{% block head_js_extra %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{% endblock %}
+
+{% block stylesheets_extra %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" />
+<link rel="stylesheet" href="{% static "css/tweaks.css" %}" />
+{% endblock %}
+
+{% block navigation %}
+{{ block.super }}
+    <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a href="http://help.ceda.ac.uk/collection/59-jasmin-documentation" target="_blank">Help</a></li> -->
+        {% if user.is_authenticated %}
+            {% notification_dropdown %}
+            {% if user.is_staff %}
+                <li><a class="nav-link" href="{% url 'admin:index' %}" title="Admin area"><i class="fa fa-lg fa-cog fa-fw"></i></a></li>
+            {% endif %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user"></i><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-link text-primary" style="padding-top: 0; padding-bottom: 0;">Signed in as</li>
+                    <li class="nav-link" style="padding-top: 0; border-bottom: 1px solid #e1e4e8;"><code>{{user.username}}</code></li>
+                    <li><a class="nav-link text-primary" href="{% url 'account:profile' %}"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+                    <li>
+                        <form action="{% url 'oidc_logout' %}" method="post">
+                            <button type="submit" class="nav-link text-primary btn-link"><i class="fa fa-fw fa-sign-out-alt" style="margin-right: 5px;"></i> Sign out</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        {% else %}
+            <li><a class="nav-link" href="{% url 'oidc_authentication_init' %}"><i class="fa fa-fw fa-sign-in-alt"></i> Sign in</a></li>
+        {% endif %}
+    </ul>
+
+    <ul class="nav navbar-nav collapse navbar-small" id="navbarResponsive">
+        {% if user.is_authenticated %}
+            <li style="padding-top: 0; padding-bottom: 0;">&nbsp</li>
+            <li style="color: #fff; padding-top: 0; padding-bottom: 0;">Signed in as</li>
+            <li class="nav-link" style="padding-top: 0; border-bottom: 1px solid #e1e4e8;"><code style="color: #e1e4e8;">{{user.username}}</code></li>
+            <li><a class="nav-link" style="padding:0" href="{% url 'account:profile' %}"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+            {% if user.is_staff %}
+                <li><a class="nav-link" style="padding:0" href="{% url 'admin:index' %}"><i class="fa fa-cog fa-fw"></i> Admin</a></li>
+            {% endif %}
+            <li>
+                <form action="{% url 'oidc_logout' %}" method="post">
+                    <button type="submit" class="nav-link btn-link"><i class="fa fa-fw fa-sign-out-alt"></i> Sign out</button>
+                </form>
+            </li>
+        {% else %}
+            <li><a style="padding:0" href="{% url 'oidc_authentication_init' %}"><i class="fa fa-fw fa-sign-in-alt"></i> Sign in</a></li>
+        {% endif %}
+{% endblock %}
+
+{% block content_header %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 right">
+                {% block breadcrumbs %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% block navbar_small %}{% endblock %}
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-7">
+                <h3 style="padding-left:0.25rem;">{% block page_title %}{% endblock %}</h3>
+            </div>
+        </div>
+    </div>
+{% endblock %}

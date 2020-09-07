@@ -1,0 +1,435 @@
+/**
+ * This file contains custom CSS for the JASMIN Accounts Portal site
+ *
+ * Author: Matt Pryor
+ *
+ * Copyright 2015 STFC
+ */
+
+/* Other small fixes */
+
+td *:last-child, .modal-dialog .form-group:not(.reason):last-child,
+.list-group-item-text *:last-child, .service-list-item-content *:last-child,
+.banner *:last-child, .bootbox-body *:last-child,
+.service-list *:last-child, .popover-content *:last-child, .help-block *:last-child {
+    margin-bottom: 0;
+}
+
+.nav-tabs {
+    margin-bottom: 20px;
+}
+.tabs-left {
+    margin-bottom: 0;
+}
+
+.table caption {
+    caption-side: bottom;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top: 2px solid #ddd;
+}
+
+.form-group .panel {
+    margin-bottom: 0;
+}
+
+.nav-divider {
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+h3.nav-title {
+    font-size: 16px;
+    color: #777;
+}
+
+.banner {
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+.banner-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.banner-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+.banner-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.banner-heading {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.service-list-item .panel-title { font-size: 1.7rem; }
+.navbar-vertical .navbar-collapse { padding: 0; }
+.navbar-vertical .navbar-header { float: none; }
+.navbar-vertical .navbar-brand {
+    display: block;
+    float: none;
+}
+.navbar-vertical .navbar-form {
+    border-color: transparent;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+.navbar-vertical .navbar-form .checkbox {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.navbar-nav.nav-stacked { float: none; }
+.navbar-nav.nav-stacked > li { float: none; }
+.nav-stacked .divider {
+    height: 1px;
+    margin: 0;
+    background-color: #e5e5e5;
+}
+.nav-stacked>li.divider+li {
+    margin-top: 0;
+    margin-left: 0;
+}
+.nav-stacked-text {
+    padding: 10px 15px;
+    line-height: 20px;
+}
+.nav-stacked-title {
+    margin: 0;
+    color: #777;
+    font-size: 16px;
+}
+.navbar-form-title {
+    margin: 0;
+    color: #777;
+    font-size: 16px;
+    font-weight: normal;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+.service-list-footer {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+.service-list-item {
+    display: block;
+    color: #555;
+    text-decoration: none;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.service-list-item:hover, .service-list-item:focus {
+    color: #555;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+.service-list-item-heading {
+    font-size: 20px;
+    line-height: 30px;
+    padding: 7px 15px;
+    background-color: #e6e6e6;
+    border-bottom: 1px solid #ddd;
+}
+.service-list-item-heading h2 {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+}
+.service-list-item-heading code {
+    font-size: 20px;
+    line-height: 30px;
+}
+.service-list-item-roles {
+    display: inline-block;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    float: right;
+}
+.service-list-item-roles .label {
+    margin-left: 5px;
+}
+.service-list-item:hover .service-list-item-heading {
+    background-color: #d9d9d9;
+}
+.service-list-item-content {
+    display: table;
+    padding: 10px 15px;
+}
+.service-list-item-content > div {
+    display: table-cell;
+}
+.service-list-item-content > div:nth-child(1) {
+    width: 100%;
+    padding-right: 15px;
+}
+.service-list-item-content > div:nth-child(2) {
+    vertical-align: middle;
+}
+
+.service-search {
+    margin-bottom: 10px;
+}
+
+.service-summary {
+    font-size: 1rem;
+    padding-top: 0.6rem;
+}
+
+.modal .modal-dialog {
+    margin-top: 70px;
+}
+
+.dropdown-menu {
+    min-width: max-content;
+    right: 0;
+    left: unset;
+}
+
+.dropdown-menu > li > a {
+	padding: 5px 15px;
+}
+
+.dropdown-menu a i {
+	margin-right: 5px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.access-table > thead > tr > th,
+.access-table > tbody > tr > td,
+.requests-table > thead > tr > th,
+.requests-table > tbody > tr > td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.access-table > tbody > tr:not(:first-child) > td {
+    white-space: normal;
+}
+.access-table > thead > tr > th:empty,
+.access-table > tbody > tr > th:empty,
+.access-table > tbody > tr > td:empty {
+    padding: 0;
+}
+.access-table > tbody > tr > th {
+    text-align: right;
+}
+
+.modal-danger .modal-content {
+    overflow: hidden;
+}
+.modal-danger .modal-header {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.pagination {
+    margin: 10px 0 5px 0;
+}
+nav:first-child > .pagination {
+    margin-top: 0;
+}
+.pagination > .disabled > a, .pagination > .disabled > span {
+    cursor: default !important;
+}
+.pagination > .page-info > span, .pagination > .page-info > span:hover {
+    color: #777;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.reason-stack {
+    margin-bottom: 15px;
+}
+.reason-number {
+    display: inline-block;
+    float:right;
+    color: #777;
+    line-height: 20px;
+    font-size: 12px;
+}
+aside {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px 20px;
+    border-left: 5px solid #ddd;
+    color: #777;
+}
+aside > header {
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+aside > :last-child {
+    margin-bottom: 0;
+}
+aside hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+aside.info {
+    border-left-color: #31708f;
+}
+aside.info > header {
+    color: #31708f;
+}
+aside.success {
+    border-left-color: #3c763d;
+}
+aside.success > header {
+    color: #3c763d;
+}
+aside.warning {
+    border-left-color: #d19215;
+}
+aside.warning > header {
+    color: #d19215;
+}
+aside.danger {
+    border-left-color: #a94442;
+}
+aside.danger > header {
+    color: #a94442;
+}
+
+blockquote.danger {
+    font-size: inherit;
+    border: 1px solid #eee;
+    border-left: 5px solid #a94442;
+    border-radius: 4px;
+    color: #a94442;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+    min-height: 100px !important;
+}
+.form-group.has-error .CodeMirror, .form-group.has-error .editor-toolbar {
+    border-color: #a94442;
+}
+
+.input-group select.form-control:first-child {
+    border-radius: 4px;
+}
+.input-group select.form-control + .input-group-btn:last-child > .btn,
+.input-group .select2 + .input-group-btn:last-child > .btn {
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.option-with-flag {
+    display: table-cell;
+}
+.option-with-flag img {
+    vertical-align: baseline;
+    margin-right: 5px;
+}
+
+.help-block ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.help-block li {
+    margin-bottom: 3px;
+}
+.help-block li:last-child {
+    margin-bottom: 0;
+}
+
+.panel-conditions .panel-body {
+    max-height: 400px;
+    overflow: scroll;
+}
+.panel-conditions label {
+    color: #777;
+    margin-right: 10px;
+}
+
+.users-table {
+    display: block;
+    overflow-y: scroll;
+}
+caption .pagination {
+    margin: 0;
+}
+
+.input-group .form-control-static {
+    height: 34px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+.input-group .form-control-static:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+code.form-control-static {
+    display: block;
+    line-height: 20px;
+}
+
+.short-text { display: none; }
+@media (max-width: 1200px) {
+    .short-text { display: inline-block; }
+    .full-text { display: none; }
+}
+
+.navbar-small { display: none; }
+.nav-categories {         
+    background: #e1e4e8;
+    padding: 0.5rem 0.75rem;
+}
+@media (max-width: 991px) {
+    .navbar-small { 
+        display: flex;
+    }
+    .navbar-right { display: none; }
+    .navbar-full { display: none; }
+}
+
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-title {
+        display: none;
+    }
+}
+
+.btn-link {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+a.text-light:hover {
+    color: #b9bc2d !important;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+}

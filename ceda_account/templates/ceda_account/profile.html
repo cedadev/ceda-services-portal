@@ -1,7 +1,6 @@
-{% extends "fwtheme_django/layout.html" %}
+{% extends "ceda_account/layout.html" %}
 
 {% load i18n %}
-{% load account %}
 
 {% block head_title %}{% trans "Profile" %}{% endblock %}
 {% block page_title %}
@@ -9,11 +8,118 @@
 {% endblock %}
 
 {% block content %}
+<div class="col-md-10 col-md-offset-1">
+  <div class="banner banner-warning text-center">
+    <p>
+        Email address and institution are <strong>not</strong> editable because
+        a change of institution may affect your eligibility for JASMIN services.
+    </p>
+    <p>
+        If you are moving institution but maintaining your eligibility for all
+        your JASMIN services, please
+        <a href="http://www.jasmin.ac.uk/contact/"
+          onclick="Beacon('navigate', '/ask/'); Beacon('open'); return false;">contact us</a>
+        to update these fields.
+    </p>
+  </div>
 
-<p>
-  {{ request.user.username }}
-</p>
-
-<a class="btn btn-primary" href="{% url 'account_logout' %}">Logout</a>
-
+  <table class="table table-striped table-details">
+      <tr>
+          <th>Username</th>
+          <td><code>{{ user.username }}</code></td>
+      </tr>
+      {% if user.email_confirm_required %}
+          <tr class="text-danger danger">
+      {% else %}
+          <tr class="text-success">
+      {% endif %}
+          <th>Email address</th>
+          <td>
+              <code>{{ user.email }}</code>&nbsp;
+              {% if user.email_confirm_required %}
+                  <span class="label label-danger">
+                      <i class="fa fa-fw fa-times"></i>
+                      Confirmation required
+                  </span>
+              {% else %}
+                  <span class="label label-success">
+                      <i class="fa fa-fw fa-check"></i>
+                      Confirmed
+                  </span>
+              {% endif %}
+          </td>
+          <!-- {% if user.email_confirm_required %}
+              <td>
+                      {% csrf_token %}
+                      <button class="btn btn-danger btn-block" type="submit">
+                          <i class="fa fa-lg fa-fw fa-envelope"></i> Confirm now
+                      </button>
+                  </form>
+              </td>
+          {% endif %} -->
+      </tr>
+      <tr>
+          <th>Name</th>
+          <td>{{ user.get_name }}</td>
+          <td rowspan="4">
+              <a class="btn btn-primary btn-block" href="https://auth-test.ceda.ac.uk/auth/realms/ceda/account">
+                  <i class="fa fa-fw fa-id-card"></i> Update info
+              </a>
+          </td>
+      </tr>
+      <tr>
+          <th>Institution</th>
+          <td>{{ user.institution }}</td>
+      </tr>
+      <tr>
+          <th>Discipline</th>
+          <td>{{ user.discipline }}</td>
+      </tr>
+      <tr>
+          <th>Degree</th>
+          <td>{{ user.degree|default:"N/A" }}</td>
+      </tr>
+      <tr class="{% if ceda_account %}text-success{% else %}text-danger{% endif %}">
+          <th>
+              Linked CEDA Account
+              <a href="#" title="Linking your CEDA account allows you to access data from the CEDA archive through the filesystem on JASMIN.<br><br>See the JASMIN documentation for more information."
+                data-toggle="tooltip" data-placement="right" data-html="true">
+                  <i class="fa fa-fw fa-question-circle"></i>
+              </a>
+          </th>
+          {% if ceda_account %}
+              <td>
+                  <i class="fa fa-lg fa-fw fa-link"></i> Linked with <code>{{ ceda_account }}</code>
+              </td>
+              <td>
+                  <a class="btn btn-success btn-block" target="_blank"
+                    href="https://services.ceda.ac.uk/cedasite/myceda/user/">
+                      <i class="fa fa-fw fa-user-circle"></i> CEDA account
+                  </a>
+              </td>
+          {% elif ceda_account_error %}
+              <td><i class="fa fa-lg fa-fw fa-exclamation-triangle"></i> {{ ceda_account_error }}</td>
+          {% else %}
+              <td><i class="fa fa-lg fa-fw fa-unlink"></i> Not linked</td>
+              <td>
+                      <i class="fa fa-fw fa-link"></i> Link now
+                  </a>
+              </td>
+          {% endif %}
+      </tr>
+      <tr>
+          <th>CEDA Services</th>
+          {% if n_services %}
+              <td>You currently have {{ n_services }} service{{ n_services|pluralize }}.</td>
+          {% else %}
+              <td>You do not have any services yet.</td>
+          {% endif %}
+          <td>
+              <a class="btn btn-success btn-block" href="{% url 'jasmin_services:my_services' %}">
+                  <i class="fa fa-fw fa-cog"></i> My Services
+              </a>
+          </td>
+      </tr>
+  </table>
+</div>
 {% endblock %}

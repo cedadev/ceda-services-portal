@@ -1,0 +1,40 @@
+{% extends "jasmin_notifications/mail/layout.txt" %}
+
+{% block content %}
+Hi {{ user.first_name }},
+{% if target.user.service_user %}
+The following access has been granted:
+
+    Service: {{ target.role.service }}
+    Role: {{ target.role.name }}
+    User: {{ target.user }}
+    Expires: {{ target.expires }}
+
+You are receiving this email as a designated responsible user for this service user.
+{% elif target.role.service.name == "jasmin-login" and target.role.name == "USER" %}
+You have been granted jasmin-login access, which means you can make full use of the
+interactive and batch computing facilities on JASMIN.
+
+The JASMIN documentation, https://help.jasmin.ac.uk, has many articles describing how to use the
+different JASMIN services and how to overcome common issues. Scenario-based training exercises
+from our regular JASMIN Workshops are useful for learning best practice on JASMIN and are
+available at https://github.com/cedadev/jasmin-workshop.
+
+It is important that you familiarise yourself with the constraints of JASMIN’s hardware and
+infrastructure. Misuse, even if accidental, can impact system performance for everyone.
+Please make sure you understand these constraints by reading the documentation.
+
+If you can’t find an answer in the documentation, you can contact us at support@ceda.ac.uk.
+{% else %}
+You have been granted the following access:
+
+    Service: {{ target.role.service }}
+    Role: {{ target.role.name }}
+    Expires: {{ target.expires }}
+
+It may take some time for the changes to propagate through the system, so please
+allow 24 hours before contacting the helpdesk.
+
+You can review your current access at {{ follow_link }}.
+{% endif %}
+{% endblock %}
