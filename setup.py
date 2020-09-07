@@ -31,9 +31,11 @@ setup(
         "python-dateutil",
         "django-crispy-forms",
         "django-widget-tweaks",
+        "django-countries",
         "fwtheme-django",
         "fwtheme-django-ceda-serv",
         "mozilla-django-oidc",
+        "unidecode",
         "psycopg2-binary",
     ],
     classifiers = [
