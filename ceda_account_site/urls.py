@@ -11,10 +11,10 @@ from django.urls import include, path
 
 
 urlpatterns = [
-    path('', include('ceda_account.urls')),
+    path('account/', include(('ceda_account.urls', 'ceda_account'), namespace = 'account')),
 
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
     path('oidc/', include('mozilla_django_oidc.urls')),
-    path('services/', include('ceda_services.urls')),
+    path('services/', include('jasmin_services.urls', namespace = 'services')),
+    path('notifications/', include('jasmin_notifications.urls', namespace = 'notifications')),
 ]

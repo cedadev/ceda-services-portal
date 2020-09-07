@@ -29,7 +29,6 @@ setup(
     install_requires = [
         "django",
         "python-dateutil",
-        "django-allauth",
         "django-crispy-forms",
         "fwtheme-django",
         "fwtheme-django-ceda-serv",

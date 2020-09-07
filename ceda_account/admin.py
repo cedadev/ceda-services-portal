@@ -25,54 +25,13 @@ from django_countries import countries
 from .models import (
     CEDAUser,
     OAuthToken,
-    Account,
     Institution,
-    # RecoveryDevice,
-    # NotificationDevice
 )
 from .forms import (
     CEDAUserCreateForm,
     CEDAUserChangeForm,
-    # RecoveryDeviceAdminForm
 )
 from .actions import send_confirmation_notifications, suspend_unresponsive_users
-
-
-@admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
-    list_display = ('username', 'full_name', 'num_tags')
-    search_fields = ('username', 'full_name', 'tags')
-    fieldsets = (
-        (None, {
-            'fields': ('username', 'full_name', 'surname', 'ssh_key', 'tags'),
-        }),
-    )
-    superuser_fieldsets = fieldsets + (
-        ('Derived / Calculated Fields', {
-            'fields' : ('uid', 'uidNumber', 'gidNumber', 'homeDirectory', 'loginShell'),
-            'classes' : ('collapse', )
-        }),
-    )
-
-    def get_queryset(self, request):
-        return super().get_queryset(request).annotate(num_tags = Count('tags'))
-
-    def get_fieldsets(self, request, obj = None):
-        if request.user.is_superuser:
-            return self.superuser_fieldsets
-        else:
-            return self.fieldsets
-
-    def get_readonly_fields(self, request, obj = None):
-        # Username is readonly unless creating
-        return ('username', ) if obj else ()
-
-    def num_tags(self, obj):
-        return obj.num_tags
-    num_tags.description = 'Number of tags'
-    num_tags.short_description = '# tags'
-    num_tags.admin_order_field = 'num_tags'
-
 
 class _InstituteCountryIfAnyFilter(admin.SimpleListFilter):
     """
@@ -182,13 +141,3 @@ class CEDAUserAdmin(auth_admin.UserAdmin):
         """
         suspend_unresponsive_users(queryset)
     suspend_unresponsive_users.short_description = 'Suspend unresponsive users'
-
-
-# @admin.register(RecoveryDevice)
-# class RecoveryDeviceAdmin(admin.ModelAdmin):
-#     form = RecoveryDeviceAdminForm
-
-
-# @admin.register(NotificationDevice)
-# class NotificationDeviceAdmin(admin.ModelAdmin):
-#     pass

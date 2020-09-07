@@ -21,23 +21,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize',
+    'markdown_deux',
     'ceda_account',
     'cookielaw',
     'fwtheme_django_ceda_serv',
     'fwtheme_django',
     'crispy_forms',
-    'allauth',
     'dateutil',
-    'allauth.account',
-    'allauth.socialaccount',
     'mozilla_django_oidc',
     'jasmin_ldap',
     'jasmin_ldap_django',
     'jasmin_django_utils',
     'jasmin_metadata',
     'jasmin_notifications',
-    'ceda_services',
+    'jasmin_services',
     'django_countries',
+    'bootstrap3',
+    'widget_tweaks',
+    'polymorphic',
     # Add social auth provider apps here:
     # e.g. 'allauth.socialaccount.providers.github',
 ]
@@ -73,6 +75,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 # AUTHENTICATION_BACKENDS = (
