@@ -13,7 +13,7 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 from django.urls import reverse
 
-from .models import Account, CEDAUser
+from .models import CEDAUser
 
 
 def send_confirmation_notifications(queryset):

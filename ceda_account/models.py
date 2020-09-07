@@ -23,7 +23,7 @@ from django.utils.safestring import mark_safe
 
 from django_countries.fields import CountryField
 
-from jasmin_ldap_django import models as ldap
+from jasmin_notifications.models import NotifiableUserMixin
 
 
 class Institution(models.Model):
@@ -54,7 +54,7 @@ class Institution(models.Model):
         return "{}, {}".format(self.name, self.country.name)
 
 
-class CEDAUser(auth_models.AbstractUser):
+class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
     """
     Custom user model for the `ceda_auth` package.
       * Provides access to the :py:class:`Account` for the user as a cached property
@@ -110,7 +110,7 @@ class CEDAUser(auth_models.AbstractUser):
         help_text = 'The type of degree you are studying for, if applicable'
     )
     #: The user's institution
-    institution = models.ForeignKey(Institution, models.CASCADE)
+    institution = models.ForeignKey(Institution, models.CASCADE, null = True,  blank = True)
 
     #: Indicates if the user is a service user
     service_user = models.BooleanField(
@@ -167,8 +167,8 @@ class CEDAUser(auth_models.AbstractUser):
     def clean(self):
         errors = {}
         # Ensure that an account with the current username exists
-        if not Account.objects.filter(username = self.username).exists():
-            errors['username'] = 'An account with this username does not exist.'
+        # if not Account.objects.filter(username = self.username).exists():
+        #     errors['username'] = 'An account with this username does not exist.'
         if self.email:
             # If email is given, it must be case-insensitive unique
             q = CEDAUser.objects.filter(email__iexact = self.email)
@@ -195,22 +195,20 @@ class CEDAUser(auth_models.AbstractUser):
         if errors:
             raise ValidationError(errors)
 
-    @cached_property
-    def account(self):
-        return Account.objects.get(username = self.username)
+    # @cached_property
+    # def account(self):
+    #     return Account.objects.get(username = self.username)
 
     def check_password(self, raw_password):
         # For service users, the password is *never* correct
         if self.service_user:
             return False
         # The "canonical" password is the one for the LDAP account
-        if self.account.check_password(raw_password):
-            # If the JASMIN user has a different password, change it
-            if not super().check_password(raw_password):
-                self.set_password(raw_password)
-                # Don't treat this is a password reset
-                self._password = None
-                self.save(update_fields = ['password'])
+        if not super().check_password(raw_password):
+            self.set_password(raw_password)
+            # Don't treat this is a password reset
+            self._password = None
+            self.save(update_fields = ['password'])
             return True
         else:
             return False
@@ -223,21 +221,21 @@ class CEDAUser(auth_models.AbstractUser):
         super().set_password(raw_password)
 
     def save(self, *args, **kwargs):
-        # Update the full_name and surname of the underlying account, if required
-        changed = False
-        if self.last_name != self.account.surname:
-            self.account.surname = self.last_name
-            changed = True
-        full_name = self.get_full_name()
-        if full_name != self.account.full_name:
-            self.account.full_name = full_name
-            changed = True
-        # If the password has changed, update the password of the underlying account
-        if self._password is not None:
-            self.account.set_password(self._password)
-            changed = True
-        if changed:
-            self.account.save()
+        # # Update the full_name and surname of the underlying account, if required
+        # changed = False
+        # if self.last_name != self.account.surname:
+        #     self.account.surname = self.last_name
+        #     changed = True
+        # full_name = self.get_full_name()
+        # if full_name != self.account.full_name:
+        #     self.account.full_name = full_name
+        #     changed = True
+        # # If the password has changed, update the password of the underlying account
+        # if self._password is not None:
+        #     self.account.set_password(self._password)
+        #     changed = True
+        # if changed:
+        #     self.account.save()
         # Then save the JASMIN user
         super().save(*args, **kwargs)
 
@@ -314,116 +312,3 @@ class OAuthToken(models.Model):
             'expires_at' : self.expires_at,
             'expires_in' : self.expires_in,
         }
-
-
-class Account(ldap.LDAPModel):
-    class UidAllocationFailed(RuntimeError):
-        """
-        Raised when a uid allocation fails.
-        """
-
-    class Meta:
-        managed = False
-        ordering = ['username']
-        db_table = "ceda_account_account"
-
-    base_dn = settings.CEDA_AUTH['LDAP']['BASE_DN']
-    object_classes = ['top', 'person', 'posixAccount', 'ldapPublicKey']
-    # Specify a search class of person to allow fetching of incomplete records
-    search_classes = ['posixAccount']
-
-    # Note that these only apply to generated uid numbers
-    # Any user-provided number that is unique is allowed, as we assume they know
-    # what they are doing
-    uid_number_min = settings.CEDA_AUTH['LDAP']['UID_NUMBER_MIN']
-    uid_number_max = settings.CEDA_AUTH['LDAP']['UID_NUMBER_MAX']
-
-    # User visible fields
-    username = ldap.CharField(
-        db_column = 'cn',
-        primary_key = True, max_length = 20,
-        validators = [
-            MinLengthValidator(3, 'Username must have at least %(limit_value)d characters.'),
-            RegexValidator(
-                regex = '^[a-z]',
-                message = 'Username must start with a letter.',
-            ),
-            RegexValidator(
-                regex = '[a-z0-9]$',
-                message = 'Username must end with a letter or number.',
-            ),
-            RegexValidator(
-                regex = '^[a-z0-9_]+$',
-                message = 'Username must contain lowercase letters, numbers and _ only.',
-            ),
-        ],
-        error_messages = {
-            'unique' : 'Username is already in use.',
-            'max_length' : 'Username must have at most %(limit_value)d characters.'
-        }
-    )
-    surname = ldap.CharField(db_column = 'sn', max_length = 100)
-    full_name = ldap.CharField(db_column = 'gecos', max_length = 200)
-    tags = ldap.ListField(db_column = 'description', blank = True)
-
-    # These fields have blank = True, but the save method will populate them if
-    # they are blank
-    # This is because the default values are derived from other fields
-    uidNumber = ldap.PositiveIntegerField(
-        unique = True, blank = True,
-        help_text = 'Leave blank for default (next available uidNumber)'
-    )
-    uid = ldap.CharField(
-        max_length = 50, blank = True,
-        help_text = 'This is always overridden to match username'
-    )
-    homeDirectory = ldap.CharField(
-        max_length = 250, blank = True,
-        help_text = 'Leave blank for default ({})'.format(settings.CEDA_AUTH['LDAP']['HOME_DIR'])
-    )
-    # These fields should not be changed from the default without good reason
-    gidNumber = ldap.PositiveIntegerField(default = settings.CEDA_AUTH['LDAP']['GID_NUMBER'])
-    loginShell = ldap.CharField(max_length = 250,
-                                default = settings.CEDA_AUTH['LDAP']['SHELL'])
-
-    def __str__(self):
-        return self.username
-
-    def clean(self):
-        # A 20 char limit is enforced for usernames, but we want max. 8 chars for
-        # new usernames
-        if self.username and self._state.adding and len(self.username) > 8:
-            raise ValidationError({
-                'username' : 'Username must have no more than 8 characters.',
-            })
-
-    def save(self, *args, **kwargs):
-        # Always set uid to username
-        self.uid = self.username
-        # Convert any unicode characters in surname or full_name
-        self.surname = unidecode(self.surname)
-        self.full_name = unidecode(self.full_name)
-        # If homeDirectory is not set, set it to the default
-        if not self.homeDirectory:
-            home_tpl = settings.CEDA_AUTH['LDAP']['HOME_DIR']
-            self.homeDirectory = home_tpl.format(user = self.username)
-        # If there is no uidNumber, try to allocate one
-        if self.uidNumber is None:
-            # Get the max uidNumber currently in use
-            max_uid = self.__class__.objects.filter(uidNumber__isnull = False)  \
-                                            .aggregate(max_uid = models.Max('uidNumber'))  \
-                                            .get('max_uid')
-            if max_uid is not None:
-                # Use the next uidNumber, but make sure we are in the current range
-                next_uid = max(max_uid + 1, self.uid_number_min)
-            else:
-                # If there is no max, then this is the first record with a uidNumber
-                # so use the minimum
-                next_uid = self.uid_number_min
-            # If we were unable to allocate a uid in the range, report it
-            # We use a non-field error in case the uidNumber field is not being
-            # displayed
-            if next_uid >= self.uid_number_max:
-                raise self.UidAllocationFailed()
-            self.uidNumber = next_uid
-        return super().save(*args, **kwargs)
