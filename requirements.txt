@@ -1,32 +1,40 @@
-certifi==2019.6.16
+asgiref==3.2.10
+certifi==2020.6.20
+cffi==1.14.2
 chardet==3.0.4
-defusedxml==0.6.0
-Django==2.2.4
-django-classy-tags==0.9.0
-django-cookie-law==2.0.2
-django-crispy-forms==1.7.2
--e git+https://github.com/cedadev/fwtheme-django.git@0.2#egg=fwtheme_django
--e git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@1.4.0#egg=fwtheme_django_ceda_serv
-
--e git+https://github.com/cedadev/jasmin-django-utils.git#egg=jasmin_django_utils
+cryptography==3.1
+Django==3.1.1
+django-bootstrap3==14.1.0
+django-classy-tags==2.0.0
+django-cookie-law==2.0.3
+django-crispy-forms==1.9.2
+django-markdown-deux==1.0.5
+django-picklefield==3.0.1
+django-polymorphic==3.0.0
+django-widget-tweaks==1.4.8
+-e git+https://github.com/cedadev/fwtheme-django.git@c7bca61fe42df77fe5ce9fa277e63b5d29388b10#egg=fwtheme_django
+-e git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@423ce585589910299491eb91489f4f6080108188#egg=fwtheme_django_ceda_serv
+idna==2.10
+importlib-metadata==1.7.0
+-e git+https://github.com/cedadev/jasmin-django-utils.git@224113b3f5c3f638b99b97e16af51759fe95ac7a#egg=jasmin_django_utils
 -e git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d#egg=jasmin_ldap
 -e git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9#egg=jasmin_ldap_django
 -e git+https://github.com/cedadev/jasmin-metadata.git@e48b03597f96ec9494719b8103103c603832b47c#egg=jasmin_metadata
 -e git+https://github.com/cedadev/jasmin-notifications.git@794316ae3473eb950f2c22cc5d6438054f84d53f#egg=jasmin_notifications
-# -e git+https://github.com/cedadev/ceda-services.git#egg=ceda_services
-
-idna==2.8
-oauthlib==3.1.0
-pytest-runner==5.1
-python3-openid==3.1.0
-pytz==2019.2
-requests==2.22.0
-requests-oauthlib==1.2.0
-sqlparse==0.3.0
-urllib3==1.25.3
-
-unidecode
-django_countries
-sshpubkeys
-python-dateutil
-mozilla-django-oidc
+-e git+https://github.com/rhysrevans3/jasmin-services.git@d65a2e41ba01f0bd4c61ec738588480517ce6395#egg=jasmin_services
+josepy==1.4.0
+ldap3==2.8.1
+markdown2==2.3.9
+mozilla-django-oidc==1.2.4
+psycopg2-binary==2.8.6
+pyasn1==0.4.8
+pycparser==2.20
+pyOpenSSL==19.1.0
+pytest-runner==5.2
+python-dateutil==2.8.1
+pytz==2020.1
+requests==2.24.0
+six==1.15.0
+sqlparse==0.3.1
+urllib3==1.25.10
+zipp==3.1.0

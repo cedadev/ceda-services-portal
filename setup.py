@@ -30,10 +30,11 @@ setup(
         "django",
         "python-dateutil",
         "django-crispy-forms",
+        "django-widget-tweaks",
         "fwtheme-django",
         "fwtheme-django-ceda-serv",
-        "python-dateutil",
         "mozilla-django-oidc",
+        "psycopg2-binary",
     ],
     classifiers = [
         "Development Status :: 1 - Planning",
