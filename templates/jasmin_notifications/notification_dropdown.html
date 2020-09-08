@@ -6,10 +6,9 @@
     </a>
     {% if notifications %}
         <ul class="disabled dropdown-menu notification-list">
-            <li class="notification-header"><i class="fa fa-bell"></i> Notifications</li>
             {% for notification in notifications %}
                 <li class="notification notification-{{ notification.level }}">
-                    <a href="{{ notification.follow_link }}">
+                    <a class="nav-link" href="{{ notification.follow_link }}">
                         <div class="notification-layout">
                             <span class="notification-message">{% include "jasmin_notifications/messages/"|add:notification.notification_type|add:".html" %}</span>
                             {% if notification.created_at %}<span class="notification-time">{{ notification.created_at|naturaltime }}</span>{% endif %}

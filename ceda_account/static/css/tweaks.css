@@ -433,3 +433,89 @@ input[type="checkbox"] {
     width: 1.5rem;
     height: 1.5rem;
 }
+
+/**
+ * Notifications
+ */
+
+ .unread-count {
+    background-color: #ff3333;
+}
+
+.disabled .unread-count {
+    background-color: unset;
+}
+
+.disabled .nav-link {
+    color: #ccc !important;
+    background-color: unset;
+    cursor: not-allowed;
+}
+
+.disabled .nav-link:hover {
+    color: #ccc !important;
+    background-color: unset;
+    cursor: not-allowed;
+}
+
+li.notification > a {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+li.notification > a:first-child {
+    border-top: 1px solid #ccc;
+}
+
+.notification-layout {
+    display: table;
+}
+.notification-message, .notification-time {
+    width: 100%;
+}
+.notification-time {
+    color : #777;
+    font-size: 0.8rem;
+    padding-left: 5px;
+    text-align: right;
+}
+
+li.notification-info > a:hover {
+    background: #e8e8e8;
+}
+
+li.notification-attention > a {
+    background-color: #d9edf7;
+    color: #31708f !important;
+}
+
+li.notification-attention > a:hover {
+    background: #c4e3f3;
+}
+
+li.notification-success > a {
+    background-color: #dff0d8;
+    color: #3c763d !important;
+}
+
+li.notification-success > a:hover {
+    background: #d0e9c6;
+}
+
+li.notification-warning > a {
+    background: #fcf8e3;
+    color: #8a6d3b !important;
+}
+
+li.notification-warning > a:hover {
+    background: #faf2cc;
+}
+
+li.notification-error > a {
+    background: #f2dede;
+    color: #a94442 !important;
+}
+
+li.notification-error > a:hover {
+    background: #ebcccc;
+}
