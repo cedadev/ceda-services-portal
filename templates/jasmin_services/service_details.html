@@ -1,5 +1,7 @@
 {% extends 'ceda_account/layout.html' %}
-{% load markdown_deux_tags %}
+{% load markdown_deux_tags country_tags %}
+
+{% get_country user=request.user as user_country %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb bg-primary">
@@ -32,9 +34,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-md-6">
-            {% if service.instution_countries and request.user.instution.country not in service.instution_countries %}
+            {% if service.instution_countries and user_country not in service.instution_countries %}
                 <div class="alert alert-warning text-center">
-                    <div style="margin-bottom: 0.4em;"><i class="fa fa-fw fa-exclamation-triangle"></i> Your institution is not in the list of allowed institutions</div>
+                    <div style="margin-bottom: 0.4em;"><i class="fa fa-fw fa-exclamation-triangle"></i> Your institution is not on the list of allowed institutions {{ user_country }}</div>
                 </div>
             {% endif %}
             {% block description %}
@@ -48,7 +50,7 @@
         <div class="col-lg-5 col-md-6">
             {% if not requests and access|length == 1 and not access.0.1 and not access.0.2 %}
                 <div class="well text-center">
-                    <a class="btn btn-primary btn-lg"
+                    <a class="btn btn-primary btn-lg {% if service.instution_countries and user_country not in service.instution_countries %} disabled {% endif %}"
                     href="{% url 'jasmin_services:role_apply' category=access.0.0.service.category.name service=access.0.0.service.name role=access.0.0.name %}">
                         <i class="fa fa-fw fa-plus"></i> Apply for access
                     </a>
@@ -163,7 +165,7 @@
                                     {% elif grant %}
                                         {% if grant.revoked or grant.expired or grant.expiring %}
                                             <td style="width: 1%;">
-                                                <a class="btn btn-primary btn-sm btn-block {% if service.instution_countries and request.user.instution.country not in service.instution_countries %} disabled {% endif %}" href="{{ apply_url }}">
+                                                <a class="btn btn-primary btn-sm btn-block {% if service.instution_countries and user_country not in service.instution_countries %} disabled {% endif %}" href="{{ apply_url }}">
                                                     <i class="fa fa-fw fa-sync-alt"></i> Apply again
                                                 </a>
                                             </td>
@@ -172,7 +174,7 @@
                                         {% endif %}
                                     {% else %}
                                         <td style="width: 1%;">
-                                            <a class="btn btn-primary btn-sm btn-block {% if service.instution_countries and request.user.instution.country not in service.instution_countries %} disabled {% endif %}" href="{{ apply_url }}">
+                                            <a class="btn btn-primary btn-sm btn-block {% if service.instution_countries and user_country not in service.instution_countries %} disabled {% endif %}" href="{{ apply_url }}">
                                                 <i class="fa fa-fw fa-plus"></i> Apply
                                             </a>
                                         </td>
