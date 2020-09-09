@@ -446,13 +446,13 @@ input[type="checkbox"] {
     background-color: unset;
 }
 
-.disabled .nav-link {
+.disabled > .nav-link {
     color: #ccc !important;
     background-color: unset;
     cursor: not-allowed;
 }
 
-.disabled .nav-link:hover {
+.disabled > .nav-link:hover {
     color: #ccc !important;
     background-color: unset;
     cursor: not-allowed;

@@ -32,6 +32,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-md-6">
+            {% if service.instution_countries and request.user.instution.country not in service.instution_countries %}
+                <div class="alert alert-warning text-center">
+                    <div style="margin-bottom: 0.4em;"><i class="fa fa-fw fa-exclamation-triangle"></i> Your institution is not in the list of allowed institutions</div>
+                </div>
+            {% endif %}
             {% block description %}
                 {% if service.description %}
                     {{ service.description|markdown }}
@@ -89,7 +94,7 @@
                                             <td style="width: 1%;">
                                                 <a class="btn btn-primary btn-sm btn-block"
                                                 href="{% url 'jasmin_services:role_apply' category=service.category.name service=service.name role=req.role.name %}">
-                                                    <i class="fa fa-fw fa-refresh"></i> Apply again
+                                                    <i class="fa fa-fw fa-sync-alt"></i> Apply again
                                                 </a>
                                             </td>
                                         {% else %}
@@ -158,8 +163,8 @@
                                     {% elif grant %}
                                         {% if grant.revoked or grant.expired or grant.expiring %}
                                             <td style="width: 1%;">
-                                                <a class="btn btn-primary btn-sm btn-block" href="{{ apply_url }}">
-                                                    <i class="fa fa-fw fa-refresh"></i> Apply again
+                                                <a class="btn btn-primary btn-sm btn-block {% if service.instution_countries and request.user.instution.country not in service.instution_countries %} disabled {% endif %}" href="{{ apply_url }}">
+                                                    <i class="fa fa-fw fa-sync-alt"></i> Apply again
                                                 </a>
                                             </td>
                                         {% else %}
@@ -167,7 +172,7 @@
                                         {% endif %}
                                     {% else %}
                                         <td style="width: 1%;">
-                                            <a class="btn btn-primary btn-sm btn-block" href="{{ apply_url }}">
+                                            <a class="btn btn-primary btn-sm btn-block {% if service.instution_countries and request.user.instution.country not in service.instution_countries %} disabled {% endif %}" href="{{ apply_url }}">
                                                 <i class="fa fa-fw fa-plus"></i> Apply
                                             </a>
                                         </td>
