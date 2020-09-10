@@ -12,5 +12,6 @@ from django.views.generic.base import TemplateView
 
 
 # @method_decorator(login_required, name='dispatch')
+@login_required
 class ProfileView(TemplateView):
     template_name = 'ceda_account/profile.html'
