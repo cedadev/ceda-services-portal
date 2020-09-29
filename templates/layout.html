@@ -32,7 +32,7 @@
                 <ul class="dropdown-menu">
                     <li class="nav-link text-primary" style="padding-top: 0; padding-bottom: 0;">Signed in as</li>
                     <li class="nav-link" style="padding-top: 0; border-bottom: 1px solid #e1e4e8;"><code>{{user.username}}</code></li>
-                    <li><a class="nav-link text-primary" href="{% url 'account:profile' %}"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+                    <li><a class="nav-link text-primary" href="http://192.168.50.69:8080/auth/realms/ceda/account"><i class="fa fa-fw fa-user"></i> Profile</a></li>
                     <li>
                         <form action="{% url 'oidc_logout' %}" method="post">
                             <button type="submit" class="nav-link text-primary btn-link"><i class="fa fa-fw fa-sign-out-alt" style="margin-right: 5px;"></i> Sign out</button>
@@ -50,7 +50,7 @@
             <li style="padding-top: 0; padding-bottom: 0;">&nbsp</li>
             <li style="color: #fff; padding-top: 0; padding-bottom: 0;">Signed in as</li>
             <li class="nav-link" style="padding-top: 0; border-bottom: 1px solid #e1e4e8;"><code style="color: #e1e4e8;">{{user.username}}</code></li>
-            <li><a class="nav-link" style="padding:0" href="{% url 'account:profile' %}"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+            <li><a class="nav-link" style="padding:0" href="KEYCLOAK URL /auth/realms/ceda/account"><i class="fa fa-fw fa-user"></i> Profile</a></li>
             {% if user.is_staff %}
                 <li><a class="nav-link" style="padding:0" href="{% url 'admin:index' %}"><i class="fa fa-cog fa-fw"></i> Admin</a></li>
             {% endif %}
