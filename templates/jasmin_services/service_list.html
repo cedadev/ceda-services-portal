@@ -1,9 +1,13 @@
-{% extends 'layout.html' %}
+{% extends 'jasmin_services/service_list.html' %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb bg-primary">
-    <li class="breadcrumb-item"><a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">CEDA Services</a></li>
-    <li class="breadcrumb-item active">{{ current_category.long_name }}</a></li>
+    <li class="breadcrumb-item">
+        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
+            CEDA Services
+        </a>
+    </li>
+    <li class="breadcrumb-item active">{{ current_category.long_name }}</li>
 </ol>
 {% endblock %}
 
