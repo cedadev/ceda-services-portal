@@ -2,16 +2,16 @@
 
 {% block content %}
 Hi {{ user.first_name }},
-{% if target.user.service_user %}
+{% if target.access.user.service_user %}
 The following access has been granted:
 
-    Service: {{ target.role.service }}
-    Role: {{ target.role.name }}
-    User: {{ target.user }}
+    Service: {{ target.access.role.service }}
+    Role: {{ target.access.role.name }}
+    User: {{ targetaccess..user }}
     Expires: {{ target.expires }}
 
 You are receiving this email as a designated responsible user for this service user.
-{% elif target.role.service.name == "jasmin-login" and target.role.name == "USER" %}
+{% elif target.access.role.service.name == "jasmin-login" and target.access.role.name == "USER" %}
 You have been granted jasmin-login access, which means you can make full use of the
 interactive and batch computing facilities on JASMIN.
 
@@ -28,8 +28,8 @@ If you can’t find an answer in the documentation, you can contact us at suppor
 {% else %}
 You have been granted the following access:
 
-    Service: {{ target.role.service }}
-    Role: {{ target.role.name }}
+    Service: {{ target.access.role.service }}
+    Role: {{ target.access.role.name }}
     Expires: {{ target.expires }}
 
 It may take some time for the changes to propagate through the system, so please
