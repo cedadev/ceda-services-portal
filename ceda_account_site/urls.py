@@ -8,15 +8,12 @@ __license__ = "BSD - see LICENSE file in top-level directory"
 
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic.base import RedirectView
 from . import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('logout', views.keycloak_logout, name='logout'),
-    path('account', views.keycloak_account, name='account'),
-    path('oidc/', include('mozilla_django_oidc.urls')),
+    path('', include('oidc_auth.urls')),
     path('services/', include('jasmin_services.urls', namespace = 'services')),
     path('notifications/', include('jasmin_notifications.urls', namespace = 'notifications')),
 ]

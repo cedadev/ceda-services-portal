@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'fwtheme_django',
     'crispy_forms',
     'dateutil',
-    'mozilla_django_oidc',
     'jasmin_ldap',
     'jasmin_ldap_django',
     'jasmin_django_utils',
@@ -52,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'oidc_auth.middleware.SessionRefresh',
 ]
 
 ROOT_URLCONF = 'ceda_account_site.urls'
@@ -74,7 +74,7 @@ TEMPLATES = [
 
 
 AUTHENTICATION_BACKENDS = [
-    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'ceda_account.backends.CEDAAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
