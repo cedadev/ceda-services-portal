@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'widget_tweaks',
     'polymorphic',
-    # Add social auth provider apps here:
-    # e.g. 'allauth.socialaccount.providers.github',
+    'mozilla_django_oidc',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'oidc_auth.middleware.SessionRefresh',
+    'mozilla_django_oidc.middleware.SessionRefresh',
 ]
 
 ROOT_URLCONF = 'ceda_account_site.urls'
