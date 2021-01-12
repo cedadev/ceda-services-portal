@@ -13,16 +13,16 @@ django-markdown-deux==1.0.5
 django-picklefield==3.0.1
 django-polymorphic==3.0.0
 django-widget-tweaks==1.4.8
--e git+https://github.com/cedadev/fwtheme-django.git@38bd08d6572fe5f17ab02a3fc420a63d651b97e7#egg=fwtheme_django
--e git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@c1ac0bd232bc5410a70d2a60fb5b4ec0098e34b6#egg=fwtheme_django_ceda_serv
+git+https://github.com/cedadev/fwtheme-django.git@38bd08d6572fe5f17ab02a3fc420a63d651b97e7#egg=fwtheme_django
+git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@c1ac0bd232bc5410a70d2a60fb5b4ec0098e34b6#egg=fwtheme_django_ceda_serv
 idna==2.10
 importlib-metadata==1.7.0
--e git+https://github.com/cedadev/jasmin-django-utils.git#egg=jasmin_django_utils
--e git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d#egg=jasmin_ldap
--e git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9#egg=jasmin_ldap_django
--e git+https://github.com/cedadev/jasmin-metadata.git@e48b03597f96ec9494719b8103103c603832b47c#egg=jasmin_metadata
--e git+https://github.com/cedadev/jasmin-notifications.git@794316ae3473eb950f2c22cc5d6438054f84d53f#egg=jasmin_notifications
--e git+https://github.com/rhysrevans3/jasmin-services.git@97d0938e05b6cd0fcd05726cf4bfd35d982f027a#egg=jasmin_services
+git+https://github.com/cedadev/jasmin-django-utils.git@224113b3f5c3f638b99b97e16af51759fe95ac7a#egg=jasmin_django_utils
+git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d#egg=jasmin_ldap
+git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9#egg=jasmin_ldap_django
+git+https://github.com/cedadev/jasmin-metadata.git@e48b03597f96ec9494719b8103103c603832b47c#egg=jasmin_metadata
+git+https://github.com/cedadev/jasmin-notifications.git@794316ae3473eb950f2c22cc5d6438054f84d53f#egg=jasmin_notifications
+git+https://github.com/rhysrevans3/jasmin-services.git@97d0938e05b6cd0fcd05726cf4bfd35d982f027a#egg=jasmin_services
 josepy==1.5.0
 ldap3==2.8.1
 markdown2==2.3.10
