@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.humanize',
     'markdown_deux',
-    'ceda_account',
+    'account',
     'cookielaw',
     'fwtheme_django_ceda_serv',
     'fwtheme_django',
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'mozilla_django_oidc.middleware.SessionRefresh',
 ]
 
-ROOT_URLCONF = 'ceda_account_site.urls'
+ROOT_URLCONF = 'services_portal_site.urls'
 
 TEMPLATES = [
     {
@@ -73,11 +73,11 @@ TEMPLATES = [
 
 
 AUTHENTICATION_BACKENDS = [
-    'ceda_account.backends.CEDAAuthenticationBackend',
+    'account.backends.CEDAAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-WSGI_APPLICATION = 'ceda_account_site.wsgi.application'
+WSGI_APPLICATION = 'services_portal_site.wsgi.application'
 
 
 # Crispy forms

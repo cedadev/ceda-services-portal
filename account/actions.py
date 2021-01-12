@@ -1,5 +1,5 @@
 """
-Actions for the JASMIN auth app that can be run via the admin or as management
+Actions for the auth app that can be run via the admin or as management
 commands.
 """
 
@@ -10,6 +10,7 @@ from datetime import date
 
 from dateutil.relativedelta import relativedelta
 
+from django.conf import settings
 from django.db.models import Q
 from django.urls import reverse
 

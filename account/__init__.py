@@ -1,4 +1,4 @@
-""" Django app which manages CEDA account related views and models. """
+""" Django app which manages account related views and models. """
 
 __author__ = "William Tucker"
 __date__ = "2019-08-28"

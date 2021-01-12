@@ -1,4 +1,4 @@
-""" Setup for the CEDA Account Django application. """
+""" Setup for the CEDA Services Portal Django application. """
 
 __author__ = "William Tucker"
 __date__ = "2019-08-28"
@@ -14,14 +14,14 @@ with open("README.md") as readme_file:
 
 
 setup(
-    name = "ceda-account",
+    name = "ceda-services-portal",
     version = "0.1.0",
     description = "Django application for registering and managing CEDA users.",
     author = "William Tucker",
     author_email = "william.tucker@stfc.ac.uk",
     maintainer = "William Tucker",
     maintainer_email = "william.tucker@stfc.ac.uk",
-    url = "https://github.com/cedadev/ceda-account",
+    url = "https://github.com/cedadev/ceda-services-portal",
     long_description = long_description,
     long_description_content_type = "text/markdown",
     license = "BSD - See ceda_example/LICENSE file for details",
@@ -39,7 +39,7 @@ setup(
         "psycopg2-binary",
     ],
     classifiers = [
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Alpha",
         "Environment :: Web Environment",
         "Framework :: Django",
         "Intended Audience :: Developers",

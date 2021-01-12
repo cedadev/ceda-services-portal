@@ -50,10 +50,6 @@ class CEDAUserCreateForm(auth_forms.UserCreationForm, CEDAUserFormMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['username'].widget = forms.Select(
-        #     choices = [(a.username, a.username) for a in Account.objects.all()]
-        # )
-        # Password is only required for regular accounts
         self.fields['password1'].help_text = 'Not required for service users.'
         self.fields['password1'].required = False
         self.fields['password2'].required = False

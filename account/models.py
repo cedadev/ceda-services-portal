@@ -195,10 +195,6 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         if errors:
             raise ValidationError(errors)
 
-    # @cached_property
-    # def account(self):
-    #     return Account.objects.get(username = self.username)
-
     def check_password(self, raw_password):
         # For service users, the password is *never* correct
         if self.service_user:
@@ -219,25 +215,6 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
             self.set_unusable_password()
             return
         super().set_password(raw_password)
-
-    def save(self, *args, **kwargs):
-        # # Update the full_name and surname of the underlying account, if required
-        # changed = False
-        # if self.last_name != self.account.surname:
-        #     self.account.surname = self.last_name
-        #     changed = True
-        # full_name = self.get_full_name()
-        # if full_name != self.account.full_name:
-        #     self.account.full_name = full_name
-        #     changed = True
-        # # If the password has changed, update the password of the underlying account
-        # if self._password is not None:
-        #     self.account.set_password(self._password)
-        #     changed = True
-        # if changed:
-        #     self.account.save()
-        # Then save the JASMIN user
-        super().save(*args, **kwargs)
 
     def notify(self, *args, **kwargs):
         # During an import, disable all notifications

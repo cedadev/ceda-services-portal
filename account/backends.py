@@ -8,7 +8,7 @@ __license__ = "BSD - see LICENSE file in top-level package directory"
 
 from oidc_auth.backends import OIDCAuthenticationBackend
 
-from ceda_account.models import Institution
+from account.models import Institution
 
 
 class CEDAAuthenticationBackend(OIDCAuthenticationBackend):

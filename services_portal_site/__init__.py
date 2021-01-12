@@ -1,4 +1,4 @@
-""" Package containing configuration for the CEDA Account site. """
+""" Package containing configuration for the CEDA Services Portal site. """
 
 __author__ = "William Tucker"
 __date__ = "2019-08-28"

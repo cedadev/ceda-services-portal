@@ -1,5 +1,5 @@
 """
-Registration of the JASMIN auth models with the default admin interface.
+Registration of the auth models with the default admin interface.
 """
 
 __author__ = "Matt Pryor"
