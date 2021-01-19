@@ -15,7 +15,7 @@ with open("README.md") as readme_file:
 
 setup(
     name = "ceda-services-portal",
-    version = "0.1.0",
+    version = "0.2.0",
     description = "Django application for registering and managing CEDA users.",
     author = "William Tucker",
     author_email = "william.tucker@stfc.ac.uk",

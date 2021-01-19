@@ -11,8 +11,9 @@ from django.urls import include, path
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("oidc/", include("mozilla_django_oidc.urls")),
-    path('services/', include('jasmin_services.urls', namespace = 'services')),
-    path('notifications/', include('jasmin_notifications.urls', namespace = 'notifications')),
+    path("services/", include("jasmin_services.urls", namespace="services")),
+    path("notifications/", include("jasmin_notifications.urls",
+                                   namespace="notifications")),
 ]

@@ -2,18 +2,15 @@
 This module provides forms for editing the models provided by the CEDA auth app.
 """
 
-__author__ = "Matt Pryor"
-__copyright__ = "Copyright 2015 UK Science and Technology Facilities Council"
+__author__ = "William Tucker"
+__date__ = "2019-08-28"
+__copyright__ = "Copyright 2019 United Kingdom Research and Innovation"
+__license__ = "BSD - see LICENSE file in top-level directory"
 
-from operator import itemgetter
 
-from django.conf import settings
 from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.core.exceptions import ValidationError
-from django.utils import timezone
-from django.urls import reverse
-from django.utils.html import format_html
 
 from .models import CEDAUser
 
@@ -24,9 +21,8 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'discipline', 'degree')
 
 
-
 ########
-## Admin forms
+# Admin forms
 ########
 
 
@@ -68,7 +64,7 @@ class CEDAUserCreateForm(auth_forms.UserCreationForm, CEDAUserFormMixin):
         password1 = cleaned_data.get('password1')
         if not service_user and not password1:
             raise ValidationError({
-                'password1' : 'This field is required.'
+                'password1': 'This field is required.'
             })
         return cleaned_data
 

@@ -3,26 +3,20 @@ This module provides a Django models that can be used for querying and
 manipulating CEDA user accounts.
 """
 
-__author__ = "Matt Pryor"
-__copyright__ = "Copyright 2015 UK Science and Technology Facilities Council"
+__author__ = "William Tucker"
+__date__ = "2019-08-28"
+__copyright__ = "Copyright 2019 United Kingdom Research and Innovation"
+__license__ = "BSD - see LICENSE file in top-level directory"
 
-import uuid
+
 from datetime import date
 from dateutil.relativedelta import relativedelta
-
-from unidecode import unidecode
-
 from django.conf import settings
 from django.db import models
-from django.core.validators import RegexValidator, MinLengthValidator
 from django.contrib.auth import models as auth_models
-from django.utils.functional import cached_property
-from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.core.exceptions import ValidationError
 from django.contrib.postgres.fields import ArrayField
-from django.utils.safestring import mark_safe
-
 from django_countries.fields import CountryField
-
 from jasmin_notifications.models import NotifiableUserMixin
 
 
@@ -34,13 +28,13 @@ class Institution(models.Model):
         ordering = ('name', 'country')
 
     #: The name of the institution
-    name = models.CharField(max_length = 200)
+    name = models.CharField(max_length=200)
     #: The country of the institution
     country = CountryField()
     #: The type of the institution
     institution_type = models.CharField(
-        max_length = 20,
-        choices = [
+        max_length=20,
+        choices=[
             ("NERC", "NERC"),
             ("University", "University"),
             ("School", "School"),
@@ -67,11 +61,12 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         ordering = ('username', )
 
     # This is mostly for createsuperuser
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'discipline', 'institution_id']
+    REQUIRED_FIELDS = ['email', 'first_name',
+                       'last_name', 'discipline', 'institution_id']
 
     # Modify these fields to be required
-    first_name = models.CharField(max_length = 50)
-    last_name = models.CharField(max_length = 50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
 
     #: The discipline that the user studies
     DISCIPLINE_CHOICES = [
@@ -92,9 +87,9 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         ("Other", "Other"),
     ]
     discipline = models.CharField(
-        max_length = 30,
-        choices = DISCIPLINE_CHOICES,
-        help_text = 'Please select the closest match to the discipline that you work in'
+        max_length=30,
+        choices=DISCIPLINE_CHOICES,
+        help_text='Please select the closest match to the discipline that you work in'
     )
     #: The type of degree that the user is studying for
     DEGREE_CHOICES = [
@@ -105,51 +100,53 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         ("Other", "Other"),
     ]
     degree = models.CharField(
-        max_length = 30, blank = True,
-        choices = DEGREE_CHOICES,
-        help_text = 'The type of degree you are studying for, if applicable'
+        max_length=30, blank=True,
+        choices=DEGREE_CHOICES,
+        help_text='The type of degree you are studying for, if applicable'
     )
     #: The user's institution
-    institution = models.ForeignKey(Institution, models.CASCADE, null = True,  blank = True)
+    institution = models.ForeignKey(
+        Institution, models.CASCADE, null=True,  blank=True)
 
     #: Indicates if the user is a service user
     service_user = models.BooleanField(
-        default = False,
-        help_text = 'Indicates if this user is a service user, i.e. a user that '
-                    'exists to run a service rather than a regular user account.'
+        default=False,
+        help_text='Indicates if this user is a service user, i.e. a user that '
+        'exists to run a service rather than a regular user account.'
     )
     #: If this is a service user, these are the responsible users
     responsible_users = models.ManyToManyField(
         "self",
-        symmetrical = False, blank = True,
-        limit_choices_to = { 'service_user' : False },
-        help_text = 'For service users, these are the users responsible for the '
-                    'administration of the service user.'
+        symmetrical=False, blank=True,
+        limit_choices_to={'service_user': False},
+        help_text='For service users, these are the users responsible for the '
+        'administration of the service user.'
     )
 
     #: The time at which the user last confirmed their email address
-    email_confirmed_at = models.DateTimeField(null = True, blank = True)
+    email_confirmed_at = models.DateTimeField(null=True, blank=True)
 
     #: The time at which the user accepted the JASMIN Terms and Conditions
-    conditions_accepted_at = models.DateTimeField(null = True, blank = True)
+    conditions_accepted_at = models.DateTimeField(null=True, blank=True)
 
     #: The username of the user who approved this user for root access
-    approved_for_root_by = models.CharField(max_length = 200, null = True, blank = True)
+    approved_for_root_by = models.CharField(
+        max_length=200, null=True, blank=True)
     #: The datetime at which the user was approved for root access
-    approved_for_root_at = models.DateTimeField(null = True, blank = True)
+    approved_for_root_at = models.DateTimeField(null=True, blank=True)
 
     #: The reason why the user was suspended (for the user)
     user_reason = models.TextField(
-        blank = True,
-        verbose_name = 'Reason for suspension (user)',
-        help_text = 'Indicate why the user has been suspended'
+        blank=True,
+        verbose_name='Reason for suspension (user)',
+        help_text='Indicate why the user has been suspended'
     )
     #: Internal details on user suspension
     internal_reason = models.TextField(
-        blank = True,
-        verbose_name = 'Reason for suspension (internal)',
-        help_text = 'Any internal details about the user\'s suspension that '
-                    'should not be displayed to the user'
+        blank=True,
+        verbose_name='Reason for suspension (internal)',
+        help_text='Any internal details about the user\'s suspension that '
+        'should not be displayed to the user'
     )
 
     def email_confirm_required(self):
@@ -160,7 +157,7 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         if not self.email_confirmed_at:
             return False
         deltas = settings.CEDA_AUTH['EMAIL_CONFIRM_NOTIFY_DELTAS']
-        confirm_by = self.email_confirmed_at.date() + relativedelta(years = 1)
+        confirm_by = self.email_confirmed_at.date() + relativedelta(years=1)
         threshold = date.today() + deltas[0]
         return confirm_by < threshold
 
@@ -171,9 +168,9 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         #     errors['username'] = 'An account with this username does not exist.'
         if self.email:
             # If email is given, it must be case-insensitive unique
-            q = CEDAUser.objects.filter(email__iexact = self.email)
+            q = CEDAUser.objects.filter(email__iexact=self.email)
             if not self._state.adding:
-                q = q.exclude(pk = self.pk)
+                q = q.exclude(pk=self.pk)
             if q.exists():
                 errors['email'] = 'Email address is already in use.'
         elif not self.service_user:
@@ -204,7 +201,7 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
             self.set_password(raw_password)
             # Don't treat this is a password reset
             self._password = None
-            self.save(update_fields = ['password'])
+            self.save(update_fields=['password'])
             return True
         else:
             return False
@@ -218,7 +215,8 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
 
     def notify(self, *args, **kwargs):
         # During an import, disable all notifications
-        if getattr(settings, 'IS_CEDA_IMPORT', False): return
+        if getattr(settings, 'IS_CEDA_IMPORT', False):
+            return
         # Only send notifications for migrated users
         # If there is no MIGRATED_USERS setting, then assume all users are migrated
         if self.username not in getattr(settings, 'MIGRATED_USERS', [self.username]):
@@ -232,7 +230,8 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
 
     def notify_if_not_exists(self, *args, **kwargs):
         # During an import, disable all notifications
-        if getattr(settings, 'IS_CEDA_IMPORT', False): return
+        if getattr(settings, 'IS_CEDA_IMPORT', False):
+            return
         # Only send notifications for migrated users
         # If there is no MIGRATED_USERS setting, then assume all users are migrated
         if self.username not in getattr(settings, 'MIGRATED_USERS', [self.username]):
@@ -246,7 +245,8 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
 
     def notify_pending_deadline(self, *args, **kwargs):
         # During an import, disable all notifications
-        if getattr(settings, 'IS_CEDA_IMPORT', False): return
+        if getattr(settings, 'IS_CEDA_IMPORT', False):
+            return
         # Only send notifications for migrated users
         # If there is no MIGRATED_USERS setting, then assume all users are migrated
         if self.username not in getattr(settings, 'MIGRATED_USERS', [self.username]):
@@ -268,12 +268,12 @@ class OAuthToken(models.Model):
         verbose_name = 'OAuth Token'
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                models.CASCADE, related_name = 'oauth_token')
-    token_type = models.CharField(max_length = 20)
+                                models.CASCADE, related_name='oauth_token')
+    token_type = models.CharField(max_length=20)
     # NOTE: ArrayField is **Postgres specific**
-    scope = ArrayField(models.CharField(max_length = 250))
-    access_token = models.CharField(max_length = 50)
-    refresh_token = models.CharField(max_length = 50)
+    scope = ArrayField(models.CharField(max_length=250))
+    access_token = models.CharField(max_length=50)
+    refresh_token = models.CharField(max_length=50)
     expires_at = models.FloatField()
     expires_in = models.IntegerField()
 
@@ -282,10 +282,10 @@ class OAuthToken(models.Model):
         Returns a token dict representing the token for use with `requests-oauthlib`.
         """
         return {
-            'token_type' : self.token_type,
-            'scope' : self.scope,
-            'access_token' : self.access_token,
-            'refresh_token' : self.refresh_token,
-            'expires_at' : self.expires_at,
-            'expires_in' : self.expires_in,
+            'token_type': self.token_type,
+            'scope': self.scope,
+            'access_token': self.access_token,
+            'refresh_token': self.refresh_token,
+            'expires_at': self.expires_at,
+            'expires_in': self.expires_in,
         }
