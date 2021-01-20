@@ -14,7 +14,6 @@ from django_countries import countries
 
 from .models import (
     CEDAUser,
-    OAuthToken,
     Institution,
 )
 from .forms import (
@@ -55,15 +54,8 @@ class InstitutionAdmin(admin.ModelAdmin):
     n_users.short_description = '# users'
 
 
-class OAuthTokenInline(admin.TabularInline):
-    model = OAuthToken
-    readonly_fields = ('token_type', 'scope', 'access_token',
-                       'refresh_token', 'expires_at', 'expires_in')
-
-
 @admin.register(CEDAUser)
 class CEDAUserAdmin(auth_admin.UserAdmin):
-    inlines = [OAuthTokenInline]
     actions = ['send_confirmation_notifications', 'suspend_unresponsive_users']
     list_display = ('username', 'email', 'first_name', 'last_name', 'institution',
                     'service_user', 'is_active', 'is_staff')

@@ -257,35 +257,3 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
                 user.notify_pending_deadline(*args, **kwargs)
         else:
             super().notify_pending_deadline(*args, **kwargs)
-
-
-class OAuthToken(models.Model):
-    """
-    Model representing an OAuth token from the CEDA OAuth server for a user. A
-    user may have at most one token at any one time.
-    """
-    class Meta:
-        verbose_name = 'OAuth Token'
-
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                models.CASCADE, related_name='oauth_token')
-    token_type = models.CharField(max_length=20)
-    # NOTE: ArrayField is **Postgres specific**
-    scope = ArrayField(models.CharField(max_length=250))
-    access_token = models.CharField(max_length=50)
-    refresh_token = models.CharField(max_length=50)
-    expires_at = models.FloatField()
-    expires_in = models.IntegerField()
-
-    def as_dict(self):
-        """
-        Returns a token dict representing the token for use with `requests-oauthlib`.
-        """
-        return {
-            'token_type': self.token_type,
-            'scope': self.scope,
-            'access_token': self.access_token,
-            'refresh_token': self.refresh_token,
-            'expires_at': self.expires_at,
-            'expires_in': self.expires_in,
-        }

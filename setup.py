@@ -8,7 +8,6 @@ __license__ = "BSD - see LICENSE file in top-level directory"
 
 from setuptools import setup, find_packages
 
-
 with open("README.md") as readme_file:
     long_description = readme_file.read()
 
