@@ -22,7 +22,7 @@ git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e63
 git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9#egg=jasmin_ldap_django
 git+https://github.com/cedadev/jasmin-metadata.git@e48b03597f96ec9494719b8103103c603832b47c#egg=jasmin_metadata
 git+https://github.com/cedadev/jasmin-notifications.git@794316ae3473eb950f2c22cc5d6438054f84d53f#egg=jasmin_notifications
-git+https://github.com/rhysrevans3/jasmin-services.git@97d0938e05b6cd0fcd05726cf4bfd35d982f027a#egg=jasmin_services
+git+https://github.com/cedadev/jasmin-services.git@f26492768de9fccbbabfca406358da3de811a9b0#egg=jasmin_services
 josepy==1.5.0
 ldap3==2.8.1
 markdown2==2.3.10

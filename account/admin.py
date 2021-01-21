@@ -84,7 +84,7 @@ class CEDAUserAdmin(auth_admin.UserAdmin):
                        'discipline', 'degree', 'institution'),
         }),
         ('CEDA Permissions', {
-            'fields': ('otp_required', 'is_active', 'user_reason', 'internal_reason',
+            'fields': ('is_active', 'user_reason', 'internal_reason',
                        'approved_for_root_by', 'approved_for_root_at'),
             'classes': ('collapse', ),
         }),
