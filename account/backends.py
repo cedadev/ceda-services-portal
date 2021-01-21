@@ -6,9 +6,14 @@ __copyright__ = "Copyright 2020 United Kingdom Research and Innovation"
 __license__ = "BSD - see LICENSE file in top-level package directory"
 
 
+import logging
+
 from oidc_auth.backends import OIDCAuthenticationBackend
 
 from account.models import Institution
+
+
+log = logging.getLogger(__name__)
 
 
 class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
@@ -26,11 +31,17 @@ class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
         last_name = claims.get("family_name", "")
         discipline = claims.get("discipline", "")
 
-        institution = Institution.objects.get(id=0)
         institution_name = claims.get("institution", None)
         if institution_name:
             institution = Institution.objects.get(name=institution_name)
 
+        if not institution:
+            institution, created = \
+                Institution.objects.get_or_create(id=0, name="None")
+            if created:
+                log.info("Created default Institution with ID 0.")
+
+        print("Creating user: {username}, {email}, {first_name}, {last_name}, {discipline}, {institution.id}")
         return self.UserModel.objects.create_user(username, email, first_name=first_name, last_name=last_name, discipline=discipline, institution_id=institution.id)
 
     def update_user(self, user, claims):
