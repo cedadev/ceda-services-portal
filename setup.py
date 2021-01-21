@@ -31,6 +31,7 @@ setup(
         "django-crispy-forms",
         "django-widget-tweaks",
         "django-countries",
+        "django-oidc-extras",
         "fwtheme-django",
         "fwtheme-django-ceda-serv",
         "mozilla-django-oidc",
