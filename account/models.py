@@ -196,15 +196,7 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         # For service users, the password is *never* correct
         if self.service_user:
             return False
-        # The "canonical" password is the one for the LDAP account
-        if not super().check_password(raw_password):
-            self.set_password(raw_password)
-            # Don't treat this is a password reset
-            self._password = None
-            self.save(update_fields=['password'])
-            return True
-        else:
-            return False
+        return super().check_password(raw_password)
 
     def set_password(self, raw_password):
         # For service users, always set an unusable password
