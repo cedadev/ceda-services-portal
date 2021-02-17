@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'polymorphic',
     'mozilla_django_oidc',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

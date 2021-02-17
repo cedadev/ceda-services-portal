@@ -22,4 +22,6 @@ urlpatterns = [
     path("services/", include("jasmin_services.urls", namespace="services")),
     path("notifications/", include("jasmin_notifications.urls",
                                    namespace="notifications")),
+    path('api/v1/', include('account.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
