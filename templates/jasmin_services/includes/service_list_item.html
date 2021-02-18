@@ -1,5 +1,5 @@
-<div class="panel panel-default service-list-item border border-light border-top-0 border-left-0 border-right-0 lead pt-2">
-    <div class="panel-heading">
+<div class="card service-list-item">
+    <div class="card-header">
         {% if user_roles %}
             <div class="service-list-item-roles">
                 {% for role, grant, req in user_roles %}
@@ -9,7 +9,7 @@
         {% endif %}
         <h2 class="panel-title">{% block service_heading_text %}<code>{{ service.name }}</code>{% endblock %}</h2>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div class="row">
             <div class="col-lg-9 col-md-8 col-sm-8 service-summary"><p>{{ service.summary }}</p></div>
             <div class="col-lg-3 col-md-4 col-sm-4">

@@ -11,51 +11,30 @@
 </ol>
 {% endblock %}
 
-{% block navbar_small %}
-<div id="categories-nav" class="navbar navbar-light navbar-vertical navbar-small" style="padding:1rem; padding-top:0.1rem" role="navigation">
-    <div class="container bg-light nav-categories rounded">
-        <span class="visible-sm visible-xs navbar-brand">Categories</span>
-        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarResponsive2" aria-controls="navbarResponsive2" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon bg-light"></span>
-        </button>
-        
-        <div class="navbar-collapse collapse" id="navbarResponsive2">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a {% if current_category.name == 'my_services' %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'jasmin_services:my_services' %}">My Services <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <span {% if current_category.name != 'my_services' %} class="active" style="text-decoration: none;" {% else %} style="text-decoration: none; color: rgba(0, 0, 0, 0.5);" {% endif %}>Discover Services</a>
-                </li>
-                {% for name, long_name in categories %}
-                    <li role="nav-item"  style="padding-left: 1rem;">
-                        <a {% if current_category.name == name %} class="nav-link active" {% else %} class="nav-link" {% endif %} role="menuitem" href="{% url 'jasmin_services:service_list' category=name %}">{{ long_name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock %}
+{% block navbar_small %}{% endblock %}
 
-{% block page_title %}{{ current_category.long_name }}{% endblock %}
+{% block page_title %}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 navbar-full">
-            <nav id="categories-nav" class=" navbar rounded navbar-vertical navbar-light bg-light" role="navigation">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a {% if current_category.name == 'my_services' %} class="nav-link active" {% else %} class="nav-link" {% endif %} href="{% url 'jasmin_services:my_services' %}">My Services <span class="sr-only">(current)</span></a>
-                    </li>
-                    <!-- <li class="nav-divider"></li> -->
+            <div class="bs-sidebar col-lg-3 navbar-full">
+                <h4 class="mb-2">Account settings</h4>
+                <ul class="nav flex-column nav-pills">
+                    <a class="nav-link" href="{{ account_management_url }}/">Profile</a>
+                    <a class="nav-link" href="{{ account_management_url }}/password">Password</a>
+                    <a class="nav-link" href="{{ account_management_url }}/totp">Authenticator</a>
+                    <a class="nav-link" href="{{ account_management_url }}/sessions">Sessions</a>
+                </ul>
+                <h4 class="mt-4 mb-2">Services</h4>
+                <ul class="nav flex-column nav-pills">
+                    <a class="nav-link {% if current_category.name == 'my_services' %}active{% endif %}" href="{% url 'jasmin_services:my_services' %}">My services</a>
                     <li class="nav-item dropdown ">
                         {% if current_category.name != 'my_services' %}
-                            <a class="nav-link dropdown-toggle collapsed active" aria-expanded="true" href="#discoverServicesDd" style="text-decoration: none;" data-toggle="collapse" >Discover Services</a>
+                            <a class="nav-link dropdown-toggle collapsed" aria-expanded="true" href="#discoverServicesDd" style="text-decoration: none;" data-toggle="collapse" >Discover Services</a>
                             <ul class="collapse show" style="list-style-type: none; padding-left: 1rem;"  id="discoverServicesDd">                       
-                        {% else %}
-                            <a class="nav-link dropdown-toggle collapsed" aria-expanded="false" href="#discoverServicesDd" style="text-decoration: none;" data-toggle="collapse" >Discover Services</a>
+                        {% elif categories %}
+                            <a class="nav-link" href="{% url 'jasmin_services:service_list' category=categories.0.0 %}">Discover Services</a>
                             <ul class="collapse" style="list-style-type: none; padding-left: 1rem;"  id="discoverServicesDd">                       
                         {% endif %}
                             {% for name, long_name in categories %}
@@ -65,9 +44,8 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    </ul>
-            </nav>
-        </div>
+                </ul>
+            </div>
         <div class="col-lg-9">
             {% block filter_form %}
                 {% if page.paginator.num_pages > 1 or preserved_filters %}
