@@ -4,7 +4,7 @@
 <ol class="breadcrumb bg-primary">
     <li class="breadcrumb-item">
         <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
-            CEDA Account
+            CEDA Services
         </a>
     </li>
     <li class="breadcrumb-item active">{{ current_category.long_name }}</li>
@@ -33,8 +33,8 @@
                         {% if current_category.name != 'my_services' %}
                             <a class="nav-link dropdown-toggle collapsed" aria-expanded="true" href="#discoverServicesDd" style="text-decoration: none;" data-toggle="collapse" >Discover Services</a>
                             <ul class="collapse show" style="list-style-type: none; padding-left: 1rem;"  id="discoverServicesDd">                       
-                        {% else %}
-                            <a class="nav-link dropdown-toggle collapsed" aria-expanded="false" href="#discoverServicesDd" style="text-decoration: none;" data-toggle="collapse" >Discover Services</a>
+                        {% elif categories %}
+                            <a class="nav-link" href="{% url 'jasmin_services:service_list' category=categories.0.0 %}">Discover Services</a>
                             <ul class="collapse" style="list-style-type: none; padding-left: 1rem;"  id="discoverServicesDd">                       
                         {% endif %}
                             {% for name, long_name in categories %}
