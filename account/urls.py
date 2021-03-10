@@ -11,5 +11,5 @@ from . import views
 
 
 urlpatterns = [
-    path('service/create/', views.create_service),
+    path('service/create/', views.ServiceCreate.as_view()),
 ]
