@@ -50,7 +50,7 @@ class InstitutionAdmin(admin.ModelAdmin):
     search_fields = ('name', )
 
     def n_users(self, obj):
-        return obj.jasminuser_set.count()
+        return obj.cedauser_set.count()
     n_users.short_description = '# users'
 
 
