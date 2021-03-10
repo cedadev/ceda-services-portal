@@ -18,6 +18,29 @@ log = logging.getLogger(__name__)
 
 class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
 
+    @staticmethod
+    def _parse_user_attributes(claims):
+
+        institution = None
+
+        institution_name = claims.get("institute", "None")
+        institution, created = Institution.objects.get_or_create(
+            name=institution_name,
+            institution_type=claims.get("institute_type")
+        )
+
+        institution_country = claims.get("institute_country")
+        if len(institution_country) == 2:
+            institution.country = institution_country
+            institution.save()
+
+        return {
+            "first_name": claims.get("given_name"),
+            "last_name": claims.get("family_name"),
+            "discipline": claims.get("discipline"),
+            "institution_id": institution.id
+        }
+
     def get_username(self, claims):
 
         return claims.get("preferred_username")
@@ -27,28 +50,14 @@ class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
         email = claims.get('email')
         username = self.get_username(claims)
 
-        first_name = claims.get("given_name", "")
-        last_name = claims.get("family_name", "")
-        discipline = claims.get("discipline", "")
-
-        institution = None
-
-        institution_name = claims.get("institution", None)
-        if institution_name:
-            institution = Institution.objects.get(name=institution_name)
-
-        if not institution:
-            institution, created = \
-                Institution.objects.get_or_create(id=0, name="None")
-            if created:
-                log.info("Created default Institution with ID 0.")
-
-        return self.UserModel.objects.create_user(username, email, first_name=first_name, last_name=last_name, discipline=discipline, institution_id=institution.id)
+        attributes = self._parse_user_attributes(claims)
+        return self.UserModel.objects.create_user(username, email, **attributes)
 
     def update_user(self, user, claims):
 
-        user.first_name = claims.get("given_name", "")
-        user.last_name = claims.get("family_name", "")
+        attributes = self._parse_user_attributes(claims)
+        for attribute, value in attributes.items():
+            setattr(user, attribute, value)
         user.save()
 
         return user
