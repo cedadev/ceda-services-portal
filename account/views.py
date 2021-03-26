@@ -20,7 +20,7 @@ class ServiceCreate(APIView):
     List all snippets, or create a new snippet.
     """
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
 
         category = Category.objects.get(name=request.data["category"])
 
