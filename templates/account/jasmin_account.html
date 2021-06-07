@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb bg-primary">
+    <li class="breadcrumb-item">
+        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
+            CEDA Services
+        </a>
+    </li>
+    <li class="breadcrumb-item active">Link JASMIN Account</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-12 col-md-12">
+    <h3>JASMIN account portal</h3>
+    <div class="col-sm-12 col-md-12">
+        <p>
+            The  JASMIN accounts portal is a web interface utility dedicated to JASMIN users only. A JASMIN account allows you to apply for JASMIN services and privileges. It does not by itself provide you with any access to JASMIN machines or services. This is standalone from your CEDA account and hence a decoupling between the management of access to JASMIN resources (compute and storage) and CEDA resources (access to datasets in the archives).
+        </p>
+        <p>
+            Linking your CEDA account to your JASMIN account allows you filesystem access to data on CEDA archive.
+        </p>
+{% if request.user.jasminaccountid %}
+        <b>
+            Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code>
+        </b>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <a href="{{ jasmin_account }}" class="float-right btn btn-md btn-primary" style="color:white">JASMIN account</a> 
+</div>
+{% else %}
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <a href="{% url 'jasmin_link'%}" class="float-right btn btn-md btn-primary pointer" style="color:white; cursor: pointer;">Link Now</a> 
+</div>
+{% endif %}
+{% endblock %}

@@ -148,6 +148,7 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         help_text='Any internal details about the user\'s suspension that '
         'should not be displayed to the user'
     )
+    jasminaccountid = models.CharField(unique=True, max_length=20, null=True, blank=True)
 
     def email_confirm_required(self):
         """
