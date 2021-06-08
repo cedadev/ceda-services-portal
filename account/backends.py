@@ -22,14 +22,13 @@ class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
     def _parse_user_attributes(claims):
 
         institution = None
-
-        institution_name = claims.get("institute", "None")
+        institution_name = claims.get("institute", "")
         institution, created = Institution.objects.get_or_create(
             name=institution_name,
-            institution_type=claims.get("institute_type")
+            institution_type=claims.get("institute_type", "Other")
         )
 
-        institution_country = claims.get("institute_country")
+        institution_country = claims.get("institute_country", "")
         if len(institution_country) == 2:
             institution.country = institution_country
             institution.save()
@@ -37,7 +36,7 @@ class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
         return {
             "first_name": claims.get("given_name"),
             "last_name": claims.get("family_name"),
-            "discipline": claims.get("discipline"),
+            "discipline": claims.get("discipline", "Other"),
             "institution_id": institution.id
         }
 

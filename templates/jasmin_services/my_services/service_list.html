@@ -3,9 +3,9 @@
 {% block service_list_top %}
     <div class="alert alert-info text-center">
         {% if page.paginator.num_pages > 1 or preserved_filters %}
-            <div style="margin-bottom: 0.4em;">This page shows the services for which you have requested or been granted access that match the selected filters</div>
+            <div style="margin-bottom: 0.4em;">This page shows the dataset application for which you have requested or been granted access that match the selected filters</div>
         {% else %}
-            <div style="margin-bottom: 0.4em;">This page shows the services for which you have requested or been granted access</div>
+            <div style="margin-bottom: 0.4em;">This page shows the dataset application for which you have requested or been granted access</div>
         {% endif %}
     </div>
 {% endblock %}
@@ -17,8 +17,8 @@
         {% elif preserved_filters %}
             No filters selected.
         {% else %}
-            <div style="margin-bottom: 0.5em;"><i class="fa fa-fw fa-exclamation-triangle"></i> You have not registered for any services yet</div>
-            <div style="margin-bottom: 0.4em;"><i class="fa fa-fw fa-exclamation-triangle"></i> To apply for services, start by choosing a category</div>
+            <div style="margin-bottom: 0.5em;"><i class="fa fa-fw fa-exclamation-triangle"></i> You have not registered for any dataset application yet</div>
+            <div style="margin-bottom: 0.4em;"><i class="fa fa-fw fa-exclamation-triangle"></i> To apply, start by searching the data catalogue</div>
         {% endif %}
     </div>
 {% endblock %}

@@ -4,10 +4,14 @@
 <ol class="breadcrumb bg-primary">
     <li class="breadcrumb-item">
         <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
-            CEDA Services
+            CEDA Portal
         </a>
     </li>
+    {% if current_category.long_name == 'My Services' %}
+    <li class="breadcrumb-item active">My Dataset Applications</li>
+    {% else %}
     <li class="breadcrumb-item active">{{ current_category.long_name }}</li>
+    {% endif %}
 </ol>
 {% endblock %}
 
@@ -26,24 +30,9 @@
                     <a class="nav-link" href="{{ account_management_url }}/totp">Authenticator</a>
                     <a class="nav-link" href="{{ account_management_url }}/sessions">Sessions</a>
                 </ul>
-                <h4 class="mt-4 mb-2">Services</h4>
+                <h4 class="mt-4 mb-2">Dataset Applications</h4>
                 <ul class="nav flex-column nav-pills">
-                    <a class="nav-link {% if current_category.name == 'my_services' %}active{% endif %}" href="{% url 'jasmin_services:my_services' %}">My services</a>
-                    <li class="nav-item dropdown ">
-                        {% if current_category.name != 'my_services' %}
-                            <a class="nav-link dropdown-toggle collapsed" aria-expanded="true" href="#discoverServicesDd" style="text-decoration: none;" data-toggle="collapse" >Discover Services</a>
-                            <ul class="collapse show" style="list-style-type: none; padding-left: 1rem;"  id="discoverServicesDd">                       
-                        {% elif categories %}
-                            <a class="nav-link" href="{% url 'jasmin_services:service_list' category=categories.0.0 %}">Discover Services</a>
-                            <ul class="collapse" style="list-style-type: none; padding-left: 1rem;"  id="discoverServicesDd">                       
-                        {% endif %}
-                            {% for name, long_name in categories %}
-                                <li role="nav-item">
-                                    <a {% if current_category.name == name %} class="nav-link active" {% else %} class="nav-link" {% endif %} role="menuitem" href="{% url 'jasmin_services:service_list' category=name %}">{{ long_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
+                    <a class="nav-link {% if current_category.name == 'my_services' %}active{% endif %}" href="{% url 'jasmin_services:my_services' %}">My Dataset Applications</a>
                 </ul>
             </div>
         <div class="col-lg-9">
