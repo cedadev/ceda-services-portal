@@ -1,4 +1,4 @@
-""" Setup for the CEDA Services Portal Django application. """
+""" Setup for the CEDA Portal Django application. """
 
 __author__ = "William Tucker"
 __date__ = "2019-08-28"
