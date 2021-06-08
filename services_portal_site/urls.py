@@ -6,9 +6,9 @@ __copyright__ = "Copyright 2019 United Kingdom Research and Innovation"
 __license__ = "BSD - see LICENSE file in top-level directory"
 
 
+from django.urls import include, path
 from django.contrib import admin
 from django.shortcuts import HttpResponse
-from django.urls import include, path
 from django.views.generic.base import RedirectView
 
 
