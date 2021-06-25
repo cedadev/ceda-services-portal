@@ -39,6 +39,7 @@ setup(
         "unidecode",
         "psycopg2-binary",
         "requests_oauthlib",
+        "importlib_metadata",
     ],
     classifiers = [
         "Development Status :: 2 - Alpha",
