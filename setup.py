@@ -38,6 +38,7 @@ setup(
         "mozilla-django-oidc",
         "unidecode",
         "psycopg2-binary",
+        "requests_oauthlib",
     ],
     classifiers = [
         "Development Status :: 2 - Alpha",
