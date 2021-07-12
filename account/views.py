@@ -167,7 +167,7 @@ def account_jasmin_authorise(request):
         del request.session['oauth_state']
     # Generate a new state and the accompanying URL to use for authorisation
     jasmin_oauth = OAuth2Session(
-        settings.OIDC_RP_CLIENT_ID,
+        settings.JASMIN_AUTH['CLIENT_ID'],
         redirect_uri = settings.BASE_URL + reverse('jasmin_token_exchange'),
         scope = settings.JASMIN_AUTH['REQUIRED_SCOPES']
     )
@@ -198,14 +198,14 @@ def account_jasmin_token_exchange(request):
     # Exchange the grant code for a token
     # Store the token in the session for processing by the action view
     request.session['oauth_token'] = OAuth2Session(
-        settings.OIDC_RP_CLIENT_ID,
+        settings.JASMIN_AUTH['CLIENT_ID'],
         redirect_uri = settings.BASE_URL + reverse('jasmin_token_exchange'),
         scope = settings.JASMIN_AUTH['REQUIRED_SCOPES'],
         # The state is single use
         state = request.session.pop('oauth_state')
     ).fetch_token(
         settings.JASMIN_AUTH['TOKEN_URL'],
-        client_secret = settings.OIDC_RP_CLIENT_SECRET,
+        client_secret = settings.JASMIN_AUTH['CLIENT_SECRET'],
         authorization_response = settings.BASE_URL + request.get_full_path(),
         verify = settings.JASMIN_AUTH['TLS_VERIFY']
     )
@@ -250,12 +250,12 @@ def account_jasmin_link(request):
         return redirect('jasmin_authorise')
     # Configure requests-oauthlib session to automatically refresh expired tokens
     jasmin_oauth = OAuth2Session(
-        settings.OIDC_RP_CLIENT_ID,
+        settings.JASMIN_AUTH['CLIENT_ID'],
         token = token,
         auto_refresh_url = settings.JASMIN_AUTH['TOKEN_URL'],
         auto_refresh_kwargs = {
-            'client_id' : settings.OIDC_RP_CLIENT_ID,
-            'client_secret' : settings.OIDC_RP_CLIENT_SECRET,
+            'client_id' : settings.JASMIN_AUTH['CLIENT_ID'],
+            'client_secret' : settings.JASMIN_AUTH['CLIENT_SECRET'],
         },
         # Update the local token with the new token if it is refreshed
         token_updater = lambda t: token.update(t)
