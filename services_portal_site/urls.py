@@ -11,13 +11,6 @@ from django.contrib import admin
 from django.shortcuts import HttpResponse
 from django.views.generic.base import RedirectView
 
-from account.views import (
-    jasmin_account,
-    account_jasmin_link,
-    account_jasmin_token_exchange,
-    account_jasmin_authorise
-)
-
 
 def health_view(request):
     return HttpResponse("OK")
@@ -27,13 +20,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url = 'services'), name='portal_root'),
     path("health/", health_view, name="health"),
     path("admin/", admin.site.urls),
-    path('account/', include([
-            path('jasmin/', jasmin_account, name='jasmin_account'),
-            path('jasmin_authorise/', account_jasmin_authorise, name = 'jasmin_authorise'),
-            path('jasmin_token_exchange/', account_jasmin_token_exchange, name = 'jasmin_token_exchange'),
-            path('jasmin_link/', account_jasmin_link, name = 'jasmin_link'),
-        ],),
-    ),
     path("oidc/", include("mozilla_django_oidc.urls")),
     path("services/", include("jasmin_services.urls", namespace="services")),
     path("notifications/", include("jasmin_notifications.urls",
