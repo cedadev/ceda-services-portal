@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='cedauser',
-            name='ftp_password',
+            name='has_ftp_password',
             field=models.BooleanField(default=False, help_text='Indicates if this user has created a FTP password.'),
         ),
     ]

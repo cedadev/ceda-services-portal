@@ -303,7 +303,7 @@ def account_ftp_password(request):
     """
     # Create new ftp password.
     if request.method == 'POST':
-        CEDAUser.objects.filter(username = request.user.username).update(ftp_password = True)
+        CEDAUser.objects.filter(username = request.user.username).update(has_ftp_password = True)
         password = ''.join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=12))
     else:
         password = None
