@@ -141,6 +141,7 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         verbose_name='Reason for suspension (user)',
         help_text='Indicate why the user has been suspended'
     )
+
     #: Internal details on user suspension
     internal_reason = models.TextField(
         blank=True,
@@ -148,7 +149,13 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         help_text='Any internal details about the user\'s suspension that '
         'should not be displayed to the user'
     )
+
     jasminaccountid = models.CharField(unique=True, max_length=20, null=True, blank=True)
+
+    ftp_password = models.BooleanField(
+        default=False,
+        help_text='Indicates if this user has created a FTP password.'
+    )
 
     def email_confirm_required(self):
         """

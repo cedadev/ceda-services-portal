@@ -7,6 +7,8 @@ __license__ = "BSD - see LICENSE file in top-level package directory"
 
 import logging
 import json
+import random
+import string
 from django.conf import settings
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
@@ -16,7 +18,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_safe
+from django.views.decorators.http import require_http_methods, require_safe
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -287,3 +289,25 @@ def account_jasmin_link(request):
             ))
             messages.error(request, 'Error while linking JASMIN account')
     return redirect('jasmin_account')
+
+
+@require_http_methods(['GET', 'POST'])
+@login_required
+def account_ftp_password(request):
+    """
+    Handler for ``/account/ftp/``.
+
+    Responds to GET requests only.
+
+    Allows the user to create or reset their ftp password.
+    """
+    # Create new ftp password.
+    if request.method == 'POST':
+        CEDAUser.objects.filter(username = request.user.username).update(ftp_password = False)
+        password = ''.join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=12))
+    else:
+        password = None
+    
+    return render(request, 'account/ftp_password.html', {
+        'password' : password
+    })
