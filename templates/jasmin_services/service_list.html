@@ -20,28 +20,6 @@
 {% block page_title %}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-            <div class="bs-sidebar col-lg-3 navbar-full">
-                <h4 class="mb-2">Account settings</h4>
-                <ul class="nav flex-column nav-pills">
-                    <a class="nav-link" href="{{ account_management_url }}/">Profile</a>
-                    <a class="nav-link" href="{{ account_management_url }}/password">Password</a>
-                    <a class="nav-link" href="{{ account_management_url }}/totp">Authenticator</a>
-                    <a class="nav-link" href="{{ account_management_url }}/sessions">Sessions</a>
-                    {% if request.user.jasminaccountid %}
-                        <a class="nav-link" href="{% url 'jasmin_account' %}">Linked JASMIN account</a>
-                    {% else %}
-                        <a class="nav-link" href="{% url 'jasmin_account' %}">Link JASMIN account</a>
-                    {% endif %}
-                        <a class="nav-link" href="{% url 'ftp_password' %}">FTP password generator</a>
-                </ul>
-                <h4 class="mt-4 mb-2">Dataset Applications</h4>
-                <ul class="nav flex-column nav-pills">
-                    <a class="nav-link {% if current_category.name == 'my_services' %}active{% endif %}" href="{% url 'jasmin_services:my_services' %}">My Dataset Applications</a>
-                </ul>
-            </div>
-        <div class="col-lg-9">
             {% block filter_form %}
                 {% if page.paginator.num_pages > 1 or preserved_filters %}
                     <div class="service-search well">
@@ -93,9 +71,6 @@
             {% block pagination_bottom %}
                 {% include "jasmin_services/includes/pagination_links.html" %}
             {% endblock %}
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
     // Enable popovers
