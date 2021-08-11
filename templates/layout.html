@@ -34,24 +34,7 @@
     <div class="col-md-12">
         <div class="container">
             <div class="row">
-                <div class="bs-sidebar col-lg-3 navbar-full">
-                    <h4 class="mb-2">Account settings</h4>
-                    <ul class="nav flex-column nav-pills">
-                        <a class="nav-link" href="{{ account_management_url }}/">Profile</a>
-                        <a class="nav-link" href="{{ account_management_url }}/password">Password</a>
-                        <a class="nav-link" href="{{ account_management_url }}/sessions">Sessions</a>
-                        {% url 'jasmin_account' as jasmin_account_url %}
-                        <a class="nav-link {% if request.path == jasmin_account_url %}active{% endif %}" href="{{ jasmin_account_url }}">Link JASMIN Account</a>
-                        {% url 'ftp_password' as ftp_password_url %}
-                        <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">Configure FTP Access</a>
-                    </ul>
-                    <h4 class="mt-4 mb-2">Dataset Applications</h4>
-                    <ul class="nav flex-column nav-pills">
-                        {% url 'jasmin_services:my_services' as my_services_url %}
-                        <a class="nav-link {% if request.path == my_services_url %}active{% endif %}" href="{{ my_services_url }}">My Dataset Applications</a>
-                    </ul>
-                </div>
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     {% block content %}{% endblock content%}
                 </div>
             </div>
