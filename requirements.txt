@@ -18,7 +18,7 @@ djangorestframework==3.12.4
 git+https://github.com/cedadev/fwtheme-django.git@38bd08d6572fe5f17ab02a3fc420a63d651b97e7#egg=fwtheme_django
 git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@c1ac0bd232bc5410a70d2a60fb5b4ec0098e34b6#egg=fwtheme_django_ceda_serv
 idna==3.2
-importlib-metadata==4.6.4
+importlib-metadata==1.7.0
 git+https://github.com/cedadev/jasmin-django-utils.git@224113b3f5c3f638b99b97e16af51759fe95ac7a#egg=jasmin_django_utils
 git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d#egg=jasmin_ldap
 git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9#egg=jasmin_ldap_django
