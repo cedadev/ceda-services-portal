@@ -18,12 +18,12 @@ def health_view(request):
 
 urlpatterns = [
     path('', RedirectView.as_view(url = 'services'), name='portal_root'),
+    path('', include('account.urls')),
     path("health/", health_view, name="health"),
     path("admin/", admin.site.urls),
     path("oidc/", include("mozilla_django_oidc.urls")),
     path("services/", include("jasmin_services.urls", namespace="services")),
     path("notifications/", include("jasmin_notifications.urls",
                                    namespace="notifications")),
-    path('api/v1/', include('account.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
