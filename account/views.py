@@ -9,9 +9,11 @@ import logging
 import json
 import random
 import string
+import hashlib
 from django.conf import settings
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
+from rabbit.producer import RabbitProducer
 
 from django.conf import settings
 from django.contrib import messages
@@ -290,6 +292,17 @@ def account_jasmin_link(request):
             messages.error(request, 'Error while linking JASMIN account')
     return redirect('jasmin_account')
 
+def _get_rabbit_producer_class():
+
+    if hasattr(settings, "RABBIT_SERVER") \
+            and "PRODUCER" in settings.RABBIT_SERVER:
+        module_path, _, class_name = \
+            settings.RABBIT_SERVER["PRODUCER"].rpartition(".")
+        connector_module = __import__(module_path, fromlist=[class_name])
+    else:
+        return RabbitProducer
+
+    return getattr(connector_module, class_name)
 
 @require_http_methods(['GET', 'POST'])
 @login_required
@@ -307,6 +320,11 @@ def account_ftp_password(request):
         password = ''.join(random.choices(string.ascii_letters + string.digits + string.punctuation, k=12))
     else:
         password = None
+
+    producer_class = _get_rabbit_producer_class()
+    with producer_class() as producer:
+        message = {"username": request.user.username, "password": hashlib.md5(password.encode())}
+        producer.publish("ftp_password", json.dumps(message))
     
     return render(request, 'account/ftp_password.html', {
         'password' : password
