@@ -13,7 +13,6 @@ import hashlib
 from django.conf import settings
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
-from rabbit.producer import RabbitProducer
 
 from django.conf import settings
 from django.contrib import messages
@@ -30,6 +29,10 @@ from jasmin_services.models import Category, Service, Role, RoleObjectPermission
 from jasmin_metadata.models import Form
 
 from .models import CEDAUser
+from .rabbit import RabbitConnection
+
+
+LOG = logging.getLogger(__name__)
 
 
 class ServiceCreate(APIView):
@@ -321,11 +324,16 @@ def account_ftp_password(request):
     else:
         password = None
 
-    producer_class = _get_rabbit_producer_class()
-    with producer_class() as producer:
+    if password:
         message = {"username": request.user.username, "password": hashlib.md5(password.encode())}
-        producer.publish("ftp_password", json.dumps(message))
-    
+        try:
+            with RabbitConnection() as connection:
+                connection.publish(message)
+
+        except Exception as e:
+            LOG.debug("Submission failed to submit")
+            raise e
+
     return render(request, 'account/ftp_password.html', {
         'password' : password
     })
