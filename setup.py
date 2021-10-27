@@ -40,6 +40,7 @@ setup(
         "psycopg2-binary",
         "requests_oauthlib",
         "importlib_metadata",
+        "pika",
     ],
     classifiers = [
         "Development Status :: 2 - Alpha",
