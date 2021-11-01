@@ -2,7 +2,9 @@ asgiref==3.4.1
 certifi==2021.10.8
 cffi==1.15.0
 charset-normalizer==2.0.7
+crypto-cookie==0.3.1
 cryptography==35.0.0
+git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9#egg=dj_security_middleware
 Django==2.2.24
 django-bootstrap3==15.0.0
 django-classy-tags==2.0.0
