@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'polymorphic',
     'mozilla_django_oidc',
     'rest_framework',
-    'requests_oauthlib'
+    'requests_oauthlib',
+    'crypto_cookie',
 ]
 
 MIDDLEWARE = [

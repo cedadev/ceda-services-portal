@@ -27,6 +27,7 @@ git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b6
 git+https://github.com/cedadev/jasmin-metadata.git@e48b03597f96ec9494719b8103103c603832b47c#egg=jasmin_metadata
 git+https://github.com/cedadev/jasmin-notifications.git@794316ae3473eb950f2c22cc5d6438054f84d53f#egg=jasmin_notifications
 git+https://github.com/cedadev/jasmin-services.git@d4f930cb5dd5fd00765178accc02a4fdc14cddfe#egg=jasmin_services
+git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980#egg=crypto_cookie
 josepy==1.10.0
 ldap3==2.9.1
 markdown2==2.4.1
