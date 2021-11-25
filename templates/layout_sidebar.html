@@ -16,10 +16,11 @@
                         {% url 'ftp_password' as ftp_password_url %}
                         <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">Configure FTP Access</a>
                     </ul>
-                    <h4 class="mt-4 mb-2">Dataset Applications</h4>
+                    <h4 class="mt-4 mb-2">Archive Access</h4>
                     <ul class="nav flex-column nav-pills">
                         {% url 'jasmin_services:my_services' as my_services_url %}
-                        <a class="nav-link {% if request.path == my_services_url %}active{% endif %}" href="{{ my_services_url }}">My Dataset Applications</a>
+                        <!--<a class="nav-link {% if request.path == my_services_url %}active{% endif %}" href="{{ my_services_url }}">My Archive Access</a>-->
+                        <a class="nav-link" href="https://services.ceda.ac.uk/cedasite/myceda/user/">My Archive Access</a>
                     </ul>
                 </div>
                 <div class="col-lg-9">
