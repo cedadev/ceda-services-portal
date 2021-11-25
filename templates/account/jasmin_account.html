@@ -16,15 +16,12 @@
     <h3>JASMIN account portal</h3>
     <div class="col-sm-12 col-md-12">
         <p>
-            The  JASMIN accounts portal is a web interface utility dedicated to JASMIN users only. A JASMIN account allows you to apply for JASMIN services and privileges. It does not by itself provide you with any access to JASMIN machines or services. This is standalone from your CEDA account and hence a decoupling between the management of access to JASMIN resources (compute and storage) and CEDA resources (access to datasets in the archives).
-        </p>
-        <p>
-            Linking your CEDA account to your JASMIN account allows you filesystem access to data on CEDA archive.
+            Linking to a <a href="https://jasmin.ac.uk/">JASMIN</a> account allows you filesystem access to data on CEDA archive. Find out more <a href="https://help.jasmin.ac.uk/article/189-get-started-with-jasmin">here</a>.
         </p>
 {% if request.user.jasminaccountid %}
-        <b>
-            Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code>
-        </b>
+        <p>
+            <b>Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code></b>
+        </p>
     </div>
 </div>
 <div class="col-sm-12 col-md-12">
