@@ -42,3 +42,21 @@
     </div>
 </div>
 {% endblock content_panel %}
+
+{% block tail_js_extra %}
+    <!-- Load bootstrap features on all pages -->
+    <script src="{% static "js/bootstrap-features.js" %}"></script>
+
+    <!-- Load google analytics -->
+    <script src="{% static "js/google-analytics.js" %}"></script>
+
+    <!-- Load beacon and identify the user if they are logged in -->
+    <script src="{% static "js/beacon.js" %}"></script>
+    <script>
+        {% if user.is_authenticated %}
+            window.Beacon('identify', { name: '{{ user.get_full_name }}', email: '{{ user.email }}' });
+        {% else %}
+            window.Beacon('logout');
+        {% endif %}
+    </script>
+{% endblock %}
