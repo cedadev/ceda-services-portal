@@ -329,7 +329,7 @@ def account_ftp_password(request):
         message = {"username": request.user.username, "password": encrypted_password.decode("latin1"), "iv": iv.decode("latin1")}
         try:
             with RabbitConnection() as connection:
-                connection.publish(json.dumps(message))
+                connection.publish(message)
         except Exception as e:
             LOG.debug("Submission failed to submit")
             raise e
