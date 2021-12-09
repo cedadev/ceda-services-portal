@@ -10,9 +10,10 @@ import json
 import random
 import string
 import hashlib
+import base64
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
-from crypto_cookie.encryption import Encryption
+from crypto_cookie.encoding import Encoder
 
 from django.conf import settings
 from django.contrib import messages
@@ -325,8 +326,9 @@ def account_ftp_password(request):
         password = None
 
     if password:
-        encrypted_password, iv = Encryption().encrypt(password, settings.ENCRYPTION_KEY.encode())
-        message = {"username": request.user.username, "password": encrypted_password.decode("latin1"), "iv": iv.decode("latin1")}
+        secret = base64.b64decode(settings.ENCRYPTION_KEY)
+        token = Encoder().encode_msg(password, secret)
+        message = {"username": request.user.username, "token": token}
         try:
             with RabbitConnection() as connection:
                 connection.publish(message)
