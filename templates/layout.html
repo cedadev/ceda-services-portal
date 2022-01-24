@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css" />
 
-<link href="{% static "css/tweaks.css" %}" rel="stylesheet">
+<link href="{% static "account/css/tweaks.css" %}" rel="stylesheet">
 <!-- TODO: remove when included in base theme -->
-<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<link rel="shortcut icon" type="image/png" href="{% static 'account/favicon.ico' %}"/>
 {% endblock %}
 
 {% block content_header %}
@@ -45,13 +45,13 @@
 
 {% block tail_js_extra %}
     <!-- Load bootstrap features on all pages -->
-    <script src="{% static "js/bootstrap-features.js" %}"></script>
+    <script src="{% static "account/js/bootstrap-features.js" %}"></script>
 
     <!-- Load google analytics -->
-    <script src="{% static "js/google-analytics.js" %}"></script>
+    <script src="{% static "account/js/google-analytics.js" %}"></script>
 
     <!-- Load beacon and identify the user if they are logged in -->
-    <script src="{% static "js/beacon.js" %}"></script>
+    <script src="{% static "account/js/beacon.js" %}"></script>
     <script>
         {% if user.is_authenticated %}
             window.Beacon('identify', { name: '{{ user.get_full_name }}', email: '{{ user.email }}' });
