@@ -6,11 +6,10 @@ __copyright__ = "Copyright 2019 United Kingdom Research and Innovation"
 __license__ = "BSD - see LICENSE file in top-level directory"
 
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md") as readme_file:
     long_description = readme_file.read()
-
 
 setup(
     name = "ceda-services-portal",
@@ -25,23 +24,6 @@ setup(
     long_description_content_type = "text/markdown",
     license = "BSD - See ceda_example/LICENSE file for details",
     packages = find_packages(),
-    install_requires = [
-        "django<3",
-        "python-dateutil",
-        "django-crispy-forms",
-        "django-widget-tweaks",
-        "django-countries",
-        "django-oidc-extras",
-        "djangorestframework",
-        "fwtheme-django",
-        "fwtheme-django-ceda-serv",
-        "mozilla-django-oidc",
-        "unidecode",
-        "psycopg2-binary",
-        "requests_oauthlib",
-        "importlib_metadata",
-        "pika",
-    ],
     classifiers = [
         "Development Status :: 2 - Alpha",
         "Environment :: Web Environment",
