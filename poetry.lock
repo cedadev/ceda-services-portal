@@ -6,11 +6,23 @@ category = "main"
 optional = false
 python-versions = ">=3.7"
 
-[package.dependencies]
-typing-extensions = {version = "*", markers = "python_version < \"3.8\""}
-
 [package.extras]
 tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
+
+[[package]]
+name = "beautifulsoup4"
+version = "4.10.0"
+description = "Screen-scraping library"
+category = "main"
+optional = false
+python-versions = ">3.0.0"
+
+[package.dependencies]
+soupsieve = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
 
 [[package]]
 name = "certifi"
@@ -116,12 +128,16 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
-name = "django-bootstrap3"
-version = "12.1.0"
-description = "Bootstrap support for Django projects"
+name = "django-bootstrap5"
+version = "21.3"
+description = "Bootstrap 5 for Django"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
+
+[package.dependencies]
+beautifulsoup4 = ">=4.8.0"
+Django = ">=2.2"
 
 [[package]]
 name = "django-classy-tags"
@@ -292,7 +308,6 @@ optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-typing-extensions = {version = ">=3.6.4", markers = "python_version < \"3.8\""}
 zipp = ">=0.5"
 
 [package.extras]
@@ -302,7 +317,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 
 [[package]]
 name = "jasmin-django-utils"
-version = "0.2.dev3+g224113b"
+version = "0.2.dev4+gefc87f6"
 description = "Django utilities used by JASMIN apps."
 category = "main"
 optional = false
@@ -315,8 +330,8 @@ django = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-django-utils.git"
-reference = "224113b3f5c3f638b99b97e16af51759fe95ac7a"
-resolved_reference = "224113b3f5c3f638b99b97e16af51759fe95ac7a"
+reference = "django-3.2"
+resolved_reference = "efc87f60cfc77bbff734ca8e53a6fbb662087f44"
 
 [[package]]
 name = "jasmin-ldap"
@@ -373,8 +388,8 @@ django-polymorphic = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-metadata.git"
-reference = "e48b03597f96ec9494719b8103103c603832b47c"
-resolved_reference = "e48b03597f96ec9494719b8103103c603832b47c"
+reference = "django-3.2"
+resolved_reference = "a06b427aff751a4a2d3afd79252bed3fef973bef"
 
 [[package]]
 name = "jasmin-notifications"
@@ -394,12 +409,12 @@ jasmin-django-utils = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-notifications.git"
-reference = "794316ae3473eb950f2c22cc5d6438054f84d53f"
-resolved_reference = "794316ae3473eb950f2c22cc5d6438054f84d53f"
+reference = "django-3.2"
+resolved_reference = "c3a87d8efc20c988a6ddac315f8c2be9099c0890"
 
 [[package]]
 name = "jasmin-services"
-version = "0.1.dev66+gd4f930c"
+version = "0.1.dev118+gac3a75d"
 description = "Django application for managing services, roles and access"
 category = "main"
 optional = false
@@ -408,7 +423,7 @@ develop = false
 
 [package.dependencies]
 django = "*"
-django-bootstrap3 = "*"
+django-bootstrap5 = "*"
 django-markdown-deux = "*"
 django-polymorphic = "*"
 jasmin-ldap-django = "*"
@@ -420,8 +435,8 @@ requests = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-services.git"
-reference = "d4f930cb5dd5fd00765178accc02a4fdc14cddfe"
-resolved_reference = "d4f930cb5dd5fd00765178accc02a4fdc14cddfe"
+reference = "django-3.2"
+resolved_reference = "ac3a75d91d7a82aa2f905413e058183d9e2cfeb6"
 
 [[package]]
 name = "josepy"
@@ -611,20 +626,20 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
+name = "soupsieve"
+version = "2.3.1"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "sqlparse"
 version = "0.4.2"
 description = "A non-validating SQL parser."
 category = "main"
 optional = false
 python-versions = ">=3.5"
-
-[[package]]
-name = "typing-extensions"
-version = "4.1.1"
-description = "Backported and Experimental Type Hints for Python 3.6+"
-category = "main"
-optional = false
-python-versions = ">=3.6"
 
 [[package]]
 name = "urllib3"
@@ -653,13 +668,17 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.7"
-content-hash = "7f8ff0d4a4a915cb00bc8502821d887bd40367394c825a4b6e82f4fdb0f0eb1e"
+python-versions = "^3.8"
+content-hash = "adb7aab0e8ef4e648b668a900bbf7c5716347d9ed892bad07dba05e2b22ce886"
 
 [metadata.files]
 asgiref = [
     {file = "asgiref-3.5.0-py3-none-any.whl", hash = "sha256:88d59c13d634dcffe0510be048210188edd79aeccb6a6c9028cdad6f31d730a9"},
     {file = "asgiref-3.5.0.tar.gz", hash = "sha256:2f8abc20f7248433085eda803936d98992f1343ddb022065779f37c5da0181d0"},
+]
+beautifulsoup4 = [
+    {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
+    {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
 ]
 certifi = [
     {file = "certifi-2021.10.8-py2.py3-none-any.whl", hash = "sha256:d62a0163eb4c2344ac042ab2bdf75399a71a2d8c7d47eac2e2ee91b9d6339569"},
@@ -749,9 +768,9 @@ django = [
     {file = "Django-3.2.12-py3-none-any.whl", hash = "sha256:9b06c289f9ba3a8abea16c9c9505f25107809fb933676f6c891ded270039d965"},
     {file = "Django-3.2.12.tar.gz", hash = "sha256:9772e6935703e59e993960832d66a614cf0233a1c5123bc6224ecc6ad69e41e2"},
 ]
-django-bootstrap3 = [
-    {file = "django-bootstrap3-12.1.0.tar.gz", hash = "sha256:0c5a3d7150069843ed0006d4d9cae16ea4624402aa3d569cddb4c3979642a055"},
-    {file = "django_bootstrap3-12.1.0-py3-none-any.whl", hash = "sha256:4b495d2135ac3152367d2ddd0ce75dd861a9a0bd9a34cfdb1a33e612e17984e7"},
+django-bootstrap5 = [
+    {file = "django-bootstrap5-21.3.tar.gz", hash = "sha256:35086341881780a44b2e27255894f6029fc5ef75e5a0ec8ebd82f47a5184fa73"},
+    {file = "django_bootstrap5-21.3-py3-none-any.whl", hash = "sha256:c7a686420aa98692f15bd16e61a90dc6a3607e441a4dea37af840b83d4820cac"},
 ]
 django-classy-tags = [
     {file = "django-classy-tags-3.0.1.tar.gz", hash = "sha256:d222b45502ac99e550a566667839efaef954b9c7366a6493f143862aabeac878"},
@@ -937,13 +956,13 @@ six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
+soupsieve = [
+    {file = "soupsieve-2.3.1-py3-none-any.whl", hash = "sha256:1a3cca2617c6b38c0343ed661b1fa5de5637f257d4fe22bd9f1338010a1efefb"},
+    {file = "soupsieve-2.3.1.tar.gz", hash = "sha256:b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9"},
+]
 sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
     {file = "sqlparse-0.4.2.tar.gz", hash = "sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae"},
-]
-typing-extensions = [
-    {file = "typing_extensions-4.1.1-py3-none-any.whl", hash = "sha256:21c85e0fe4b9a155d0799430b0ad741cdce7e359660ccbd8b530613e8df88ce2"},
-    {file = "typing_extensions-4.1.1.tar.gz", hash = "sha256:1a9462dcc3347a79b1f1c0271fbe79e844580bb598bafa1ed208b94da3cdcd42"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
