@@ -9,6 +9,8 @@ packages = [
     { include = 'account'},
 ]
 
+include = ["templates/*"]
+
 [tool.poetry.dependencies]
 python = "^3.8"
 crypto-cookie = {git = "https://github.com/cedadev/crypto-cookie.git", rev = "b92dd9e6cc910d48d9380222c9273c8929666980"}
