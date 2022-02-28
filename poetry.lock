@@ -164,7 +164,7 @@ django-classy-tags = ">=0.3.0"
 
 [[package]]
 name = "django-countries"
-version = "7.2.1"
+version = "7.3"
 description = "Provides a country field for Django models."
 category = "main"
 optional = false
@@ -174,7 +174,7 @@ python-versions = "*"
 dev = ["tox", "black", "django", "pytest", "pytest-django", "djangorestframework", "graphene-django"]
 maintainer = ["transifex-client", "zest.releaser", "django"]
 pyuca = ["pyuca"]
-test = ["pytest", "pytest-django", "pytest-cov", "graphene-django"]
+test = ["pytest", "pytest-django", "pytest-cov", "djangorestframework", "graphene-django"]
 
 [[package]]
 name = "django-crispy-forms"
@@ -301,7 +301,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "importlib-metadata"
-version = "4.11.0"
+version = "4.11.2"
 description = "Read metadata from Python packages"
 category = "main"
 optional = false
@@ -311,13 +311,13 @@ python-versions = ">=3.7"
 zipp = ">=0.5"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
+docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
 perf = ["ipython"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "packaging", "pyfakefs", "flufl.flake8", "pytest-perf (>=0.9.2)", "pytest-black (>=0.3.7)", "pytest-mypy", "importlib-resources (>=1.3)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "packaging", "pyfakefs", "flufl.flake8", "pytest-perf (>=0.9.2)", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)", "importlib-resources (>=1.3)"]
 
 [[package]]
 name = "jasmin-django-utils"
-version = "0.2.dev4+gefc87f6"
+version = "1.0.1.dev1+ga971fe5"
 description = "Django utilities used by JASMIN apps."
 category = "main"
 optional = false
@@ -330,8 +330,8 @@ django = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-django-utils.git"
-reference = "django-3.2"
-resolved_reference = "efc87f60cfc77bbff734ca8e53a6fbb662087f44"
+reference = "a971fe565dabcfac0ed9a8af426aafdba1702b7c"
+resolved_reference = "a971fe565dabcfac0ed9a8af426aafdba1702b7c"
 
 [[package]]
 name = "jasmin-ldap"
@@ -388,8 +388,8 @@ django-polymorphic = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-metadata.git"
-reference = "django-3.2"
-resolved_reference = "a06b427aff751a4a2d3afd79252bed3fef973bef"
+reference = "d6c8666be451eb7be0966a5c04923830145e0408"
+resolved_reference = "d6c8666be451eb7be0966a5c04923830145e0408"
 
 [[package]]
 name = "jasmin-notifications"
@@ -409,12 +409,12 @@ jasmin-django-utils = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-notifications.git"
-reference = "django-3.2"
-resolved_reference = "c3a87d8efc20c988a6ddac315f8c2be9099c0890"
+reference = "v1.0.0"
+resolved_reference = "88f2ee6e017cff85d53aa6f46b07493d82bb2717"
 
 [[package]]
 name = "jasmin-services"
-version = "0.1.dev118+gac3a75d"
+version = "1.0.1.dev2+g686af63"
 description = "Django application for managing services, roles and access"
 category = "main"
 optional = false
@@ -435,8 +435,8 @@ requests = "*"
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/jasmin-services.git"
-reference = "django-3.2"
-resolved_reference = "ac3a75d91d7a82aa2f905413e058183d9e2cfeb6"
+reference = "686af634b4fc22b41032521010118c0134728d6e"
+resolved_reference = "686af634b4fc22b41032521010118c0134728d6e"
 
 [[package]]
 name = "josepy"
@@ -555,7 +555,7 @@ test = ["flaky", "pretend", "pytest (>=3.0.1)"]
 
 [[package]]
 name = "pytest-runner"
-version = "5.3.1"
+version = "5.3.2"
 description = "Invoke py.test as distutils command with dependency resolution"
 category = "dev"
 optional = false
@@ -669,7 +669,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "adb7aab0e8ef4e648b668a900bbf7c5716347d9ed892bad07dba05e2b22ce886"
+content-hash = "e5239036074a1fdc8944e112baae28400a758969e3dffb043c1d890c32fffec5"
 
 [metadata.files]
 asgiref = [
@@ -781,8 +781,8 @@ django-cookie-law = [
     {file = "django_cookie_law-2.1.1-py3-none-any.whl", hash = "sha256:84970810681d3c4b4df9e99d740a8b3938da27a1418ea4ca2d2759c53ac2a89b"},
 ]
 django-countries = [
-    {file = "django-countries-7.2.1.tar.gz", hash = "sha256:26878b54d36bedff30b4535ceefcb8af6784741a8b30b1b8a662fb14a936a4ab"},
-    {file = "django_countries-7.2.1-py3-none-any.whl", hash = "sha256:adc965f1d348124274b7d918fc1aad5e29609758af999e1822baa9f2cc06d1b8"},
+    {file = "django-countries-7.3.tar.gz", hash = "sha256:adb4fdb9e28f74c4e65fecf4b8f394ccd737b35f03d3b950faad5e9150d8a7fb"},
+    {file = "django_countries-7.3-py3-none-any.whl", hash = "sha256:8f411b2615f6bf10bfc5b9ac9c8e673dc7903dfe9dd0afdf5ebf7fd1634472cc"},
 ]
 django-crispy-forms = [
     {file = "django-crispy-forms-1.14.0.tar.gz", hash = "sha256:35887b8851a931374dd697207a8f56c57a9c5cb9dbf0b9fa54314da5666cea5b"},
@@ -815,8 +815,8 @@ idna = [
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
 importlib-metadata = [
-    {file = "importlib_metadata-4.11.0-py3-none-any.whl", hash = "sha256:6affcdb3aec542dd98df8211e730bba6c5f2bec8288d47bacacde898f548c9ad"},
-    {file = "importlib_metadata-4.11.0.tar.gz", hash = "sha256:9e5e553bbba1843cb4a00823014b907616be46ee503d2b9ba001d214a8da218f"},
+    {file = "importlib_metadata-4.11.2-py3-none-any.whl", hash = "sha256:d16e8c1deb60de41b8e8ed21c1a7b947b0bc62fab7e1d470bcdf331cea2e6735"},
+    {file = "importlib_metadata-4.11.2.tar.gz", hash = "sha256:b36ffa925fe3139b2f6ff11d6925ffd4fa7bc47870165e3ac260ac7b4f91e6ac"},
 ]
 jasmin-django-utils = []
 jasmin-ldap = []
@@ -933,8 +933,8 @@ pyopenssl = [
     {file = "pyOpenSSL-22.0.0.tar.gz", hash = "sha256:660b1b1425aac4a1bea1d94168a85d99f0b3144c869dd4390d27629d0087f1bf"},
 ]
 pytest-runner = [
-    {file = "pytest-runner-5.3.1.tar.gz", hash = "sha256:0fce5b8dc68760f353979d99fdd6b3ad46330b6b1837e2077a89ebcf204aac91"},
-    {file = "pytest_runner-5.3.1-py3-none-any.whl", hash = "sha256:85f93af814438ee322b4ea08fe3f5c2ad53b253577f3bd84b2ad451fee450ac5"},
+    {file = "pytest-runner-5.3.2.tar.gz", hash = "sha256:48934ec94301f6727d30615af1960539ff62063f6c9b71b7227174e51ba5fb34"},
+    {file = "pytest_runner-5.3.2-py3-none-any.whl", hash = "sha256:c7d785ea6c612396c11ddbaf467764d2cc746ef96a713fbe1a296c221503b7c3"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},

@@ -9,7 +9,7 @@ dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.g
 django-bootstrap5==21.3; python_version >= "3.7"
 django-classy-tags==3.0.1; python_version >= "3.7"
 django-cookie-law==2.1.1
-django-countries==7.2.1
+django-countries==7.3
 django-crispy-forms==1.14.0; python_version >= "3.7"
 django-markdown-deux==1.0.5
 django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@7865641af8e0886bca244e2fc9ab27221f518ef8
@@ -21,13 +21,13 @@ djangorestframework==3.13.1; python_version >= "3.6"
 fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@38bd08d6572fe5f17ab02a3fc420a63d651b97e7
 fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@c1ac0bd232bc5410a70d2a60fb5b4ec0098e34b6
 idna==3.3; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.5"
-importlib-metadata==4.11.0; python_version >= "3.7"
-jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@django-3.2
+importlib-metadata==4.11.2; python_version >= "3.7"
+jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@a971fe565dabcfac0ed9a8af426aafdba1702b7c
 jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d
 jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@0374f2f9146279d5dd9b2a19b628d7da76b663f9
-jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@django-3.2
-jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@django-3.2
-jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@django-3.2
+jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@d6c8666be451eb7be0966a5c04923830145e0408
+jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.0.0
+jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@686af634b4fc22b41032521010118c0134728d6e
 josepy==1.12.0; python_version >= "3.6"
 ldap3==2.9.1
 markdown2==2.4.2; python_version >= "3.5" and python_version < "4"
