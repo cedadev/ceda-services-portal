@@ -15,7 +15,7 @@ crypto-cookie = {git = "https://github.com/cedadev/crypto-cookie.git", rev = "b9
 dj-security-middleware = {git = "https://github.com/cedadev/dj-security-middleware.git", rev = "a274146198848db1684c366400d57376509b52d9"}
 Django = "~3.2"
 django-cookie-law = "^2.1.1"
-django-countries = "^7.2.1"
+django-countries = "^7.3"
 django-crispy-forms = "^1.14.0"
 django-markdown-deux = "^1.0.5"
 django-oidc-extras = {git = "https://github.com/cedadev/django-oidc-extras.git", rev = "7865641af8e0886bca244e2fc9ab27221f518ef8"}
