@@ -164,7 +164,7 @@ django-classy-tags = ">=0.3.0"
 
 [[package]]
 name = "django-countries"
-version = "7.3"
+version = "7.2.1"
 description = "Provides a country field for Django models."
 category = "main"
 optional = false
@@ -174,7 +174,7 @@ python-versions = "*"
 dev = ["tox", "black", "django", "pytest", "pytest-django", "djangorestframework", "graphene-django"]
 maintainer = ["transifex-client", "zest.releaser", "django"]
 pyuca = ["pyuca"]
-test = ["pytest", "pytest-django", "pytest-cov", "djangorestframework", "graphene-django"]
+test = ["pytest", "pytest-django", "pytest-cov", "graphene-django"]
 
 [[package]]
 name = "django-crispy-forms"
@@ -669,7 +669,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ecf041daa1386f3dc62676b3dc994226abbb2ba13ab21434d363e8a23c25f6f7"
+content-hash = "7bff2f8aa83642b5ee7dc0fd0308c8c7de3aa47d679adb8583498bffab5e5348"
 
 [metadata.files]
 asgiref = [
@@ -781,8 +781,8 @@ django-cookie-law = [
     {file = "django_cookie_law-2.1.1-py3-none-any.whl", hash = "sha256:84970810681d3c4b4df9e99d740a8b3938da27a1418ea4ca2d2759c53ac2a89b"},
 ]
 django-countries = [
-    {file = "django-countries-7.3.tar.gz", hash = "sha256:adb4fdb9e28f74c4e65fecf4b8f394ccd737b35f03d3b950faad5e9150d8a7fb"},
-    {file = "django_countries-7.3-py3-none-any.whl", hash = "sha256:8f411b2615f6bf10bfc5b9ac9c8e673dc7903dfe9dd0afdf5ebf7fd1634472cc"},
+    {file = "django-countries-7.2.1.tar.gz", hash = "sha256:26878b54d36bedff30b4535ceefcb8af6784741a8b30b1b8a662fb14a936a4ab"},
+    {file = "django_countries-7.2.1-py3-none-any.whl", hash = "sha256:adc965f1d348124274b7d918fc1aad5e29609758af999e1822baa9f2cc06d1b8"},
 ]
 django-crispy-forms = [
     {file = "django-crispy-forms-1.14.0.tar.gz", hash = "sha256:35887b8851a931374dd697207a8f56c57a9c5cb9dbf0b9fa54314da5666cea5b"},
