@@ -8,7 +8,6 @@ packages = [
     { include = "services_portal_site"},
     { include = 'account'},
 ]
-
 include = ["templates/*"]
 
 [tool.poetry.dependencies]
@@ -24,15 +23,15 @@ django-oidc-extras = {git = "https://github.com/cedadev/django-oidc-extras.git",
 django-polymorphic = "^3.1.0"
 django-widget-tweaks = "^1.4.12"
 djangorestframework = "^3.13.1"
-fwtheme-django = {git = "https://github.com/cedadev/fwtheme-django.git", rev = "38bd08d6572fe5f17ab02a3fc420a63d651b97e7"}
-fwtheme-django-ceda-serv = {git = "https://github.com/cedadev/fwtheme-django-ceda-serv.git", rev = "c1ac0bd232bc5410a70d2a60fb5b4ec0098e34b6"}
+fwtheme-django = {git = "https://github.com/cedadev/fwtheme-django.git", tag = "1.0.1"}
+fwtheme-django-ceda-serv = {git = "https://github.com/cedadev/fwtheme-django-ceda-serv.git", tag = "1.5.0"}
 importlib-metadata = "^4.11.0"
-jasmin-django-utils = {git = "https://github.com/cedadev/jasmin-django-utils.git", rev = "a971fe565dabcfac0ed9a8af426aafdba1702b7c"}
+jasmin-django-utils = {git = "https://github.com/cedadev/jasmin-django-utils.git", tag = "v1.0.1"}
 jasmin-ldap = {git = "https://github.com/cedadev/jasmin-ldap.git", rev = "ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d"}
-jasmin-ldap-django = {git = "https://github.com/cedadev/jasmin-ldap-django.git", rev = "0374f2f9146279d5dd9b2a19b628d7da76b663f9"}
-jasmin-metadata = {git = "https://github.com/cedadev/jasmin-metadata.git", rev = "d6c8666be451eb7be0966a5c04923830145e0408"}
+jasmin-ldap-django = {git = "https://github.com/cedadev/jasmin-ldap-django.git", tag = "v1.0.0"}
+jasmin-metadata = {git = "https://github.com/cedadev/jasmin-metadata.git", tag = "v1.0.0"}
 jasmin-notifications = {git = "https://github.com/cedadev/jasmin-notifications.git", tag = "v1.0.0"}
-jasmin-services = {git = "https://github.com/cedadev/jasmin-services.git", rev = "686af634b4fc22b41032521010118c0134728d6e"}
+jasmin-services = {git = "https://github.com/cedadev/jasmin-services.git", tag = "v1.0.1"}
 mozilla-django-oidc = "^2.0.0"
 oauthlib = "^3.2.0"
 pika = "^1.2.0"
