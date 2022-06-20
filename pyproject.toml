@@ -10,6 +10,7 @@ packages = [
 ]
 include = ["templates/*"]
 
+# poetry export -f requirements.txt -o requirements.txt --without-hashes
 [tool.poetry.dependencies]
 python = "^3.8"
 crypto-cookie = {git = "https://github.com/cedadev/crypto-cookie.git", rev = "b92dd9e6cc910d48d9380222c9273c8929666980"}
@@ -26,12 +27,12 @@ djangorestframework = "^3.13.1"
 fwtheme-django = {git = "https://github.com/cedadev/fwtheme-django.git", tag = "1.0.1"}
 fwtheme-django-ceda-serv = {git = "https://github.com/cedadev/fwtheme-django-ceda-serv.git", tag = "1.5.0"}
 importlib-metadata = "^4.11.0"
-jasmin-django-utils = {git = "https://github.com/cedadev/jasmin-django-utils.git", tag = "v1.0.1"}
-jasmin-ldap = {git = "https://github.com/cedadev/jasmin-ldap.git", rev = "ad21e8f7d8d82e33e5bf48820bf5f9e630a53d8d"}
-jasmin-ldap-django = {git = "https://github.com/cedadev/jasmin-ldap-django.git", tag = "v1.0.0"}
+jasmin-django-utils = {git = "https://github.com/cedadev/jasmin-django-utils.git", tag = "v1.0.5"}
+jasmin-ldap = {git = "https://github.com/cedadev/jasmin-ldap.git", tag = "v1.0.0"}
+jasmin-ldap-django = {git = "https://github.com/cedadev/jasmin-ldap-django.git", tag = "v1.0.1"}
 jasmin-metadata = {git = "https://github.com/cedadev/jasmin-metadata.git", tag = "v1.0.0"}
 jasmin-notifications = {git = "https://github.com/cedadev/jasmin-notifications.git", tag = "v1.0.0"}
-jasmin-services = {git = "https://github.com/cedadev/jasmin-services.git", tag = "v1.0.1"}
+jasmin-services = {git = "https://github.com/cedadev/jasmin-services.git", tag = "v1.1.5"}
 mozilla-django-oidc = "^2.0.0"
 oauthlib = "^3.2.0"
 pika = "^1.2.0"
