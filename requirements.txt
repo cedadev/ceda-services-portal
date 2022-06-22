@@ -4,11 +4,11 @@ certifi==2022.6.15; python_version >= "3.7" and python_version < "4" and python_
 cffi==1.15.0; python_version >= "3.6"
 charset-normalizer==2.0.12; python_version >= "3.7" and python_version < "4" and python_full_version >= "3.6.8" and python_full_version < "4.0.0" and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0")
 crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980
-cryptography==37.0.2; python_version >= "3.6"
+cryptography==37.0.3; python_version >= "3.6"
 dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9
 django-bootstrap5==21.3; python_full_version >= "3.6.8" and python_full_version < "4.0.0" and python_version >= "3.7"
 django-classy-tags==3.0.1; python_version >= "3.7"
-django-cookie-law==2.2.0
+django-cookie-law==2.1.0
 django-countries==7.2.1
 django-crispy-forms==1.14.0; python_version >= "3.7"
 django-markdown-deux==1.0.5
@@ -38,6 +38,7 @@ psycopg2-binary==2.9.3; python_version >= "3.6"
 pyasn1==0.4.8
 pycparser==2.21; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pyopenssl==22.0.0; python_version >= "3.6"
+pytest-runner==5.3.2; python_version >= "3.6"
 python-dateutil==2.8.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.3.0")
 pytz==2022.1; python_full_version >= "3.6.8" and python_full_version < "4.0.0" and python_version >= "3.6"
 requests-oauthlib==1.3.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
