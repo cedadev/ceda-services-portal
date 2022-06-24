@@ -1,8 +1,20 @@
 [tool.poetry]
 name = "ceda-services-portal"
-version = "0.1.0"
-description = ""
+version = "0.2.0"
+description = "Django application for registering and managing CEDA users."
+license = "BSD-3-Clause"
 authors = ["William Tucker <william.tucker@stfc.ac.uk>"]
+maintainers = ["William Tucker <william.tucker@stfc.ac.uk>"]
+readme = "README.md"
+repository = "https://github.com/cedadev/ceda-services-portal"
+classifiers = [
+    "Development Status :: 2 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+]
 
 packages = [
     { include = "services_portal_site"},
