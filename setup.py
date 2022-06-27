@@ -36,7 +36,7 @@ setup(
         "django-polymorphic>=3.1.0,<4.0.0",
         "django-widget-tweaks>=1.4.12,<2.0.0",
         "djangorestframework>=3.13.1,<4.0.0",
-        "fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@1.0.1",
+        "fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@bootstrap5",
         "fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@1.5.0",
         "importlib-metadata>=4.11.0,<5.0.0",
         "jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@v1.0.5",

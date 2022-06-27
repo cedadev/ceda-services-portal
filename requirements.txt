@@ -18,7 +18,7 @@ django-polymorphic==3.1.0
 django-widget-tweaks==1.4.12; python_version >= "3.7"
 django==3.2.13; python_version >= "3.6"
 djangorestframework==3.13.1; python_version >= "3.6"
-fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@1.0.1
+fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@bootstrap5
 fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@1.5.0
 idna==3.3; python_version >= "3.7" and python_version < "4" and python_full_version >= "3.6.8" and python_full_version < "4.0.0" and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0")
 importlib-metadata==4.11.4; python_version >= "3.7"
