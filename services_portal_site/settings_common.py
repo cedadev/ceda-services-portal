@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'jasmin_services',
     'jasmin_metadata',
     'django_countries',
-    'bootstrap3',
     'widget_tweaks',
     'polymorphic',
     'mozilla_django_oidc',
