@@ -22,7 +22,7 @@ fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@bootstrap5
 fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@1.5.0
 idna==3.3; python_version >= "3.7" and python_version < "4" and python_full_version >= "3.6.8" and python_full_version < "4.0.0" and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0")
 importlib-metadata==4.11.4; python_version >= "3.7"
-jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@v1.0.5
+jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@v1.0.6
 jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@v1.0.0
 jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@v1.0.1
 jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.0
