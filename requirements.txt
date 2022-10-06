@@ -26,7 +26,7 @@ jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@v1.
 jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@v1.0.0
 jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@v1.0.1
 jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.0
-jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.0.0
+jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.1.0
 jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@master
 josepy==1.13.0; python_version >= "3.6"
 ldap3==2.9.1; python_full_version >= "3.6.8" and python_full_version < "4.0.0"
