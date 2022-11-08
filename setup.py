@@ -44,7 +44,7 @@ setup(
         "jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@v1.0.1",
         "jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.0",
         "jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.1.0",
-        "jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@master",
+        "jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@8faa8324c71d4e5bb38f612c27a9682ccaab13dd",
         "mozilla-django-oidc>=2.0.0,<3.0.0",
         "oauthlib>=3.2.0,<4.0.0",
         "pika>=1.2.0,<2.0.0",

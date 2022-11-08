@@ -27,7 +27,7 @@ jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@v1.0.0
 jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@v1.0.1
 jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.0
 jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.1.0
-jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@master
+jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@8faa8324c71d4e5bb38f612c27a9682ccaab13dd
 josepy==1.13.0; python_version >= "3.6"
 ldap3==2.9.1; python_full_version >= "3.6.8" and python_full_version < "4.0.0"
 markdown2==2.4.3; python_version >= "3.5" and python_version < "4" and python_full_version >= "3.6.8" and python_full_version < "4.0.0"
@@ -48,3 +48,4 @@ soupsieve==2.3.2.post1; python_full_version >= "3.6.8" and python_full_version <
 sqlparse==0.4.2; python_full_version >= "3.6.8" and python_full_version < "4.0.0" and python_version >= "3.6"
 urllib3==1.26.9; python_full_version >= "3.6.8" and python_version < "4" and python_version >= "3.7" and python_full_version < "4.0.0" and (python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0")
 zipp==3.8.0; python_version >= "3.7"
+python-keycloak==2.5.0
