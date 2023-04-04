@@ -67,7 +67,7 @@ setup(
     ],
     zip_safe=False,
     package_data={
-        "services_portal_site": ["templates/**"],
-        "account": ["static/**"],
+        "services_portal_site": ["templates/**", "static/**"],
+        "account": ["templates/**", "static/**"],
     },
 )
