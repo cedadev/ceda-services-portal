@@ -66,4 +66,8 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     zip_safe=False,
+    package_data={
+        "services_portal_site": ["templates/**"],
+        "account": ["static/**"],
+    },
 )
