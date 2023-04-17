@@ -25,7 +25,7 @@ setup(
     license="BSD - See ceda_example/LICENSE file for details",
     packages=find_packages(),
     install_requires=[
-        "Django>=3.2,<3.3",
+        "Django>=3.2.18,<3.3",
         "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
         "dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9",
         "django-cookie-law==2.2.0",
