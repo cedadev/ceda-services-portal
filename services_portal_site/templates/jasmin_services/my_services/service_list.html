@@ -2,11 +2,7 @@
 
 {% block service_list_top %}
     <div class="alert alert-info text-center">
-        {% if page.paginator.num_pages > 1 or preserved_filters %}
-            <div style="margin-bottom: 0.4em;">This page shows the dataset application for which you have requested or been granted access that match the selected filters</div>
-        {% else %}
-            <div style="margin-bottom: 0.4em;">This page shows the dataset application for which you have requested or been granted access</div>
-        {% endif %}
+            <div style="margin-bottom: 0.4em;">List of resources for which you have requested access for. These can be filtered to show present and past access and revoked/rejected applications. Expand for further details for application/resource details.</div>
     </div>
 {% endblock %}
 
