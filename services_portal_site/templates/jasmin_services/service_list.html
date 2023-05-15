@@ -1,18 +1,6 @@
 {% extends 'layout_sidebar.html' %}
 
 {% block breadcrumbs %}
-<ol class="breadcrumb bg-primary">
-    <li class="breadcrumb-item">
-        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
-            CEDA Portal
-        </a>
-    </li>
-    {% if current_category.long_name == 'My Services' %}
-    <li class="breadcrumb-item active">My Archive Access</li>
-    {% else %}
-    <li class="breadcrumb-item active">{{ current_category.long_name }}</li>
-    {% endif %}
-</ol>
 {% endblock %}
 
 {% block navbar_small %}{% endblock %}

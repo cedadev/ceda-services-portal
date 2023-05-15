@@ -2,12 +2,4 @@
 {% load widget_tweaks markdown_deux_tags pretty_name %}
 
 {% block breadcrumbs %}
-<ol class="breadcrumb bg-primary">
-    <li class="breadcrumb-item">
-        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
-            CEDA Portal
-        </a>
-    </li>
-    <li class="breadcrumb-item active">{{ service.name }}</li>
-</ol>
 {% endblock %}
