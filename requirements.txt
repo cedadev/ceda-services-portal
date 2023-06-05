@@ -6,7 +6,7 @@
 #
 asgiref==3.5.2
 beautifulsoup4==4.11.1
-certifi==2022.9.24
+certifi==2023.5.7
 cffi==1.15.1
 charset-normalizer==2.1.1
 crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980
