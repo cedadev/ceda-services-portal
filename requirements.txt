@@ -12,7 +12,7 @@ charset-normalizer==2.1.1
 crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980
 cryptography==41.0.1
 dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9
-django==3.2.18
+django==4.2.2
 django-bootstrap5==21.3
 django-classy-tags==3.0.1
 django-cookie-law==2.2.0
