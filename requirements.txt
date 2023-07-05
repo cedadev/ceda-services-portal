@@ -13,7 +13,7 @@ crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d4
 cryptography==41.0.1
 deprecation==2.1.0
 dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9
-django==3.2.19
+django==3.2.20
 django-bootstrap5==21.3
 django-classy-tags==4.0.0
 django-cookie-law==2.2.0
