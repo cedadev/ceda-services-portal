@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{# NOTE - we use the blockbots block to add these extra scripts so that they are added after all others #}
+{% block blockbots %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/select_filters.css" %}" />
+    <script type="text/javascript">
+        if( 'django' in window ) {
+            var jQuery = django.jQuery;
+        } else {
+            var jQuery = { 'fn' : {} };
+        }
+    </script>
+    <script type="text/javascript" src="{% static "admin/js/select_filters.js" %}"></script>
+    {{ block.super }}
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}

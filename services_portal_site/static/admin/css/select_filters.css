@@ -1,0 +1,15 @@
+.select2-container {
+    min-width: 250px;
+}
+
+#changelist-filter .select2-container {
+    min-width: 220px;
+    width: 220px !important;
+    margin: 0 10px 10px;
+}
+
+.selector-available h2, .selector-chosen h2 {
+    border: 1px solid #ccc;
+    border-radius: 4px 4px 0 0;
+    margin: 1em 0 0em 0;
+}
