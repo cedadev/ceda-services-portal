@@ -8,12 +8,12 @@ asgiref==3.7.2
 beautifulsoup4==4.12.2
 certifi==2023.5.7
 cffi==1.15.1
-charset-normalizer==3.1.0
+charset-normalizer==3.2.0
 crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980
-cryptography==41.0.1
+cryptography==41.0.2
 deprecation==2.1.0
 dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9
-django==3.2.19
+django==3.2.20
 django-bootstrap5==21.3
 django-classy-tags==4.0.0
 django-cookie-law==2.2.0
@@ -37,7 +37,7 @@ jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v
 jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@da0678a202924b9ec7b34d8b988d103471f6e4b3
 josepy==1.13.0
 ldap3==2.9.1
-markdown2==2.4.8
+markdown2==2.4.9
 mozilla-django-oidc==2.0.0
 oauthlib==3.2.2
 packaging==23.1
@@ -57,8 +57,8 @@ rsa==4.9
 six==1.16.0
 soupsieve==2.4.1
 sqlparse==0.4.4
-typing-extensions==4.6.3
-urllib3==2.0.2
+typing-extensions==4.7.1
+urllib3==2.0.3
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==67.8.0
+setuptools==68.0.0
