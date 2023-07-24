@@ -58,7 +58,7 @@ six==1.16.0
 soupsieve==2.4.1
 sqlparse==0.4.4
 typing-extensions==4.7.1
-urllib3==2.0.3
+urllib3==2.0.4
 
 # The following packages are considered to be unsafe in a requirements file:
 setuptools==68.0.0
