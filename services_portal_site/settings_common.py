@@ -86,3 +86,16 @@ WSGI_APPLICATION = 'services_portal_site.wsgi.application'
 # Crispy forms
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# Default portal settings
+
+JASMIN_SERVICES = {
+    'DEFAULT_EXPIRY_DELTA' : None,
+    'NOTIFY_EXPIRE_DELTAS' : [],
+    'LDAP_GROUPS' : [],
+    'JISCMAIL_TO_ADDRS' : None,
+    'DEFAULT_METADATA_FORM': 1,
+}
+
+AUTH_USER_MODEL = 'account.CEDAUser'

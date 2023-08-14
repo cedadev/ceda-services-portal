@@ -69,3 +69,32 @@ SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+
+
+# Portal settings
+
+AUTHENTICATION_BACKENDS = [
+    'account.backends.CEDAAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+OIDC_RP_CLIENT_ID = ""
+OIDC_RP_CLIENT_SECRET = ""
+OIDC_RP_SIGN_ALGO = "RS256"
+OIDC_OP_LOGOUT_URL_METHOD = "oidc_auth.utils.generate_logout_url"
+LOGIN_URL_NAME = "oidc_authentication_init"
+LOGOUT_URL_NAME = "oidc_logout"
+
+OIDC_VERIFY_SSL = False
+OIDC_BASE_URL = "http://localhost:8080/realms/master/protocol/openid-connect"
+OIDC_OP_JWKS_ENDPOINT = f"{OIDC_BASE_URL}/certs"
+OIDC_OP_AUTHORIZATION_ENDPOINT = f"{OIDC_BASE_URL}/auth"
+OIDC_OP_LOGOUT_ENDPOINT = f"{OIDC_BASE_URL}/logout"
+OIDC_OP_TOKEN_ENDPOINT = f"{OIDC_BASE_URL}/token"
+OIDC_OP_USER_ENDPOINT = f"{OIDC_BASE_URL}/userinfo"
+
+ACCOUNT_MANAGEMENT_URL = 'http://localhost:8080/realms/master/account'
+
+LOGIN_URL = '/oidc/authenticate'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
