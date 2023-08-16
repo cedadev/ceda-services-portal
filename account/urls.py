@@ -20,7 +20,8 @@ urlpatterns = [
             path('jasmin_link/', views.account_jasmin_link, name = 'jasmin_link'),
             path('ftp/', views.account_ftp_password, name = 'ftp_password'),
             path('token/', views.access_token_generator, name = 'access_token'),
-            path('token/create/', views.access_token_create, name = 'access_token_create')
+            path('token/create/', views.access_token_create, name = 'access_token_create'),
+            path('token/delete/', views.access_token_delete, name = 'access_token_delete'),
         ],),
     ),
 ]

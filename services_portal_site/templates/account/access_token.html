@@ -50,7 +50,11 @@
                     <button class="btn btn-md btn-primary" id="{{ forloop.counter }}-copied" onclick="copy_token('{{ forloop.counter }}')">Copy</button>
                 </td>
                 <td>
-                    <button class="btn btn-md btn-primary">Delete</button>
+                    <form method="POST" action="delete/">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ i.pk }}" name="key">
+                        <button type="submit" class="btn btn-md btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
         {% endfor %}

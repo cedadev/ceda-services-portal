@@ -368,7 +368,7 @@ def access_token_create(request):
 
     url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
 
-    payload = f'username={ request.user.username }&password={request.POST.get("password")}&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password&expires_in=2629743'
+    payload = f'username={ request.user.username }&password={request.POST.get("password")}&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
     headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -390,3 +390,10 @@ def access_token_create(request):
         }
         request.session['errors'] = errors
         return redirect(access_token_generator)
+
+@require_http_methods(['POST'])
+@login_required
+def access_token_delete(request):
+    token = AccessTokens.objects.get(pk=request.POST.get("key"))
+    token.delete()
+    return redirect(access_token_generator)
