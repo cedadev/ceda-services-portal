@@ -19,6 +19,8 @@ urlpatterns = [
             path('jasmin_token_exchange/', views.account_jasmin_token_exchange, name = 'jasmin_token_exchange'),
             path('jasmin_link/', views.account_jasmin_link, name = 'jasmin_link'),
             path('ftp/', views.account_ftp_password, name = 'ftp_password'),
+            path('token/', views.access_token_generator, name = 'access_token'),
+            path('token/create/', views.access_token_create, name = 'access_token_create')
         ],),
     ),
 ]

@@ -157,6 +157,11 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         help_text='Indicates if this user has created a FTP password.'
     )
 
+    has_access_token = models.BooleanField(
+        default=False,
+        help_text='Indicates if this user has created an Access Token.'
+    )
+
     def email_confirm_required(self):
         """
         Returns true if the user needs to confirm their email address soon, false
@@ -257,3 +262,15 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
                 user.notify_pending_deadline(*args, **kwargs)
         else:
             super().notify_pending_deadline(*args, **kwargs)
+
+
+class AccessTokens(models.Model):
+    class Meta:
+        verbose_name = 'CEDA Access Token'
+        verbose_name_plural = 'CEDA Access Tokens'
+
+    token = models.TextField(
+        verbose_name="API Access token",
+        help_text="An access token that allows for access to the CEDA API"
+        )
+    user = models.ForeignKey(CEDAUser, models.CASCADE)

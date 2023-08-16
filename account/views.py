@@ -9,8 +9,10 @@ import logging
 import json
 import random
 import string
+import sys
 import hashlib
 import base64
+import requests
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
 from crypto_cookie.encoding import Encoder
@@ -23,13 +25,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_safe
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.http import HttpResponse
+
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from jasmin_services.models import Category, Service, Role, RoleObjectPermission, Request
 from jasmin_metadata.models import Form
 
-from .models import CEDAUser
+from .models import CEDAUser, AccessTokens
 from .rabbit import RabbitConnection
 
 
@@ -339,3 +343,50 @@ def account_ftp_password(request):
     return render(request, 'account/ftp_password.html', {
         'password' : password
     })
+
+@require_http_methods(['GET', 'POST'])
+@login_required
+def access_token_generator(request):
+    """
+    Handler for ```/account/token```.
+
+    Responds to GET requests only.
+
+    Provides the page for generating an access token
+    """
+    error_details = request.session.pop("errors", None)
+
+    user = CEDAUser.objects.filter(username = request.user.username)
+    access_tokens = AccessTokens.objects.filter(user=user.first())
+
+    return render(request, 'account/access_token.html', {"details": error_details, "token_list": access_tokens})
+
+@require_http_methods(['POST'])
+@login_required
+def access_token_create(request):
+    CEDAUser.objects.filter(username = request.user.username).update(has_access_token = True)
+
+    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
+
+    payload = f'username={ request.user.username }&password={request.POST.get("password")}&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password&expires_in=2629743'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    response_json = response.json()
+
+    if response.status_code == 200:
+        AccessTokens.objects.create(
+            token=response_json["access_token"],
+            user=CEDAUser.objects.filter(username = request.user.username).first()
+        )
+
+        return redirect(access_token_generator)
+    else:
+        errors = {
+            "status": response.status_code,
+            "description": response_json["error_description"]
+        }
+        request.session['errors'] = errors
+        return redirect(access_token_generator)

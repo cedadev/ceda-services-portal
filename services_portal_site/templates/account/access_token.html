@@ -1,0 +1,125 @@
+{% extends 'layout_sidebar.html' %}
+
+{% block head_js_extra %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+{{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb bg-primary">
+    <li class="breadcrumb-item">
+        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
+            CEDA Services
+        </a>
+    </li>
+    <li class="breadcrumb-item active">Access Token Generator</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+{% if details is not none %}
+    <div class="banner banner-danger">
+        <p>There was an issue with creating an access token: {{ details.description }}</p>
+        <p>Please check your password and try again.</p>
+    </div>
+{% endif %}
+<h3>CEDA Access Tokens</h3>
+
+<p>You can generate an access token here, which will allow you to access CEDA resources via the API.</p>
+
+{% if token_list|length > 0 %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Access Token</th>
+                <th scope="col">Copy</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in token_list %}
+            <tr>
+                <td>
+                    <button class="btn btn-md btn-primary" id="{{ forloop.counter }}-button" onclick="show_token('{{ forloop.counter }}')">Show Token</button>
+                    <p id="{{ forloop.counter }}" style="display: none;">{{ i.token }}</p>
+                </td>
+                <td>
+                    <button class="btn btn-md btn-primary" id="{{ forloop.counter }}-copied" onclick="copy_token('{{ forloop.counter }}')">Copy</button>
+                </td>
+                <td>
+                    <button class="btn btn-md btn-primary">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+<div class="form-group" >
+    <button type="submit" class="float-right btn btn-md btn-primary" id="create_token_popup">Create new access token</button>
+</div>
+
+
+
+
+<script>
+    // Confirmations they want to generate a new password
+    var $popup_form = $('#create_token_popup');
+    $popup_form.on("click", function(e) {
+        // pop a dialog with the confirmation
+        bootbox.dialog({
+            closeButton : false,
+            size : 'large',
+            title : 'Please input your CEDA password',
+            message : `<form method="POST" action="create/" class="form-horizontal" id="access-token-creation">
+                {% csrf_token %}
+                <input type="password" class="form-control" name="password" id="password">
+            </form>`,
+            buttons : {
+                'cancel' : {
+                    label: 'Cancel',
+                    className: 'btn-default'
+                },
+                'agree' : {
+                    label: 'Confirm',
+                    className: 'btn-primary',
+                    callback: function() {
+                        console.log($('#access-token-creation'))
+                        $('#access-token-creation').submit();
+                        
+                    }
+                }
+            }
+        });
+        e.preventDefault();
+    })
+    $('#access-token-creation').on("submit", bootbox.hideAll())
+
+    function show_token(id){
+        token = document.getElementById(id)
+        button = document.getElementById(id+"-button")
+
+        if (token.style.display == "none"){
+            token.style.display = "block"
+            button.innerHTML = "Hide Token"
+        } else {
+            token.style.display = "none"            
+            button.innerHTML = "Show Token"
+        }
+    }
+
+    async function copy_token(id){
+        token = document.getElementById(id)
+        button = document.getElementById(id+"-copied")
+        //token.select();
+        //token.setSelectionRange(0,99999);
+
+        navigator.clipboard.writeText(token.innerHTML);
+        button.innerHTML = "Copied!"
+        await new Promise(r => setTimeout(r, 500));
+        button.innerHTML = "Copy"
+    }
+</script>
+{% endblock %}
