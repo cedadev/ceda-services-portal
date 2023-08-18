@@ -21,8 +21,9 @@
 {% block content %}
 {% if details is not none %}
     <div class="banner banner-danger">
-        <p>There was an issue with creating an access token: {{ details.description }}</p>
-        <p>Please check your password and try again.</p>
+        <p> {{ details.text }} </p>
+        <!-- <p>There was an issue with creating an access token: {{ details.description }}</p>
+        <p>Please check your password and try again.</p> -->
     </div>
 {% endif %}
 <h3>CEDA Access Tokens</h3>

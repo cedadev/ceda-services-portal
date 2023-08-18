@@ -385,8 +385,7 @@ def access_token_create(request):
         return redirect(access_token_generator)
     else:
         errors = {
-            "status": response.status_code,
-            "description": response_json["error_description"]
+            "text": f"There was an issue with creating an access token: { response_json['error_description'] }. Please check your password and try again."
         }
         request.session['errors'] = errors
         return redirect(access_token_generator)
@@ -395,5 +394,20 @@ def access_token_create(request):
 @login_required
 def access_token_delete(request):
     token = AccessTokens.objects.get(pk=request.POST.get("key"))
-    token.delete()
+
+    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/revoke"
+    payload = f'client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&token={token.token}'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    if response.status_code == 200:
+        token.delete()
+    else:
+        errors = {
+            "text": "The token could not be deleted. We encountered the " + 
+            f"following issue: {response.json()['error_description']}"
+        }
+        request.session['errors'] = errors
     return redirect(access_token_generator)
