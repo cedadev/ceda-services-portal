@@ -45,6 +45,9 @@
         {% for i in token_list %}
             <tr>
                 <td style="word-wrap: break-word;">
+                    {% if i.token_name is not null %}
+                        <p>{{ i.token_name }}</p>
+                    {% endif %}
                     <button class="btn btn-md btn-primary" id="{{ forloop.counter }}-button" onclick="show_token('{{ forloop.counter }}')">Show Token</button>
                     <p id="{{ forloop.counter }}" style="display: none;">{{ i.token }}</p>
                 </td>
@@ -86,6 +89,9 @@
             title : 'Please input your CEDA password',
             message : `<form method="POST" action="create/" class="form-horizontal" id="access-token-creation">
                 {% csrf_token %}
+                <label for="token_name">Optional token name</label>
+                <input type="text" class="form-control" name="token_name" id="token_name">
+                <label for="password">CEDA Password</label>
                 <input type="password" class="form-control" name="password" id="password">
             </form>`,
             buttons : {

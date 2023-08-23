@@ -385,7 +385,8 @@ def access_token_create(request):
         AccessTokens.objects.create(
             token=response_json["access_token"],
             user=CEDAUser.objects.filter(username = request.user.username).first(),
-            expiry= timezone.now() + timedelta(seconds=response_json["expires_in"])
+            expiry= timezone.now() + timedelta(seconds=response_json["expires_in"]),
+            token_name=request.POST.get("token_name") if request.POST.get("token_name") != "" else None
         )
 
         return redirect(access_token_generator)
@@ -457,7 +458,8 @@ def access_token_api_create(request):
         AccessTokens.objects.create(
             token=response_json["access_token"],
             user=CEDAUser.objects.filter(username = userid).first(),
-            expiry=timezone.now() + timedelta(seconds=int(response_json["expires_in"]))
+            expiry=timezone.now() + timedelta(seconds=int(response_json["expires_in"])),
+            token_name= request.POST.get("token_name", None)
         )
         api_response = {
             "access_token": response_json["access_token"]

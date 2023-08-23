@@ -266,17 +266,23 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
 
 class AccessTokens(models.Model):
     class Meta:
-        verbose_name = 'CEDA Access Token'
-        verbose_name_plural = 'CEDA Access Tokens'
+        verbose_name = 'CEDA Access Token',
+        verbose_name_plural = 'CEDA Access Tokens',
 
     token = models.TextField(
         verbose_name="API Access token",
-        help_text="An access token that allows for access to the CEDA API"
+        help_text="An access token that allows for access to the CEDA API",
         )
     user = models.ForeignKey(CEDAUser, models.CASCADE)
     expiry = models.DateTimeField(
         verbose_name="Token Expiry Date",
-        help_text="The tokens expiry date"
+        help_text="The tokens expiry date",
+    )
+    token_name = models.TextField(
+        verbose_name="Name of token for easy reference",
+        help_text="An optional name for the token",
+        blank=True,
+        null=True,
     )
 
     @property
