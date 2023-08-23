@@ -8,7 +8,7 @@ __date__ = "2019-08-28"
 __copyright__ = "Copyright 2019 United Kingdom Research and Innovation"
 __license__ = "BSD - see LICENSE file in top-level directory"
 
-
+import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -274,3 +274,14 @@ class AccessTokens(models.Model):
         help_text="An access token that allows for access to the CEDA API"
         )
     user = models.ForeignKey(CEDAUser, models.CASCADE)
+    expiry = models.DateTimeField(
+        verbose_name="Token Expiry Date",
+        help_text="The tokens expiry date"
+    )
+
+    @property
+    def is_expired(self):
+        now = datetime.datetime.now()
+        if self.expiry > now:
+            return True
+        return False

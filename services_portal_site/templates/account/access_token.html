@@ -28,7 +28,7 @@
 {% endif %}
 <h3>CEDA Access Tokens</h3>
 
-<p>You can generate an access token here, which will allow you to access CEDA resources via the API.</p>
+<p>You can generate an access token here, which will allow you to access CEDA resources via the API. There is a limit of two access tokens.</p>
 
 {% if token_list|length > 0 %}
 <div class="table-responsive">
@@ -36,6 +36,7 @@
         <thead>
             <tr>
                 <td scope="col">Access Token</td>
+                <td scop="col">Expiry</td>
                 <td width="100px" scope="col">Copy</td>
                 <td width="100px" scope="col">Delete</td>
             </tr>
@@ -46,6 +47,9 @@
                 <td style="word-wrap: break-word;">
                     <button class="btn btn-md btn-primary" id="{{ forloop.counter }}-button" onclick="show_token('{{ forloop.counter }}')">Show Token</button>
                     <p id="{{ forloop.counter }}" style="display: none;">{{ i.token }}</p>
+                </td>
+                <td>
+                    {{ i.expiry }}
                 </td>
                 <td>
                     <button class="btn btn-md btn-primary" id="{{ forloop.counter }}-copied" onclick="copy_token('{{ forloop.counter }}')">Copy</button>
