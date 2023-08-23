@@ -360,7 +360,9 @@ def access_token_generator(request):
     error_details = request.session.pop("errors", None)
 
     user = CEDAUser.objects.filter(username = request.user.username)
-    access_tokens = AccessTokens.objects.filter(user=user.first(), expiry__gte=datetime.now())
+    # Disable filtering by expiry for now, short expiry time makes testing annoying
+    # access_tokens = AccessTokens.objects.filter(user=user.first(), expiry__gte=datetime.now())
+    access_tokens = AccessTokens.objects.filter(user=user.first())
 
     return render(request, 'account/access_token.html', {"details": error_details, "token_list": access_tokens})
 
@@ -524,7 +526,9 @@ def access_token_api_delete(request):
 def create_access_token(password, username):
     
     user = CEDAUser.objects.filter(username=username).first()
-    no_of_tokens = AccessTokens.objects.filter(user=user, expiry__gte=datetime.now())
+    # Disable filtering by expiry for now, short expiry time makes testing annoying
+    # no_of_tokens = AccessTokens.objects.filter(user=user, expiry__gte=datetime.now())
+    no_of_tokens = AccessTokens.objects.filter(user=user)
 
     if len(no_of_tokens) >= 2:
         response = Response()
