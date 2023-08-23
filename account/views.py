@@ -9,8 +9,6 @@ import logging
 import json
 import random
 import string
-import sys
-import hashlib
 import base64
 import requests
 from requests_oauthlib import OAuth2Session
@@ -20,16 +18,17 @@ from crypto_cookie.encoding import Encoder
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import Permission
+from django.contrib.auth import login
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_safe
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse
-
 
 from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import exceptions
+from rest_framework.response import Response as ApiResponse
 from jasmin_services.models import Category, Service, Role, RoleObjectPermission, Request
 from jasmin_metadata.models import Form
 
@@ -366,14 +365,14 @@ def access_token_generator(request):
 def access_token_create(request):
     CEDAUser.objects.filter(username = request.user.username).update(has_access_token = True)
 
-    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
+    # url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
 
-    payload = f'username={ request.user.username }&password={request.POST.get("password")}&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
+    # payload = f'username={ request.user.username }&password={request.POST.get("password")}&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
     headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = create_access_token(request.POST.get("password"), request.user.username)
     response_json = response.json()
 
     if response.status_code == 200:
@@ -393,21 +392,156 @@ def access_token_create(request):
 @require_http_methods(['POST'])
 @login_required
 def access_token_delete(request):
-    token = AccessTokens.objects.get(pk=request.POST.get("key"))
+    response = delete_access_token(key=request.POST.get("key"))
 
-    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/revoke"
-    payload = f'client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&token={token.token}'
-    headers = {
-    'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    response = requests.request("POST", url, headers=headers, data=payload)
-
-    if response.status_code == 200:
-        token.delete()
-    else:
+    if response.status_code != 200:
         errors = {
             "text": "The token could not be deleted. We encountered the " + 
             f"following issue: {response.json()['error_description']}"
         }
         request.session['errors'] = errors
     return redirect(access_token_generator)
+
+
+@api_view(["POST"])
+def access_token_api_create(request):
+    auth = request.META.get('HTTP_AUTHORIZATION', b'')
+
+    auth = auth.split()
+
+    if not auth or auth[0].lower() != 'basic':
+        return None
+    
+    if len(auth) == 1:
+        msg = 'Invalid basic header. No credentials provided.'
+        raise exceptions.AuthenticationFailed(msg)
+    elif len(auth) > 2:
+        msg = 'Invalid basic header. Credentials string should not contain spaces.'
+        raise exceptions.AuthenticationFailed(msg)
+
+    try:
+        try:
+            auth_decoded = base64.b64decode(auth[1]).decode('utf-8')
+        except UnicodeDecodeError:
+            auth_decoded = base64.b64decode(auth[1]).decode('latin-1')
+        auth_parts = auth_decoded.partition(':')
+    except (TypeError, UnicodeDecodeError):
+        msg = 'Invalid basic header. Credentials not correctly base64 encoded.'
+        raise exceptions.AuthenticationFailed(msg)
+    except Exception as e:
+        msg = (e)
+        raise exceptions.AuthenticationFailed(msg)
+
+    userid, password = auth_parts[0], auth_parts[2]
+    user = CEDAUser.objects.filter(username = userid).first()
+    
+
+    response = create_access_token(password, userid)
+    response_json = response.json()
+    
+    api_response = {}
+    if response.status_code == 200:
+        AccessTokens.objects.create(
+            token=response_json["access_token"],
+            user=CEDAUser.objects.filter(username = userid).first()
+        )
+        api_response = {
+            "access_token": response_json["access_token"]
+        }
+    else:
+        api_response = response_json
+
+    return ApiResponse(data=api_response) #, status_code=response.status_code)
+
+@api_view(["POST"])
+def access_token_api_delete(request):
+    logging.error("started access")
+    auth = request.META.get('HTTP_AUTHORIZATION', b'')
+
+    auth = auth.split()
+
+    if not auth or auth[0].lower() != 'basic':
+        return None
+
+    if len(auth) == 1:
+        msg = 'Invalid basic header. No credentials provided.'
+        raise exceptions.AuthenticationFailed(msg)
+    elif len(auth) > 2:
+        msg = 'Invalid basic header. Credentials string should not contain spaces.'
+        raise exceptions.AuthenticationFailed(msg)
+
+    try:
+        try:
+            auth_decoded = base64.b64decode(auth[1]).decode('utf-8')
+        except UnicodeDecodeError:
+            auth_decoded = base64.b64decode(auth[1]).decode('latin-1')
+        auth_parts = auth_decoded.partition(':')
+    except (TypeError, UnicodeDecodeError):
+        msg = 'Invalid basic header. Credentials not correctly base64 encoded.'
+        raise exceptions.AuthenticationFailed(msg)
+    except Exception as e:
+        msg = (e)
+        raise exceptions.AuthenticationFailed(msg)
+    
+    userid, password = auth_parts[0], auth_parts[2]
+    user = CEDAUser.objects.filter(username = userid)
+
+    logging.error("fine here")
+    # if not user:
+    #     msg = 'Invalid password'
+    #     raise exceptions.AuthenticationFailed(msg)
+    
+    find_token = AccessTokens.objects.filter(user=user[0], token=request.POST.get("token"))
+
+    logging.error(find_token)
+    if len(find_token) < 1:
+        raise exceptions.NotFound("Could not find token")
+    
+    response = delete_access_token(token_name=request.POST.get("token"))
+
+    if response.status_code == 200:
+        api_response = {
+                "deleted": True,
+                "access_token": find_token[0].token
+            }
+        logging.error(response.status_code)
+    else:
+        api_response = {
+            "status_code": response.status_code,
+            "json": response.json()
+        }
+
+    return ApiResponse(data=api_response)
+
+def create_access_token(password, username):
+    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
+
+    payload = f'username={ username }&password={ password }&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    
+    return response
+
+def delete_access_token(key=None, token_name=None):
+    if key is not None:
+        token = AccessTokens.objects.get(pk=key)
+    elif token_name is not None:
+        token = AccessTokens.objects.get(token=token_name)
+    else:
+        raise exceptions.APIException({"error": "Did not provide token details"}, code=400)
+
+    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/revoke"
+    payload = f'client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&token={token.token}'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    if response.status_code == 200:
+        token.delete()
+
+    return response

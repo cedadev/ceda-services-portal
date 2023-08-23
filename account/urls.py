@@ -24,4 +24,9 @@ urlpatterns = [
             path('token/delete/', views.access_token_delete, name = 'access_token_delete'),
         ],),
     ),
+    path("api/", include([
+                path("token/create/", views.access_token_api_create, name="access_token_api_create"),
+                path("token/delete/", views.access_token_api_delete, name="access_token_api_delete")
+        ],),
+    )
 ]
