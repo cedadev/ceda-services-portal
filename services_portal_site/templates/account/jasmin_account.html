@@ -1,37 +1,37 @@
 {% extends 'layout_sidebar.html' %}
 
 {% block breadcrumbs %}
-<ol class="breadcrumb bg-primary">
-    <li class="breadcrumb-item">
-        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
-            CEDA Services
-        </a>
-    </li>
-    <li class="breadcrumb-item active">Link JASMIN Account</li>
-</ol>
+    <ol class="breadcrumb bg-primary">
+        <li class="breadcrumb-item">
+            <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
+                CEDA Services
+            </a>
+        </li>
+        <li class="breadcrumb-item active">Link JASMIN Account</li>
+    </ol>
 {% endblock %}
 
 {% block content %}
-<div class="col-sm-12 col-md-12">
-    <h3>JASMIN account portal</h3>
     <div class="col-sm-12 col-md-12">
-        <p>
-            Linking to a <a href="https://jasmin.ac.uk/">JASMIN</a> account allows you filesystem access to data on CEDA archive. Find out more <a href="https://help.jasmin.ac.uk/article/189-get-started-with-jasmin">here</a>.
-        </p>
-{% if request.user.jasminaccountid %}
-        <p>
-            <b>Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code></b>
-        </p>
-    </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <a href="{{ jasmin_account }}" class="float-right btn btn-md btn-primary" style="color:white">JASMIN account</a> 
-</div>
-{% else %}
-    </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <a href="{% url 'jasmin_link'%}" class="float-right btn btn-md btn-primary pointer" style="color:white; cursor: pointer;">Link Now</a> 
-</div>
-{% endif %}
+        <h3>JASMIN account portal</h3>
+        <div class="col-sm-12 col-md-12">
+            <p>
+                Linking to a <a href="https://jasmin.ac.uk/">JASMIN</a> account allows you filesystem access to data on CEDA archive. Find out more <a href="https://help.jasmin.ac.uk/article/189-get-started-with-jasmin">here</a>.
+            </p>
+            {% if request.user.jasminaccountid %}
+                <p>
+                    <b>Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code></b>
+                </p>
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <a href="{{ jasmin_account }}" class="float-right btn btn-md btn-primary" style="color:white">JASMIN account</a>
+                </div>
+            {% else %}
+                </div>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <a href="{% url 'jasmin_link'%}" class="float-right btn btn-md btn-primary pointer" style="color:white; cursor: pointer;">Link Now</a>
+                </div>
+            {% endif %}
 {% endblock %}
