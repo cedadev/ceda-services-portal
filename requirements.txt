@@ -36,7 +36,7 @@ jasmin-services @ git+https://github.com/cedadev/jasmin-services.git@52bb1e6abe3
 josepy==1.13.0
 ldap3==2.9.1
 markdown2==2.4.10
-mozilla-django-oidc==2.0.0
+mozilla-django-oidc==3.0.0
 oauthlib==3.2.2
 packaging==23.1
 pika==1.3.2
