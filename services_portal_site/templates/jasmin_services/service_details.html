@@ -1,9 +1,0 @@
-{% extends 'jasmin_services/service_details.html' %}
-{% load markdown_deux_tags country_tags %}
-
-{% get_country user=request.user as user_country %}
-
-{% block breadcrumbs %}
-{% endblock %}
-
-{% block page_title %}<code>{{ service }}</code>{% endblock %}

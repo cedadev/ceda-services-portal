@@ -5,36 +5,14 @@
         <div class="col-md-12">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 navbar-full">
-                        <h4 class="mb-2">Account settings</h4>
-                        <ul class="nav flex-column nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://services.ceda.ac.uk/cedasite/myceda/user/">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://services.ceda.ac.uk/cedasite/myceda/passwd/">Password</a>
-                            </li>
-                            <li class="nav-item">
-                                {% url 'ftp_password' as ftp_password_url %}
-                                <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">FTP Account</a>
-                            </li>
-                            </ul>
-                            <h4 class="mt-4 mb-2">Archive Access</h4>
-                            <ul class="nav flex-column nav-pills">
-                                <li class="nav-item">
-                                {% url 'jasmin_services:my_services' as my_services_url %}
-                        <!--<a class="nav-link {% if request.path == my_services_url %}active{% endif %}" href="{{ my_services_url }}">My Archive Access</a>-->
-                            </li>
-                                <li class="nav-item">
-                                <a class="nav-link" href="https://services.ceda.ac.uk/cedasite/myceda/user/">My Archive Access</a>
-                            </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-9">
-                            {% block content %}{% endblock content%}
-                        </div>
+                    <div class="col-md-3">
+                        {% include "account/includes/sidebar.html" %}
+                    </div>
+                    <div class="col-md-9">
+                        {% block content %}{% endblock content%}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 {% endblock content_panel %}
