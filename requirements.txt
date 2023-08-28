@@ -22,7 +22,7 @@ django-markdown-deux==1.0.6
 django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@7865641af8e0886bca244e2fc9ab27221f518ef8
 django-picklefield==3.1
 django-polymorphic==3.1.0
-django-widget-tweaks==1.4.12
+django-widget-tweaks==1.5.0
 djangorestframework==3.14.0
 ecdsa==0.18.0
 fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@bootstrap5
