@@ -40,7 +40,7 @@ dependencies = [
     "jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@v1.0.1",
     "jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.2",
     "jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.2.7",
-    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@52bb1e6abe398bf948bfa176059734592adf7ead",
+    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@65df8323d92cc9905fbd3ff84806624f64b64d76",
     "mozilla-django-oidc>=2.0.0,<3.0.0",
     "oauthlib>=3.2.0,<4.0.0",
     "pika>=1.2.0,<2.0.0",
