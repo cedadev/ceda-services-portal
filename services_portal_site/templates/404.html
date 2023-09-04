@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block page_title %}Page Not Found{% endblock %}
+
+{% block content %}
+    <div class="alert alert-with-icon alert-warning" role="alert">
+        <i class="fas fa-exclamation-circle"></i> <span>The page you are looking for does not exist</span>
+    </div>
+    <p>The page you requested does not exist on this server.</p>
+{% endblock %}

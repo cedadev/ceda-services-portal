@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block page_title %}Bad request{% endblock %}
+
+{% block content %}
+    <div class="alert alert-with-icon alert-danger" role="alert">
+        <i class="fas fa-exclamation-circle"></i> <span>The submitted request was not correctly formed</span>
+    </div>
+{% endblock %}

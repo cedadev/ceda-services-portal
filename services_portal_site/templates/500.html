@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block page_title %}Server error{% endblock %}
+
+{% block content %}
+    <div class="alert alert-with-icon alert-danger" role="alert">
+        <i class="fas fa-exclamation-circle"></i> <span>A server error has occured</span>
+    </div>
+    <p>An error occurred while processing your request. Please try again later.</p>
+{% endblock %}
