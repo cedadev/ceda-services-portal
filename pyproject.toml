@@ -22,6 +22,8 @@ classifiers = [
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
 ]
+# Run this:
+# pip-compile --allow-unsafe --no-annotate --output-file=requirements.txt --resolver=backtracking --upgrade pyproject.toml
 dependencies = [
     "Django>=3.2.19,<3.3",
     "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
@@ -40,7 +42,7 @@ dependencies = [
     "jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@v1.0.1",
     "jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.2",
     "jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.2.7",
-    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@65df8323d92cc9905fbd3ff84806624f64b64d76",
+    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@321361fb58de3ed2cf6be10377d74d8b1ebdda14",
     "mozilla-django-oidc>=2.0.0,<3.0.0",
     "oauthlib>=3.2.0,<4.0.0",
     "pika>=1.2.0,<2.0.0",
