@@ -20,9 +20,12 @@
 {% endblock %}
 
 {% block content %}
+<div class="alert alert-warning">
+    This feature is still under development and should be used with caution. Documentation will be coming soon.
+</div>
 {% if details is not none %}
-    <div class="banner banner-danger">
-        <p> {{ details.text }} </p>
+    <div class="alert alert-danger">
+        {{ details.text }}
         <!-- <p>There was an issue with creating an access token: {{ details.description }}</p>
         <p>Please check your password and try again.</p> -->
     </div>
