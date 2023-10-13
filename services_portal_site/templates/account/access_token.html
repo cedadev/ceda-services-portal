@@ -7,12 +7,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 {{ block.super }}{% endblock %}
 
+{% block page_title %}Access Token{% endblock %}
+{% block head_title %}Access Token{% endblock %}
+
 {% block breadcrumbs %}
-<ol class="breadcrumb bg-primary">
+<ol class="breadcrumb p-3">
     <li class="breadcrumb-item">
-        <a class="breadcrumb-link text-light" style="text-decoration: none;" href="{% url 'jasmin_services:my_services'%}">
-            CEDA Services
-        </a>
+        <a class="breadcrumb-link" href="{% url 'jasmin_services:my_services'%}">CEDA Services</a>
     </li>
     <li class="breadcrumb-item active">Access Token Generator</li>
 </ol>
