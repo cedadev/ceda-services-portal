@@ -540,7 +540,7 @@ def create_access_token(password, username):
         response._content = b'{"error_description" : "You may only have 2 access tokens" }'
 
         return response
-    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
+    url = settings.OIDC_OP_TOKEN_ENDPOINT
 
     payload = f'username={ username }&password={ password }&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
     headers = {
