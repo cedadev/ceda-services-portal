@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'requests_oauthlib',
     'crypto_cookie',
+    'services_portal_site',
 ]
 
 MIDDLEWARE = [
@@ -99,3 +100,7 @@ JASMIN_SERVICES = {
 }
 
 AUTH_USER_MODEL = 'account.CEDAUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': []
+}

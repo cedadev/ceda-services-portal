@@ -9,8 +9,9 @@ import logging
 import json
 import random
 import string
-import hashlib
 import base64
+import requests
+from datetime import datetime, timedelta
 from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
 from crypto_cookie.encoding import Encoder
@@ -18,18 +19,24 @@ from crypto_cookie.encoding import Encoder
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import Permission
+from django.contrib.auth import login
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_safe
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils import timezone
+
+from requests.models import Response
 
 from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import exceptions
+from rest_framework.response import Response as ApiResponse
 from jasmin_services.models import Category, Service, Role, RoleObjectPermission, Request
 from jasmin_metadata.models import Form
 
-from .models import CEDAUser
+from .models import CEDAUser, AccessTokens
 from .rabbit import RabbitConnection
 
 
@@ -339,3 +346,228 @@ def account_ftp_password(request):
     return render(request, 'account/ftp_password.html', {
         'password' : password
     })
+
+@require_http_methods(['GET', 'POST'])
+@login_required
+def access_token_generator(request):
+    """
+    Handler for ```/account/token```.
+
+    Responds to GET requests only.
+
+    Provides the page for generating an access token
+    """
+    error_details = request.session.pop("errors", None)
+
+    user = CEDAUser.objects.filter(username = request.user.username)
+    # Disable filtering by expiry for now, short expiry time makes testing annoying
+    # access_tokens = AccessTokens.objects.filter(user=user.first(), expiry__gte=datetime.now())
+    access_tokens = AccessTokens.objects.filter(user=user.first())
+
+    return render(request, 'account/access_token.html', {"details": error_details, "token_list": access_tokens})
+
+@require_http_methods(['POST'])
+@login_required
+def access_token_create(request):
+    CEDAUser.objects.filter(username = request.user.username).update(has_access_token = True)
+
+    # url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/token"
+
+    # payload = f'username={ request.user.username }&password={request.POST.get("password")}&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = create_access_token(request.POST.get("password"), request.user.username)
+    response_json = response.json()
+
+    if response.status_code == 200:
+        AccessTokens.objects.create(
+            token=response_json["access_token"],
+            user=CEDAUser.objects.filter(username = request.user.username).first(),
+            expiry= timezone.now() + timedelta(seconds=response_json["expires_in"]),
+            token_name=request.POST.get("token_name") if request.POST.get("token_name") != "" else None
+        )
+
+        return redirect(access_token_generator)
+    else:
+        if response.json().get("error_description") == "You may only have 2 access tokens":
+            errors = {
+                "text": f"There was an issue with creating an access token: { response_json['error_description'] }. Please delete an access token to create a new one."
+            }
+        else:
+            errors = {
+                "text": f"There was an issue with creating an access token: { response_json['error_description'] }. Please check your password and try again."
+            }
+        request.session['errors'] = errors
+        return redirect(access_token_generator)
+
+@require_http_methods(['POST'])
+@login_required
+def access_token_delete(request):
+    response = delete_access_token(key=request.POST.get("key"))
+
+    if response.status_code != 200:
+        errors = {
+            "text": "The token could not be deleted. We encountered the " + 
+            f"following issue: {response.json()['error_description']}"
+        }
+        request.session['errors'] = errors
+    return redirect(access_token_generator)
+
+
+@api_view(["POST"])
+def access_token_api_create(request):
+    auth = request.META.get('HTTP_AUTHORIZATION', b'')
+
+    auth = auth.split()
+
+    if not auth or auth[0].lower() != 'basic':
+        return None
+    
+    if len(auth) == 1:
+        msg = 'Invalid basic header. No credentials provided.'
+        raise exceptions.AuthenticationFailed(msg)
+    elif len(auth) > 2:
+        msg = 'Invalid basic header. Credentials string should not contain spaces.'
+        raise exceptions.AuthenticationFailed(msg)
+
+    try:
+        try:
+            auth_decoded = base64.b64decode(auth[1]).decode('utf-8')
+        except UnicodeDecodeError:
+            auth_decoded = base64.b64decode(auth[1]).decode('latin-1')
+        auth_parts = auth_decoded.partition(':')
+    except (TypeError, UnicodeDecodeError):
+        msg = 'Invalid basic header. Credentials not correctly base64 encoded.'
+        raise exceptions.AuthenticationFailed(msg)
+    except Exception as e:
+        msg = (e)
+        raise exceptions.AuthenticationFailed(msg)
+
+    userid, password = auth_parts[0], auth_parts[2]
+    user = CEDAUser.objects.filter(username = userid).first()
+    
+
+    response = create_access_token(password, userid)
+    response_json = response.json()
+    
+    api_response = {}
+    if response.status_code == 200:
+        logging.error(response_json)
+        AccessTokens.objects.create(
+            token=response_json["access_token"],
+            user=CEDAUser.objects.filter(username = userid).first(),
+            expiry=timezone.now() + timedelta(seconds=int(response_json["expires_in"])),
+            token_name= request.POST.get("token_name", None)
+        )
+        api_response = {
+            "access_token": response_json["access_token"]
+        }
+    else:
+        api_response = response_json
+
+    return ApiResponse(data=api_response, status=response.status_code)
+
+@api_view(["POST"])
+def access_token_api_delete(request):
+    auth = request.META.get('HTTP_AUTHORIZATION', b'')
+
+    auth = auth.split()
+
+    if not auth or auth[0].lower() != 'basic':
+        return None
+
+    if len(auth) == 1:
+        msg = 'Invalid basic header. No credentials provided.'
+        raise exceptions.AuthenticationFailed(msg)
+    elif len(auth) > 2:
+        msg = 'Invalid basic header. Credentials string should not contain spaces.'
+        raise exceptions.AuthenticationFailed(msg)
+
+    try:
+        try:
+            auth_decoded = base64.b64decode(auth[1]).decode('utf-8')
+        except UnicodeDecodeError:
+            auth_decoded = base64.b64decode(auth[1]).decode('latin-1')
+        auth_parts = auth_decoded.partition(':')
+    except (TypeError, UnicodeDecodeError):
+        msg = 'Invalid basic header. Credentials not correctly base64 encoded.'
+        raise exceptions.AuthenticationFailed(msg)
+    except Exception as e:
+        msg = (e)
+        raise exceptions.AuthenticationFailed(msg)
+    
+    userid, password = auth_parts[0], auth_parts[2]
+    user = CEDAUser.objects.filter(username = userid)
+
+    # if not user:
+    #     msg = 'Invalid password'
+    #     raise exceptions.AuthenticationFailed(msg)
+    
+    find_token = AccessTokens.objects.filter(user=user[0], token=request.POST.get("token"))
+
+    if len(find_token) < 1:
+        raise exceptions.NotFound("Could not find token")
+    
+    response = delete_access_token(token_name=request.POST.get("token"))
+
+    if response.status_code == 200:
+        api_response = {
+                "deleted": True,
+                "access_token": find_token[0].token
+            }
+    else:
+        api_response = {
+            "status_code": response.status_code,
+            "json": response.json()
+        }
+
+    return ApiResponse(data=api_response, response=response.status_code)
+
+def create_access_token(password, username):
+    
+    user = CEDAUser.objects.filter(username=username).first()
+    # Disable filtering by expiry for now, short expiry time makes testing annoying
+    # no_of_tokens = AccessTokens.objects.filter(user=user, expiry__gte=datetime.now())
+    no_of_tokens = AccessTokens.objects.filter(user=user)
+
+    if len(no_of_tokens) >= 2:
+        response = Response()
+        response.code = "forbidden"
+        response.error_type = "forbidden"
+        response.status_code = 403
+        response._content = b'{"error_description" : "You may only have 2 access tokens" }'
+
+        return response
+    url = settings.OIDC_OP_TOKEN_ENDPOINT
+
+    payload = f'username={ username }&password={ password }&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    
+    return response
+
+def delete_access_token(key=None, token_name=None):
+    if key is not None:
+        token = AccessTokens.objects.get(pk=key)
+    elif token_name is not None:
+        token = AccessTokens.objects.get(token=token_name)
+    else:
+        raise exceptions.APIException({"error": "Did not provide token details"}, code=400)
+
+    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/revoke"
+    payload = f'client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&token={token.token}'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    if response.status_code == 200:
+        token.delete()
+
+    return response

@@ -8,7 +8,7 @@ __date__ = "2019-08-28"
 __copyright__ = "Copyright 2019 United Kingdom Research and Innovation"
 __license__ = "BSD - see LICENSE file in top-level directory"
 
-
+import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -157,6 +157,11 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
         help_text='Indicates if this user has created a FTP password.'
     )
 
+    has_access_token = models.BooleanField(
+        default=False,
+        help_text='Indicates if this user has created an Access Token.'
+    )
+
     def email_confirm_required(self):
         """
         Returns true if the user needs to confirm their email address soon, false
@@ -257,3 +262,32 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
                 user.notify_pending_deadline(*args, **kwargs)
         else:
             super().notify_pending_deadline(*args, **kwargs)
+
+
+class AccessTokens(models.Model):
+    class Meta:
+        verbose_name = 'CEDA Access Token',
+        verbose_name_plural = 'CEDA Access Tokens',
+
+    token = models.TextField(
+        verbose_name="API Access token",
+        help_text="An access token that allows for access to the CEDA API",
+        )
+    user = models.ForeignKey(CEDAUser, models.CASCADE)
+    expiry = models.DateTimeField(
+        verbose_name="Token Expiry Date",
+        help_text="The tokens expiry date",
+    )
+    token_name = models.TextField(
+        verbose_name="Name of token for easy reference",
+        help_text="An optional name for the token",
+        blank=True,
+        null=True,
+    )
+
+    @property
+    def is_expired(self):
+        now = datetime.datetime.now()
+        if self.expiry > now:
+            return True
+        return False
