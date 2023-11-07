@@ -21,7 +21,7 @@
 
 {% block content %}
 <div class="alert alert-warning">
-    This feature is still under development and should be used with caution. Documentation will be coming soon.
+    This feature is still under development and not be stable. Please use the help beacon below to contact us if you require assistance.
 </div>
 {% if details is not none %}
     <div class="alert alert-danger">
@@ -32,7 +32,16 @@
 {% endif %}
 <h3>CEDA Access Tokens</h3>
 
-<p>You can generate an access token here, which will allow you to access CEDA resources via the API. There is a limit of two access tokens.</p>
+<p>
+    This page lists your <strong>CEDA access tokens</strong>. Using these in conjunction with scripts will allow you to download or use restricted CEDA resources associated with your account without needing to log in.
+    Use the buttons below to generate new tokens, or delete unwanted tokens. You can have a maximum of two active tokens at once.
+    For information about how to use access tokens, including examples of scripted interations, please see our help article on the subject: <a href="https://help.ceda.ac.uk/article/5100-how-to-use-archive-access-tokens">How to Use Archive Access Tokens</a>.
+</p>
+<p>
+    For security reasons, tokens will expire after a period of time.
+    If you require a longer term solution for scripts, it's possible to automate the generation of fresh tokens using the <span class="text-danger"><u>token API</u> (coming soon)</span>.
+    Tokens generated using the API will also appear here.
+</p>
 
 {% if token_list|length > 0 %}
 <div class="table-responsive">
@@ -89,13 +98,12 @@
         // pop a dialog with the confirmation
         bootbox.dialog({
             closeButton : false,
-            size : 'large',
-            title : 'Please input your CEDA password',
+            size : 'medium',
+            title : '<span class="text-primary">Confirm password</span>',
             message : `<form method="POST" action="create/" class="form-horizontal" id="access-token-creation">
                 {% csrf_token %}
-                <label for="token_name">Optional token name</label>
-                <input type="text" class="form-control" name="token_name" id="token_name">
-                <label for="password">CEDA Password</label>
+                <p>Please input your CEDA account password to confirm your identity.</p>
+                <label class="text-muted" for="password">Password</label>
                 <input type="password" class="form-control" name="password" id="password">
             </form>`,
             buttons : {
