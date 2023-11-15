@@ -8,6 +8,7 @@ __license__ = "BSD - see LICENSE file in top-level package directory"
 import logging
 import json
 import random
+import re
 import string
 import base64
 import requests
@@ -540,14 +541,14 @@ def create_access_token(password, username):
         response._content = b'{"error_description" : "You may only have 2 access tokens" }'
 
         return response
-    url = settings.OIDC_OP_TOKEN_ENDPOINT
 
+    url = settings.OIDC_OP_TOKEN_ENDPOINT
     payload = f'username={ username }&password={ password }&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password'
     headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, verify=settings.OIDC_VERIFY_SSL)
     
     return response
 
@@ -559,13 +560,13 @@ def delete_access_token(key=None, token_name=None):
     else:
         raise exceptions.APIException({"error": "Did not provide token details"}, code=400)
 
-    url = "https://accounts.ceda.ac.uk/realms/ceda/protocol/openid-connect/revoke"
+    url = re.sub("token$", "revoke", settings.OIDC_OP_TOKEN_ENDPOINT)
     payload = f'client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&token={token.token}'
     headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, verify=settings.OIDC_VERIFY_SSL)
 
     if response.status_code == 200:
         token.delete()
