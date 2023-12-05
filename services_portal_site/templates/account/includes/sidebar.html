@@ -8,6 +8,10 @@
             <a class="nav-link" href="https://services.ceda.ac.uk/cedasite/myceda/passwd/">Password</a>
         </li>
         <li class="nav-item">
+            {% url 'jasmin_account' as jasmin_link_url %}
+            <a class="nav-link {% if request.path == jasmin_link_url %}active{% endif %}" href="{{ jasmin_link_url }}">JASMIN Account Link</a>
+        </li>
+        <li class="nav-item">
             {% url 'ftp_password' as ftp_password_url %}
             <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">FTP Account</a>
         </li>
