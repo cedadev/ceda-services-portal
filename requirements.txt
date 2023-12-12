@@ -8,10 +8,8 @@ asgiref==3.7.2
 certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==3.2.0
-crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980
 cryptography==41.0.3
 deprecation==2.1.0
-dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9
 django==3.2.21
 django-bootstrap5==23.3
 django-classy-tags==4.1.0
