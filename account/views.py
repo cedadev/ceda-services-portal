@@ -37,6 +37,8 @@ from rest_framework.response import Response as ApiResponse
 from jasmin_services.models import Category, Service, Role, RoleObjectPermission, Request
 from jasmin_metadata.models import Form
 
+from account.utils import keycloak_apply_jasmin_link
+
 from .models import CEDAUser, AccessTokens
 from .rabbit import RabbitConnection
 
@@ -286,10 +288,19 @@ def account_jasmin_link(request):
         # Note that the token is already removed from the session
         return redirect('jasmin_authorise')
     if response.status_code == 200:
-        # If the account linking was successful, store the OAuth token for later
-        content = json.loads(response.content)
-        CEDAUser.objects.filter(username = request.user.username).update(jasminaccountid = content['username'])
-        messages.success(request, 'JASMIN account linked successfully')
+
+        try:
+            # Also, update the user's jasmin account ID in Keycloak
+            keycloak_apply_jasmin_link(request.user, content['username'])
+
+            # If the account linking was successful, store the OAuth token for later
+            content = json.loads(response.content)
+            CEDAUser.objects.filter(username = request.user.username).update(jasminaccountid = content['username'])
+            messages.success(request, 'JASMIN account linked successfully')
+
+        except Exception as e:
+            LOG.error('Error while linking JASMIN account to {}: {}'.format(request.user, e))
+            messages.error(request, 'Error while linking JASMIN account')
     else:
         try:
             # If we can extract an error message from an error response, then just
@@ -298,7 +309,7 @@ def account_jasmin_link(request):
         except Exception:
             # If we can't extract an error message from the error response, it might
             # be something more serious, so log it
-            _log.error('Error while linking JASMIN account to {}: {} {}'.format(
+            LOG.error('Error while linking JASMIN account to {}: {} {}'.format(
                 request.user, response.status_code, response.reason
             ))
             messages.error(request, 'Error while linking JASMIN account')
