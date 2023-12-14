@@ -290,12 +290,12 @@ def account_jasmin_link(request):
     if response.status_code == 200:
 
         try:
+            jasminaccountid = json.loads(response.content)["username"]
             # Also, update the user's jasmin account ID in Keycloak
-            keycloak_apply_jasmin_link(request.user, content['username'])
+            keycloak_apply_jasmin_link(request.user, jasminaccountid)
 
             # If the account linking was successful, store the OAuth token for later
-            content = json.loads(response.content)
-            CEDAUser.objects.filter(username = request.user.username).update(jasminaccountid = content['username'])
+            CEDAUser.objects.filter(username = request.user.username).update(jasminaccountid=jasminaccountid)
             messages.success(request, 'JASMIN account linked successfully')
 
         except Exception as e:

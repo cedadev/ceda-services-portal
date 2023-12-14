@@ -81,7 +81,8 @@ class CEDAUserAdmin(auth_admin.UserAdmin):
         ('Account Details', {
             'fields': ('first_name', 'last_name', 'email',
                        'service_user', 'responsible_users',
-                       'discipline', 'degree', 'institution'),
+                       'discipline', 'degree', 'institution',
+                       'jasminaccountid'),
         }),
         ('CEDA Permissions', {
             'fields': ('is_active', 'user_reason', 'internal_reason',
