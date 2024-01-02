@@ -14,62 +14,62 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'django.contrib.humanize',
-    'markdown_deux',
-    'account',
-    'cookielaw',
-    'fwtheme_django_ceda_serv',
-    'fwtheme_django',
-    'crispy_forms',
-    'dateutil',
-    'jasmin_ldap',
-    'jasmin_ldap_django',
-    'jasmin_django_utils',
-    'jasmin_notifications',
-    'jasmin_services',
-    'jasmin_metadata',
-    'django_countries',
-    'widget_tweaks',
-    'polymorphic',
-    'mozilla_django_oidc',
-    'rest_framework',
-    'requests_oauthlib',
-    'crypto_cookie',
-    'services_portal_site',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.humanize",
+    "markdown_deux",
+    "account",
+    "cookielaw",
+    "fwtheme_django_ceda_serv",
+    "fwtheme_django",
+    "crispy_forms",
+    "dateutil",
+    "jasmin_ldap",
+    "jasmin_ldap_django",
+    "jasmin_django_utils",
+    "jasmin_notifications",
+    "jasmin_services",
+    "jasmin_metadata",
+    "django_countries",
+    "widget_tweaks",
+    "polymorphic",
+    "mozilla_django_oidc",
+    "rest_framework",
+    "requests_oauthlib",
+    "crypto_cookie",
+    "services_portal_site",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'mozilla_django_oidc.middleware.SessionRefresh',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "mozilla_django_oidc.middleware.SessionRefresh",
 ]
 
-ROOT_URLCONF = 'services_portal_site.urls'
+ROOT_URLCONF = "services_portal_site.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'account.context_processors.account_management_url',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "account.context_processors.account_management_url",
             ],
         },
     },
@@ -77,30 +77,20 @@ TEMPLATES = [
 
 
 AUTHENTICATION_BACKENDS = [
-    'account.backends.CEDAAuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    "account.backends.CEDAAuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
-WSGI_APPLICATION = 'services_portal_site.wsgi.application'
+WSGI_APPLICATION = "services_portal_site.wsgi.application"
 
 
 # Crispy forms
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 # Default portal settings
 
-JASMIN_SERVICES = {
-    'DEFAULT_EXPIRY_DELTA' : None,
-    'NOTIFY_EXPIRE_DELTAS' : [],
-    'LDAP_GROUPS' : [],
-    'JISCMAIL_TO_ADDRS' : None,
-    'DEFAULT_METADATA_FORM': 1,
-}
+AUTH_USER_MODEL = "account.CEDAUser"
 
-AUTH_USER_MODEL = 'account.CEDAUser'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': []
-}
+REST_FRAMEWORK = {"DEFAULT_AUTHENTICATION_CLASSES": []}
