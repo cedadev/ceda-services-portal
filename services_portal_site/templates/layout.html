@@ -3,6 +3,15 @@
 
 {% block head_title %}{% block page_title %}{% endblock %} | CEDA Services Portal{% endblock %}
 
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">CEDA Services</a></li>
+            {% block service_breadcrumbs %}{% endblock%}
+        </ol>
+    </nav>
+{% endblock %}
+
 {% block navbar_dropdown %}
   {% login_url as login_url %}
   {% logout_url as logout_url %}

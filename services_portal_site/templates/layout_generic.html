@@ -8,7 +8,7 @@
     {# some customisations go here before theme styling #}
     {% block stylesheets_pre_extra %}{% endblock stylesheets_pre_extra %}
 
-    <link rel="stylesheet" href="{% artefact "vendor/css/fontawesome-all.min.css" %}" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     {# most further customisations can go here, after jasmin theme styling #}
     {% block stylesheets_extra %}{% endblock %}
@@ -43,10 +43,6 @@
         </div>
     </div>
 {% endblock navbar_main %}
-
-
-{% block page_special %}
-{% endblock %}
 
 {% block page_container %}
     <div class="container mt-2" id="content-main">
@@ -97,41 +93,15 @@
 
             {% endblock content_header %}
 
-            {% block content_panel %}
+            {% block content_panel_super %} {% block content_panel %}
                 <div class="row">
                     <div class="col-md-12">
                         {% block content %}{% endblock content%}
                     </div>
                 </div>
-            {% endblock content_panel %}
+            {% endblock content_panel %} {% endblock content_panel_super %}
 
         {% endblock content_main %}
 
     </div>
 {% endblock page_container %}
-
-{% block footer %}
-    <footer class="border-top pt-3 px-3 mt-3">
-        <div class="container-fluid">
-            <div class="row justify-content-md-center">
-                <div class="col-md-2 text-end">
-                    <img src="{% artefact "assets/img/ncas_logo_transparent_blacktext.png" %}">
-                </div>
-                <div class="col-md-4 text-center">
-                    <p>Copyright © 2018 <a href="https://stfc.ac.uk">STFC</a> All Rights Reserved</p>
-                    <p><a href="https://www.ceda.ac.uk/accessibility">Accessibility</a> | <a href="https://www.ceda.ac.uk/disclaimer">Disclaimer</a> | <a href="https://www.ceda.ac.uk/privacy-and-cookies/">Privacy and Cookies</a></p>
-                    <p><a href="https://ceda.ac.uk">CEDA</a></p>
-                </div>
-
-                <div class="col-md-2 text-start">
-                    <img src="{% artefact "assets/img/nceologo200.png" %}">
-                </div>
-            </div>
-        </div>
-    </footer>
-{% endblock footer %}
-
-{% block tail_js %}
-    <script src="{% artefact "vendor/js/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% artefact "vendor/js/jquery.min.js" %}"></script>
-{% endblock tail_js %}

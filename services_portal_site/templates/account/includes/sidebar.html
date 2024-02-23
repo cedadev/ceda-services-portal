@@ -1,11 +1,8 @@
 <div class="navbar-full">
-    <h4 class="mb-2">Account settings</h4>
     <ul class="nav flex-column nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="{{ account_management_url }}">Profile</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ account_management_url }}/password">Password</a>
+            {% url 'jasmin_services:my_services' as my_services_url %}
+            <a class="nav-link {% if request.path|slice:'0:9' == '/services' %}active{% endif %}" href="{% if True %}{{ my_services_url }}{% else %}https://services.ceda.ac.uk/cedasite/myceda/user/{% endif %}">My Archive Access</a>
         </li>
         <li class="nav-item">
             {% url 'jasmin_account' as jasmin_link_url %}
@@ -20,14 +17,10 @@
             <a class="nav-link {% if request.path == access_token_url %}active{% endif %}" href="{{ access_token_url }}">Access Token</a>
         </li>
     </ul>
-    <h4 class="mt-4 mb-2">Archive Access</h4>
+    <h4 class="mt-4 mb-2">My CEDA Account</h4>
     <ul class="nav flex-column nav-pills">
         <li class="nav-item">
-            {% url 'jasmin_services:my_services' as my_services_url %}
-                        <!--<a class="nav-link {% if request.path == my_services_url %}active{% endif %}" href="{{ my_services_url }}">My Archive Access</a>-->
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="https://services.ceda.ac.uk/cedasite/myceda/user/">My Archive Access</a>
+            <a class="nav-link" href="{{ account_management_url }}">Account Settings&thinsp;<i class="fa fa-external-link" aria-hidden="true"></i></a>
         </li>
     </ul>
 </div>
