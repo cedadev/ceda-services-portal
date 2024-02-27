@@ -27,7 +27,6 @@ classifiers = [
 dependencies = [
     "Django>=3.2.19,<3.3",
     "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
-    "dj-security-middleware @ git+https://github.com/cedadev/dj-security-middleware.git@a274146198848db1684c366400d57376509b52d9",
     "django-cookie-law==2.2.0",
     "django-countries>=7.2.1,<7.6.0",
     "django-crispy-forms>=1.14.0,<2.0.0",
