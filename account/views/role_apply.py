@@ -2,6 +2,7 @@ import logging
 
 import django.conf
 import django.core.exceptions
+import django.forms.widgets
 import httpx
 import jasmin_services.views
 from django.core.cache import cache
@@ -34,9 +35,9 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
             licence_info = self.httpx_client.get(
                 self.licence_url, params={"group": service_name}
             ).json()
-        # Annoyingly if there is an error, the API returns a 200 with a dict with a single key "error".
+        # Annoyingly if there is an error the API returns 200 with a dict with a single key "error"
         # Otherwise, it returns a list of dicts of licences.
-        if type(licence_info) is dict and "error" in licence_info.keys():
+        if isinstance(licence_info, dict) and "error" in licence_info.keys():
             logger.error("Licence for group %s does not exist.", service_name)
             raise django.core.exceptions.ObjectDoesNotExist(str(licence_info["error"]))
         # Exactly one licence should be returned.
@@ -57,7 +58,18 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         initial["licence_url"] = self.licence_info["url_link"]
         return initial
 
+    def get_form(self, form_class=None):
+        """Override the licence_url field to hide it from the users."""
+        form = super().get_form(form_class)
+        form.fields["licence_url"].widget = django.forms.widgets.HiddenInput()
+        return form
+
     def form_valid(self, form):
-        """Inject the licence_url into the form on save."""
-        form.cleaned_data["licence_url"] = self.licence_info["url_link"]
+        """Confirm that the licence URL sent has not been changed by the user.
+
+        By doing it this way, we also ensure that the URL the user was shown is always the same
+        as the one stored in the database.
+        """
+        if form.cleaned_data["licence_url"] != self.licence_info["url_link"]:
+            raise django.core.exceptions.SuspiciousOperation()
         return super().form_valid(form)
