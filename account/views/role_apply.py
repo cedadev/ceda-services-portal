@@ -7,6 +7,8 @@ import httpx
 import jasmin_services.views
 from django.core.cache import cache
 
+from .. import exceptions
+
 logger = logging.getLogger()
 
 
@@ -41,7 +43,7 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         # Otherwise, it returns a list of dicts of licences.
         if isinstance(licence_info, dict) and "error" in licence_info.keys():
             logger.error("Licence for group %s does not exist.", service_name)
-            raise django.core.exceptions.ObjectDoesNotExist(str(licence_info["error"]))
+            raise exceptions.LicenceNotFoundError(str(licence_info["error"]))
         # Exactly one licence should be returned.
         # We don't handle the case where more than one is returned.
         if len(licence_info) > 1:
