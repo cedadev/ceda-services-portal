@@ -29,8 +29,10 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
 
     def get_licence_info(self, service_name):
         """Get the licence info from the access instructor."""
+        # Get the licence from the cache if available.
         cache_key = f"cedaservices-licence-{service_name}"
         licence_info = cache.get(cache_key)
+        # Otherwise get it from the access instructor.
         if licence_info is None:
             licence_info = self.httpx_client.get(
                 self.licence_url, params={"group": service_name}
@@ -44,6 +46,8 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         # We don't handle the case where more than one is returned.
         if len(licence_info) > 1:
             raise django.core.exceptions.MultipleObjectsReturned()
+        # Cache the licence response for 10 minutes.
+        cache.set(cache_key, licence_info, 600)
         return licence_info[0]
 
     def get_context_data(self, **kwargs):
