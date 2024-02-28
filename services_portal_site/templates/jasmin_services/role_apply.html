@@ -1,1 +1,17 @@
 {% extends "jasmin_services/role_apply.html" %}
+{% block content_panel %}
+    <div class="row">
+        <div class="col-md-12">
+            {% block content %}
+                {{ block.super }}
+            {% endblock content %}
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-md-12">
+            {% block licence %}
+                <object type="application/pdf" data="{{ licence_url }}" width="100%" height="900vh"></object>
+            {% endblock licence %}
+        </div>
+    </div>
+{% endblock content_panel %}
