@@ -44,12 +44,12 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
     def get_licence_info(self, service_name):
         """Get the licence info from the access instructor."""
         # Get the licence from the cache if available.
-        cache_key = f"cedaservices-licence-{service_name}-1"
+        cache_key = f"cedaservices-licence-{service_name}"
         licence_info = cache.get(cache_key)
         # Otherwise get it from the access instructor.
         if licence_info is None:
             licence_info = self.httpx_client.get(
-                self.licence_url, params={"group": "service_name"}
+                self.licence_url, params={"group": service_name}
             ).json()
         # Annoyingly if there is an error the API returns 200 with a dict with a single key "error"
         # Otherwise, it returns a list of dicts of licences.
