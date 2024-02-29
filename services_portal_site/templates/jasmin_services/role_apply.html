@@ -1,4 +1,9 @@
 {% extends "jasmin_services/role_apply.html" %}
+{% block head_title %}You are applying for {{ role.service.name }}{% endblock head_title %}
+{% block page_title %}You are applying for <code>{{ role.service.name }}</code>: <br />
+<span class="fs-4 fst-italic">{{ role.service.summary }}</span>{% endblock page_title %}
+{% block service_breadcrumbs %}{% endblock service_breadcrumbs %}
+{% block service_identity %}{% endblock service_identity %}
 {% block content_panel %}
     <div class="row">
         <div class="col-md-12">

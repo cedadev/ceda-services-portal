@@ -4,6 +4,7 @@ import django.conf
 import django.contrib.messages
 import django.core.exceptions
 import django.forms.widgets
+import django.urls
 import httpx
 import jasmin_services.views
 from django.core.cache import cache
@@ -91,3 +92,7 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         if form.cleaned_data["licence_url"] != self.licence_info["url_link"]:
             raise django.core.exceptions.SuspiciousOperation()
         return super().form_valid(form)
+
+    def get_success_url(self):
+        """Override to send the user to the "my_services" page after they submit their request."""
+        return django.urls.reverse("jasmin_services:my_services")
