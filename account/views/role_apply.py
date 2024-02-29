@@ -1,6 +1,7 @@
 import logging
 
 import django.conf
+import django.contrib.messages
 import django.core.exceptions
 import django.forms.widgets
 import httpx
@@ -25,17 +26,30 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         """Add licence info for use in form and context."""
         # pylint: disable=attribute-defined-outside-init
         super().setup(request, *args, **kwargs)
-        self.licence_info = self.get_licence_info(self.service.name)
+        try:
+            self.licence_info = self.get_licence_info(self.service.name)
+        except django.core.exceptions.ObjectDoesNotExist:
+            self.licence_info = None
+
+    def dispatch(self, request, *args, **kwargs):
+        """Override dispatch to provide a nice error message if a service has no licence."""
+        if self.licence_info is None:
+            django.contrib.messages.error(
+                request,
+                f"You cannot apply for {self.service.name}, because no licence was found. Please contact support for assistance.",
+            )
+            return jasmin_services.views.common.redirect_to_service(self.service)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_licence_info(self, service_name):
         """Get the licence info from the access instructor."""
         # Get the licence from the cache if available.
-        cache_key = f"cedaservices-licence-{service_name}"
+        cache_key = f"cedaservices-licence-{service_name}-1"
         licence_info = cache.get(cache_key)
         # Otherwise get it from the access instructor.
         if licence_info is None:
             licence_info = self.httpx_client.get(
-                self.licence_url, params={"group": service_name}
+                self.licence_url, params={"group": "service_name"}
             ).json()
         # Annoyingly if there is an error the API returns 200 with a dict with a single key "error"
         # Otherwise, it returns a list of dicts of licences.
