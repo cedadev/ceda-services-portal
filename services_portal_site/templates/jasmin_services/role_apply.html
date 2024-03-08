@@ -1,0 +1,39 @@
+{% extends "jasmin_services/role_apply.html" %}
+{% block head_title %}You are applying for {{ role.service.name }}{% endblock head_title %}
+{% block page_title %}You are applying for <code>{{ role.service.name }}</code>: <br />
+<span class="fs-4 fst-italic">{{ role.service.summary }}</span>{% endblock page_title %}
+{% block service_breadcrumbs %}{% endblock service_breadcrumbs %}
+{% block service_identity %}{% endblock service_identity %}
+{% block content_panel %}
+    <div class="row">
+        <div class="col-md-12">
+            <p>We need you to give us some details of what you will be using this data for. Your research description should answer the following questions:</p>
+            <ul>
+                <li>What is the purpose of your research? What is the title of your research project?</li>
+                <li>How do you intend to use the data for which you are applying for access to?</li>
+                <li>What are your publication prospects? Please give the type of publication (e.g. article) and where this will be available (e.g. open literature, name of journal, etc)</li>
+                <li>What is the exact nature of the funding for your research?</li>
+                <li>Are there any commercial aspects to your research (e.g. work carried out for a commercial partner?)</li>
+                <li>If you have not provided all relevant details then your application may be delayed or rejected.</li>
+            </ul>
+            <p>Similarly, if your research description suggests that others might have access to the data too (e.g. using "We" in the research description), then your application may be delayed.</p>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% block content %}
+                {{ block.super }}
+            {% endblock content %}
+            <p><strong>By clicking on the Apply button above, I accept the below agreement(s) and confirm that my personal details and research details, are correct. I understand that if I have provided false details then this agreement will be null and void. We recommend that you download and store a copy of this agreement for your own records.<strong></p>
+            <hr />
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-md-12">
+            {% block licence %}
+                <object type="application/pdf" data="{{ licence_url }}" width="100%" height="900vh"></object>
+            {% endblock licence %}
+        </div>
+    </div>
+{% endblock content_panel %}

@@ -11,6 +11,7 @@ from .account_jasmin_link import (
 )
 from .api import ServiceCreate, access_token_api_create, access_token_api_delete
 from .ftp_password import account_ftp_password
+from .role_apply import CEDARoleApplyView
 
 __all__ = [
     "access_token_create",
@@ -24,4 +25,5 @@ __all__ = [
     "access_token_api_create",
     "access_token_api_delete",
     "account_ftp_password",
+    "CEDARoleApplyView",
 ]
