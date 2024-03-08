@@ -70,7 +70,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "account.context_processors.account_management_url",
+                "fwtheme_django_ceda_serv.context_processors.account_management_urls",
             ],
         },
     },
