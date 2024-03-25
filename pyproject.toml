@@ -43,7 +43,7 @@ dependencies = [
     "jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.2",
     "jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.2.7",
     "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@54e138f4723ef0c67e6f84ecef5c15e928039777",
-    "mozilla-django-oidc>=2.0.0,<3.0.0",
+    "mozilla-django-oidc>=2.0.0,<5.0.0",
     "oauthlib>=3.2.0,<4.0.0",
     "pika>=1.2.0,<2.0.0",
     "psycopg2-binary>=2.9.3,<3.0.0",
