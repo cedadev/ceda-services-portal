@@ -10,13 +10,8 @@
 {% block page_title %}Access Token{% endblock %}
 {% block head_title %}Access Token{% endblock %}
 
-{% block breadcrumbs %}
-<ol class="breadcrumb p-3">
-    <li class="breadcrumb-item">
-        <a class="breadcrumb-link" href="{% url 'jasmin_services:my_services'%}">CEDA Services</a>
-    </li>
-    <li class="breadcrumb-item active">Access Token Generator</li>
-</ol>
+{% block service_breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">Access Token</li>
 {% endblock %}
 
 {% block content %}
