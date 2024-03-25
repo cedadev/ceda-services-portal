@@ -49,7 +49,7 @@ psycopg2-binary==2.9.9
 pyasn1==0.5.1
 pycparser==2.21
 pyopenssl==24.0.0
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
 python-keycloak==3.9.1
 pytz==2024.1
 requests==2.31.0
