@@ -38,7 +38,7 @@ jasmin-metadata @ git+https://github.com/cedadev/jasmin-metadata.git@v1.0.2
 jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.2.7
 jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@54e138f4723ef0c67e6f84ecef5c15e928039777
 josepy==1.14.0
-jwcrypto==1.5.4
+jwcrypto==1.5.6
 ldap3==2.9.1
 markdown2==2.4.13
 mozilla-django-oidc==2.0.0
