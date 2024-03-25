@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "requests_oauthlib",
     "crypto_cookie",
     "services_portal_site",
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = "services_portal_site.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "services_portal_site", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -69,7 +70,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "account.context_processors.account_management_url",
+                "fwtheme_django_ceda_serv.context_processors.account_management_urls",
             ],
         },
     },

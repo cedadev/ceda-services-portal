@@ -1,15 +1,10 @@
 {% extends 'layout_sidebar.html' %}
 
-{% block page_title %}Link JASMIN account{% endblock %}
-{% block head_title %}Link JASMIN account{% endblock %}
+{% block page_title %}JASMIN Account Link{% endblock %}
+{% block head_title %}JASMIN Account Link{% endblock %}
 
-{% block breadcrumbs %}
-    <ol class="breadcrumb p-3">
-        <li class="breadcrumb-item">
-            <a class="breadcrumb-link" href="{% url 'jasmin_services:my_services'%}">CEDA Services</a>
-        </li>
-        <li class="breadcrumb-item active">Link JASMIN Account</li>
-    </ol>
+{% block service_breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">JASMIN Account Link</li>
 {% endblock %}
 
 {% block content %}
@@ -19,20 +14,20 @@
             <p>
                 Linking to a <a href="https://jasmin.ac.uk/">JASMIN</a> account allows you filesystem access to data on CEDA archive. Find out more <a href="https://help.ceda.ac.uk/article/5105-linking-your-jasmin-account">here</a>.
             </p>
-            {% if request.user.jasminaccountid %}
-                <p>
-                    <b>Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code></b>
-                </p>
-                </div>
-                </div>
-                <div class="col-sm-12 col-md-12">
-                    <a href="{{ jasmin_account }}" class="float-right btn btn-md btn-primary" style="color:white">JASMIN account</a>
-                </div>
-            {% else %}
-                </div>
-                </div>
-                <div class="col-sm-12 col-md-12">
-                    <a href="{% url 'jasmin_link'%}" class="float-right btn btn-md btn-primary pointer" style="color:white; cursor: pointer;">Link Now</a>
-                </div>
-            {% endif %}
+{% if request.user.jasminaccountid %}
+            <p>
+                <b>Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code></b>
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <a href="{{ jasmin_account }}" class="float-right btn btn-md btn-primary" style="color:white">JASMIN account</a>
+    </div>
+{% else %}
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <a href="{% url 'jasmin_link'%}" class="float-right btn btn-md btn-primary pointer" style="color:white; cursor: pointer;">Link Now</a>
+    </div>
+{% endif %}
 {% endblock %}

@@ -1,137 +1,57 @@
 {% extends "fwtheme_django/layout.html" %}
 {% load static cookielaw_tags i18n artefacts %}
 
-{% block stylesheets %}
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{% artefact "theme/css/main.css" %}" media="screen">
+{% block content_main %}
 
-    {# some customisations go here before theme styling #}
-    {% block stylesheets_pre_extra %}{% endblock stylesheets_pre_extra %}
-
-    <link rel="stylesheet" href="{% artefact "vendor/css/fontawesome-all.min.css" %}" media="screen">
-
-    {# most further customisations can go here, after jasmin theme styling #}
-    {% block stylesheets_extra %}{% endblock %}
-
-    <!-- per-page stylesheet block -->
-    {% block stylesheets_page %}{% endblock %}
-
-    {% block head_extra %}
-        <link rel="icon" href="{% artefact "assets/img/favicon/favicon.ico" %}" sizes="any">
-        <link rel="icon" href="{% artefact "assets/img/favicon/icon.svg" %}" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="{% artefact "assets/img/favicon/apple-touch-icon.png" %}">
-    {% endblock head_extra %}
-
-{% endblock stylesheets %}
-
-{% block navbar_main %}
-    <div class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
-        <div class="container">
-            {% block navbar_branding %}
-                <a href="/" class="navbar-brand">
-                    <img src="{% artefact "assets/img/ceda_archive_logo_transp_white_3_h80.png" %}" alt="JASMIN logo">
-                </a>
-            {% endblock navbar_branding %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            {% block navigation %}
-                {% block navbar_dropdown %}
-                {% endblock navbar_dropdown %}
-            {% endblock navigation %}
-
-        </div>
-    </div>
-{% endblock navbar_main %}
-
-
-{% block page_special %}
-{% endblock %}
-
-{% block page_container %}
-    <div class="container mt-2" id="content-main">
-
-        {% block content_main %}
-            {% block content_header %}
-
-                <div class="page-header" id="banner">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-7 col-sm-6">
-                            <h1 class="fs-3">{% block page_title %}Page title{% endblock %}</h1>
-                        </div>
-                        {% block info_panel %}
-                            <div class="col-lg-4 col-md-5 col-sm-6">
-                                <div class="sponsor">
-                                    {% block notifications %}
-                                        {% if messages %}
-                                            {% for message in messages %}
-                                                {% if 'success' in message.tags %}
-                                                    <div class="alert alert-with-icon alert-success" role="alert">
-                                                        <i class="fas fa-check-circle"></i> <span>{{ message }}</span>
-                                                    </div>
-                                                {% elif 'error' in message.tags %}
-                                                    <div class="alert alert-with-icon alert-danger" role="alert">
-                                                        <i class="fas fa-exclamation-circle"></i> <span>{{ message }}</span>
-                                                    </div>
-                                                {% elif 'warning' in message.tags %}
-                                                    <div class="alert alert-with-icon alert-warning" role="alert">
-                                                        <i class="fas fa-exclamation-triangle"></i> <span>{{ message }}</span>
-                                                    </div>
-                                                {% else %}
-                                                    <div class="alert alert-with-icon alert-info" role="alert">
-                                                        <i class="fas fa-info-circle"></i> <span>{{ message }}</span>
-                                                    </div>
-                                                {% endif %}
-                                            {% endfor %}
+    {% block content_header %}
+        <div class="page-header" id="banner">
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-sm-6">
+                    <h1 class="fs-3">{% block page_title %}Page title{% endblock %}</h1>
+                </div>
+                {% block info_panel %}
+                    <div class="col-lg-4 col-md-5 col-sm-6">
+                        <div class="sponsor">
+                            {% block notifications %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'success' in message.tags %}
+                                            <div class="alert alert-with-icon alert-success" role="alert">
+                                                <i class="fas fa-check-circle"></i> <span>{{ message }}</span>
+                                            </div>
+                                        {% elif 'error' in message.tags %}
+                                            <div class="alert alert-with-icon alert-danger" role="alert">
+                                                <i class="fas fa-exclamation-circle"></i> <span>{{ message }}</span>
+                                            </div>
+                                        {% elif 'warning' in message.tags %}
+                                            <div class="alert alert-with-icon alert-warning" role="alert">
+                                                <i class="fas fa-exclamation-triangle"></i> <span>{{ message }}</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="alert alert-with-icon alert-info" role="alert">
+                                                <i class="fas fa-info-circle"></i> <span>{{ message }}</span>
+                                            </div>
                                         {% endif %}
-                                    {% endblock %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endblock %}
 
-                                </div>
-                            </div>
-                        {% endblock info_panel %}
+                        </div>
                     </div>
-                    <div class="row">
-                        {% block breadcrumbs %}{% endblock %}
-                    </div>
-                </div>
-
-            {% endblock content_header %}
-
-            {% block content_panel %}
-                <div class="row">
-                    <div class="col-md-12">
-                        {% block content %}{% endblock content%}
-                    </div>
-                </div>
-            {% endblock content_panel %}
-
-        {% endblock content_main %}
-
-    </div>
-{% endblock page_container %}
-
-{% block footer %}
-    <footer class="border-top pt-3 px-3 mt-3">
-        <div class="container-fluid">
-            <div class="row justify-content-md-center">
-                <div class="col-md-2 text-end">
-                    <img src="{% artefact "assets/img/ncas_logo_transparent_blacktext.png" %}">
-                </div>
-                <div class="col-md-4 text-center">
-                    <p>Copyright © 2018 <a href="https://stfc.ac.uk">STFC</a> All Rights Reserved</p>
-                    <p><a href="https://www.ceda.ac.uk/accessibility">Accessibility</a> | <a href="https://www.ceda.ac.uk/disclaimer">Disclaimer</a> | <a href="https://www.ceda.ac.uk/privacy-and-cookies/">Privacy and Cookies</a></p>
-                    <p><a href="https://ceda.ac.uk">CEDA</a></p>
-                </div>
-
-                <div class="col-md-2 text-start">
-                    <img src="{% artefact "assets/img/nceologo200.png" %}">
-                </div>
+                {% endblock info_panel %}
+            </div>
+            <div class="row">
+                {% block breadcrumbs %}{% endblock %}
             </div>
         </div>
-    </footer>
-{% endblock footer %}
+    {% endblock content_header %}
 
-{% block tail_js %}
-    <script src="{% artefact "vendor/js/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% artefact "vendor/js/jquery.min.js" %}"></script>
-{% endblock tail_js %}
+    {% block content_panel_super %} {% block content_panel %}
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}{% endblock content%}
+            </div>
+        </div>
+    {% endblock content_panel %} {% endblock content_panel_super %}
+
+{% endblock content_main %}

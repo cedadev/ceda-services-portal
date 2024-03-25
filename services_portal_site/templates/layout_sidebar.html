@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block content_panel %}
+{% block content_panel_super %}
     <div class="row">
         <div class="col-md-12">
             <div class="container">
@@ -9,10 +9,16 @@
                         {% include "account/includes/sidebar.html" %}
                     </div>
                     <div class="col-md-9">
-                        {% block content %}{% endblock content%}
+                        {% block content_panel %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% block content %}{% endblock content%}
+                            </div>
+                        </div>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock content_panel %}
+{% endblock %}

@@ -26,6 +26,7 @@ django-widget-tweaks==1.5.0
 djangorestframework==3.14.0
 exceptiongroup==1.2.0
 fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@786021bdb6f34cf693d44e96803a5df7d88b76fd
+fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@9d4a64d399d4421a0e2c633a6318586b4239452a
 h11==0.14.0
 httpcore==1.0.4
 httpx==0.27.0
