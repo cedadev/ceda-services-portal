@@ -29,24 +29,5 @@ urlpatterns = [
         include("jasmin_notifications.urls", namespace="notifications"),
     ),
     path("api-auth/", include("rest_framework.urls")),
-    # Override some views from jasmin-services:
-    path(
-        "services/",
-        include(
-            [
-                path(
-                    "<slug:category>/<slug:service>/apply/<slug:role>/",
-                    account.views.CEDARoleApplyView.as_view(),
-                    name="role_apply",
-                ),
-                path(
-                    "<slug:category>/<slug:service>/apply/<slug:role>/<int:bool_grant>/<int:previous>/",
-                    account.views.CEDARoleApplyView.as_view(),
-                    name="role_apply",
-                ),
-            ]
-        ),
-    ),
-    # Then fall-through to the views from jasmin-services itself.
     path("services/", include("jasmin_services.urls", namespace="services")),
 ]
