@@ -27,7 +27,7 @@ dependencies = [
     "jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@v1.0.2",
 
     # Main CEDA Dependencies.
-    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@9dec01f7b63fea2f54585b184c074e669e5e4298",
+    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@63cb5d2c389bc6f11700f3f5b94e41b2091b1f63",
     "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
     "django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@7865641af8e0886bca244e2fc9ab27221f518ef8",
     "fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@786021bdb6f34cf693d44e96803a5df7d88b76fd",
