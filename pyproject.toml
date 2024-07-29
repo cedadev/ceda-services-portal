@@ -21,13 +21,13 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 # Run this:
-# pip-compile --allow-unsafe --no-annotate --output-file=requirements.txt --resolver=backtracking --no-strip-extras --upgrade pyproject.toml
+# uv pip compile --allow-unsafe --no-annotate --output-file=requirements.txt --resolver=backtracking --no-strip-extras pyproject.toml --python-version=3.11 --python=3.11 --upgrade
 dependencies = [
     # Dependencies of dependencies. Need to specify here so pip knows where to get them from.
     "jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@v1.0.2",
 
     # Main CEDA Dependencies.
-    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@b7e1092a466d0b8dd13e41f83b74aed63e0cf2ae",
+    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@a7c455cc054eb88b74d27d7cc3ce297770f18fd0",
     "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
     "django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@7865641af8e0886bca244e2fc9ab27221f518ef8",
     "fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@786021bdb6f34cf693d44e96803a5df7d88b76fd",
