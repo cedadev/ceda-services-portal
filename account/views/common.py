@@ -16,8 +16,10 @@ from ..models import AccessTokens, CEDAUser
 LOG = logging.getLogger(__name__)
 
 
-def delete_access_token(key=None, token_name=None):
-    if key is not None:
+def delete_access_token(token=None, key=None, token_name=None):
+    if token:
+        pass
+    elif key is not None:
         token = AccessTokens.objects.get(pk=key)
     elif token_name is not None:
         token = AccessTokens.objects.get(token=token_name)
@@ -45,13 +47,13 @@ def delete_access_token(key=None, token_name=None):
     return response
 
 
-def create_access_token(password, username):
+def create_access_token(password, username, force=False):
     user = CEDAUser.objects.filter(username=username).first()
     # Disable filtering by expiry for now, short expiry time makes testing annoying
     # no_of_tokens = AccessTokens.objects.filter(user=user, expiry__gte=datetime.now())
     no_of_tokens = AccessTokens.objects.filter(user=user)
 
-    if len(no_of_tokens) >= 2:
+    if not force and len(no_of_tokens) >= 2:
         response = Response()
         response.code = "forbidden"
         response.error_type = "forbidden"

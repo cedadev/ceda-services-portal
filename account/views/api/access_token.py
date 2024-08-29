@@ -50,12 +50,14 @@ def access_token_api_create(request):
     userid, password = auth_parts[0], auth_parts[2]
     user = CEDAUser.objects.filter(username=userid).first()
 
-    response = common.create_access_token(password, userid)
+    response = common.create_access_token(password, userid, force=True)
     response_json = response.json()
 
     api_response = {}
     if response.status_code == 200:
         logging.error(response_json)
+        token = AccessTokens.objects.filter(user=user).order_by("expiry")[0]
+        response = common.delete_access_token(token=token)
         AccessTokens.objects.create(
             token=response_json["access_token"],
             user=CEDAUser.objects.filter(username=userid).first(),
