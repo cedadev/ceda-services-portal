@@ -5,8 +5,8 @@ __license__ = "BSD-3-Clause"
 
 import base64
 import logging
-from datetime import timedelta
 
+from datetime import timedelta
 from django.utils import timezone
 from rest_framework import exceptions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -57,7 +57,7 @@ def access_token_api_create(request):
 
     api_response = {}
     if response.status_code == 200:
-        logging.error(response_json)
+
         token = AccessTokens.objects.filter(user=user).order_by("expiry")[0]
         response = common.delete_access_token(token=token)
         AccessTokens.objects.create(
@@ -66,7 +66,11 @@ def access_token_api_create(request):
             expiry=timezone.now() + timedelta(seconds=int(response_json["expires_in"])),
             token_name=request.POST.get("token_name", None),
         )
-        api_response = {"access_token": response_json["access_token"]}
+        api_response = {
+            "access_token": response_json["access_token"],
+            "expires": token.expiry
+        }
+
     else:
         api_response = response_json
 
