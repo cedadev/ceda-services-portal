@@ -93,5 +93,3 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Default portal settings
 
 AUTH_USER_MODEL = "account.CEDAUser"
-
-REST_FRAMEWORK = {"DEFAULT_AUTHENTICATION_CLASSES": []}

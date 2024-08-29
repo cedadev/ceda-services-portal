@@ -25,8 +25,7 @@ urlpatterns = [
         ],),
     ),
     path("api/", include([
-                path("token/create/", views.access_token_api_create, name="access_token_api_create"),
-                path("token/delete/", views.access_token_api_delete, name="access_token_api_delete")
+                path("token/create/", views.access_token_api_create, name="access_token_api_create")
         ],),
     )
 ]
