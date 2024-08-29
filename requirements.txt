@@ -17,7 +17,7 @@ django-crispy-forms==1.14.0
 django-flexi-settings @ git+https://github.com/cedadev/django-flexi-settings.git@eb24d17a0e0897edeb53c820df50aa478368dec8
 django-mailer==2.3.2
 django-markdown-deux==1.0.6
-django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@7865641af8e0886bca244e2fc9ab27221f518ef8
+django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@e9bd065dbff1133dffd38e14260a94c7b5c8b885
 django-picklefield==3.2
 django-polymorphic @ git+https://github.com/jazzband/django-polymorphic.git@f4286f583d6f91e896b73e450154af0fea3935a4
 django-widget-tweaks==1.5.0

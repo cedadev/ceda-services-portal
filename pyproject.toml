@@ -29,7 +29,7 @@ dependencies = [
     # Main CEDA Dependencies.
     "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@a7c455cc054eb88b74d27d7cc3ce297770f18fd0",
     "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
-    "django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@7865641af8e0886bca244e2fc9ab27221f518ef8",
+    "django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@e9bd065dbff1133dffd38e14260a94c7b5c8b885",
     "fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@786021bdb6f34cf693d44e96803a5df7d88b76fd",
     "fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@9d4a64d399d4421a0e2c633a6318586b4239452a",
     "jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@v1.0.9",
