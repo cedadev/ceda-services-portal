@@ -37,7 +37,7 @@ dependencies = [
     "jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.2.7",
 
     # Main external dependencies.
-    "Django>=5.0,<5.1",
+    "Django>=5.0,<5.2",
     "django-cookie-law==2.2.0",
     "django-countries>=7.6.0",
     "django-crispy-forms>=1.14.0,<2.0.0",
