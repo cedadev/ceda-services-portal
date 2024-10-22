@@ -1,66 +1,50 @@
-[build-system]
-requires = ["setuptools>=61.2"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "ceda-services-portal"
 version = "0.2.0"
-authors = [{name = "William Tucker", email = "william.tucker@stfc.ac.uk"}]
-maintainers = [{name = "William Tucker", email = "william.tucker@stfc.ac.uk"}]
-license = {text = "BSD - See ceda_example/LICENSE file for details"}
+authors = ["William Tucker <william.tucker@stfc.ac.uk>"]
+maintainers = ["William Tucker <william.tucker@stfc.ac.uk>"]
+license = "BSD-3-Clause"
 description = "Django application for registering and managing CEDA users."
-classifiers = [
-    "Development Status :: 2 - Alpha",
-    "Environment :: Web Environment",
-    "Framework :: Django",
-    "Intended Audience :: Developers",
-    "Intended Audience :: System Administrators",
-    "License :: OSI Approved :: BSD License",
-    "Operating System :: POSIX :: Linux",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-]
-# Run this:
-# uv pip compile --allow-unsafe --no-annotate --output-file=requirements.txt --resolver=backtracking --no-strip-extras pyproject.toml --python-version=3.11 --python=3.11 --upgrade
-dependencies = [
-    # Dependencies of dependencies. Need to specify here so pip knows where to get them from.
-    "jasmin-ldap @ git+https://github.com/cedadev/jasmin-ldap.git@v1.0.2",
 
-    # Main CEDA Dependencies.
-    "jasmin-services[keycloak] @ git+https://github.com/cedadev/jasmin-services.git@a7c455cc054eb88b74d27d7cc3ce297770f18fd0",
-    "crypto-cookie @ git+https://github.com/cedadev/crypto-cookie.git@b92dd9e6cc910d48d9380222c9273c8929666980",
-    "django-oidc-extras @ git+https://github.com/cedadev/django-oidc-extras.git@e9bd065dbff1133dffd38e14260a94c7b5c8b885",
-    "fwtheme-django @ git+https://github.com/cedadev/fwtheme-django.git@786021bdb6f34cf693d44e96803a5df7d88b76fd",
-    "fwtheme-django-ceda-serv @ git+https://github.com/cedadev/fwtheme-django-ceda-serv.git@9d4a64d399d4421a0e2c633a6318586b4239452a",
-    "jasmin-django-utils @ git+https://github.com/cedadev/jasmin-django-utils.git@v1.0.9",
-    "jasmin-ldap-django @ git+https://github.com/cedadev/jasmin-ldap-django.git@2b708c9136f31e8819ffff00fcb95567c27ed659",
-    "jasmin-notifications @ git+https://github.com/cedadev/jasmin-notifications.git@v1.2.7",
+[tool.poetry.dependencies]
+python = "^3.11"
+# Dependencies of dependencies. Need to specify here so pip knows where to get them from.
+jasmin-ldap = {git="https://github.com/cedadev/jasmin-ldap.git", tag="v1.0.2"}
 
-    # Main external dependencies.
-    "Django>=5.0,<5.1",
-    "django-cookie-law==2.2.0",
-    "django-countries>=7.6.0",
-    "django-crispy-forms>=1.14.0,<2.0.0",
-    "django-markdown-deux>=1.0.5,<2.0.0",
-    "django-widget-tweaks>=1.4.12,<2.0.0",
-    "djangorestframework>=3.13.1,<4.0.0",
-    "mozilla-django-oidc>=2.0.0,<3.0.0",
-    "oauthlib>=3.2.0,<4.0.0",
-    "pika>=1.2.0,<2.0.0",
-    "psycopg2-binary>=2.9.3,<3.0.0",
-    "python-dateutil>=2.8.2,<3.0.0",
-    "requests-oauthlib>=1.3.1,<2.0.0",
-    "httpx>=0.27.0,<0.28.0",
-    "django-mailer>=2.3.2,<2.4.0",
+# Main CEDA Dependencies.
+jasmin-services = {git="https://github.com/cedadev/jasmin-services.git", rev="381387d8c50326100e60c0f176b7c82457d2fb0c", extras=["keycloak"]}
+crypto-cookie = {git="https://github.com/cedadev/crypto-cookie.git", rev="b92dd9e6cc910d48d9380222c9273c8929666980"}
+django-oidc-extras = {git="https://github.com/cedadev/django-oidc-extras.git", rev="e9bd065dbff1133dffd38e14260a94c7b5c8b885"}
+fwtheme-django = { git="https://github.com/cedadev/fwtheme-django.git", rev="786021bdb6f34cf693d44e96803a5df7d88b76fd"}
+fwtheme-django-ceda-serv = {git="https://github.com/cedadev/fwtheme-django-ceda-serv.git", rev="9d4a64d399d4421a0e2c633a6318586b4239452a"}
+jasmin-django-utils = {git="https://github.com/cedadev/jasmin-django-utils.git", rev="v1.0.9"}
+jasmin-ldap-django = {git="https://github.com/cedadev/jasmin-ldap-django.git", rev="2b708c9136f31e8819ffff00fcb95567c27ed659"}
+jasmin-notifications = {git="https://github.com/cedadev/jasmin-notifications.git", rev="v1.2.7"}
 
-    # Deployment dependencies
-    "whitenoise>=6.6.0,<7",
-    "django-flexi-settings @ git+https://github.com/cedadev/django-flexi-settings.git@eb24d17a0e0897edeb53c820df50aa478368dec8",
+# Main external dependencies.
+Django="~5.1"
+django-cookie-law="2.2.0"
+django-countries="^7.6.0"
+django-crispy-forms ="^1.14.0"
+django-markdown-deux="^1.0.5"
+django-widget-tweaks="^1.4.12"
+djangorestframework="^3.13.1"
+mozilla-django-oidc= "^2.0.0"
+oauthlib="^3.2.0"
+pika= "^1.2.0"
+psycopg2-binary= "^2.9.3"
+python-dateutil="^2.8.2"
+requests-oauthlib = "^1.3.1"
+httpx="^0.27.0"
+django-mailer="^2.3.2"
 
-    # Extras
-    # Setuptools is needed because django-polymorphic uses the deprecated pkg_resources.
-    "setuptools"
-]
+# Deployment dependencies
+whitenoise ="^6.6.0"
+django-flexi-settings ={git="https://github.com/cedadev/django-flexi-settings.git", rev="eb24d17a0e0897edeb53c820df50aa478368dec8"}
+
+# Extras
+# Setuptools is needed because django-polymorphic uses the deprecated pkg_resources.
+setuptools = "*"
 
 [project.readme]
 file = "README.md"
@@ -78,13 +62,6 @@ profile = "black"
 [tool.pylint.main]
 load-plugins = 'pylint_django'
 
-[tool.setuptools]
-zip-safe = false
-include-package-data = false
-
-[tool.setuptools.packages]
-find = {namespaces = false}
-
-[tool.setuptools.package-data]
-services_portal_site = ["templates/**", "static/**"]
-account = ["templates/**", "static/**"]
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools>=59.6.0"]
+build-backend = "poetry.core.masonry.api"
