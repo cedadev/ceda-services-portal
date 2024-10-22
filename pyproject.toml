@@ -51,13 +51,6 @@ django-flexi-settings ={git="https://github.com/cedadev/django-flexi-settings.gi
 # Setuptools is needed because django-polymorphic uses the deprecated pkg_resources.
 setuptools = "*"
 
-[project.readme]
-file = "README.md"
-content-type = "text/markdown"
-
-[project.urls]
-Homepage = "https://github.com/cedadev/ceda-services-portal"
-
 [tool.black]
 target-version = ['py310', 'py311']
 
