@@ -6,6 +6,11 @@ maintainers = ["William Tucker <william.tucker@stfc.ac.uk>"]
 license = "BSD-3-Clause"
 description = "Django application for registering and managing CEDA users."
 
+packages = [
+    { include = "services_portal_site"},
+    { include = "account"},
+]
+
 [tool.poetry.dependencies]
 python = "^3.11"
 # Dependencies of dependencies. Need to specify here so pip knows where to get them from.
