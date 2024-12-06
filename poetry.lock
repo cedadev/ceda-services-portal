@@ -306,28 +306,14 @@ test = ["certifi", "cryptography-vectors (==43.0.3)", "pretend", "pytest (>=6.2.
 test-randomorder = ["pytest-randomly"]
 
 [[package]]
-name = "deprecation"
-version = "2.1.0"
-description = "A library to handle automated deprecations"
-optional = false
-python-versions = "*"
-files = [
-    {file = "deprecation-2.1.0-py2.py3-none-any.whl", hash = "sha256:a10811591210e1fb0e768a8c25517cabeabcba6f0bf96564f8ff45189f90b14a"},
-    {file = "deprecation-2.1.0.tar.gz", hash = "sha256:72b3bde64e5d778694b0cf68178aed03d15e15477116add3fb773e581f9518ff"},
-]
-
-[package.dependencies]
-packaging = "*"
-
-[[package]]
 name = "django"
-version = "5.1.2"
+version = "5.1.4"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.1.2-py3-none-any.whl", hash = "sha256:f11aa87ad8d5617171e3f77e1d5d16f004b79a2cf5d2e1d2b97a6a1f8e9ba5ed"},
-    {file = "Django-5.1.2.tar.gz", hash = "sha256:bd7376f90c99f96b643722eee676498706c9fd7dc759f55ebfaf2c08ebcdf4f0"},
+    {file = "Django-5.1.4-py3-none-any.whl", hash = "sha256:236e023f021f5ce7dee5779de7b286565fdea5f4ab86bae5338e3f7b69896cf0"},
+    {file = "Django-5.1.4.tar.gz", hash = "sha256:de450c09e91879fa5a307f696e57c851955c910a438a35e6b4c895e86bedc82a"},
 ]
 
 [package.dependencies]
@@ -743,7 +729,6 @@ httpx = "^0.27.0"
 jasmin-django-utils = {git = "https://github.com/cedadev/jasmin-django-utils.git", tag = "v1.0.9"}
 jasmin-notifications = {git = "https://github.com/cedadev/jasmin-notifications.git", tag = "v1.2.7"}
 python-dateutil = "^2.8.2"
-python-keycloak = {version = "^3.2.0", optional = true}
 
 [package.extras]
 api = ["django-filter (>=24.1,<25.0)", "djangorestframework (>=3.13.1,<4.0.0)", "drf-nested-routers (>=0.94.1,<0.95.0)", "drf-spectacular (>=0.27.1,<0.28.0)", "drf-spectacular-sidecar (>=2024.1.1,<2025.0.0)"]
@@ -773,21 +758,6 @@ pyopenssl = ">=0.13"
 
 [package.extras]
 docs = ["sphinx (>=4.3.0)", "sphinx-rtd-theme (>=1.0)"]
-
-[[package]]
-name = "jwcrypto"
-version = "1.5.6"
-description = "Implementation of JOSE Web standards"
-optional = false
-python-versions = ">= 3.8"
-files = [
-    {file = "jwcrypto-1.5.6-py3-none-any.whl", hash = "sha256:150d2b0ebbdb8f40b77f543fb44ffd2baeff48788be71f67f03566692fd55789"},
-    {file = "jwcrypto-1.5.6.tar.gz", hash = "sha256:771a87762a0c081ae6166958a954f80848820b2ab066937dc8b8379d65b1b039"},
-]
-
-[package.dependencies]
-cryptography = ">=3.4"
-typing-extensions = ">=4.5.0"
 
 [[package]]
 name = "ldap3"
@@ -863,17 +833,6 @@ files = [
 rsa = ["cryptography (>=3.0.0)"]
 signals = ["blinker (>=1.4.0)"]
 signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
-
-[[package]]
-name = "packaging"
-version = "24.1"
-description = "Core utilities for Python packages"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "packaging-24.1-py3-none-any.whl", hash = "sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124"},
-    {file = "packaging-24.1.tar.gz", hash = "sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"},
-]
 
 [[package]]
 name = "pika"
@@ -1022,26 +981,6 @@ files = [
 six = ">=1.5"
 
 [[package]]
-name = "python-keycloak"
-version = "3.12.0"
-description = "python-keycloak is a Python package providing access to the Keycloak API."
-optional = false
-python-versions = "<4.0,>=3.8"
-files = [
-    {file = "python_keycloak-3.12.0-py3-none-any.whl", hash = "sha256:e8073515e6b47500cf0bda0d7eb8dd0cd2e83fa537196aed7c359dec15a2ee81"},
-    {file = "python_keycloak-3.12.0.tar.gz", hash = "sha256:21dec81992db192a462a6f12b792fd1c84d18d9bf5e91dea033a46e6f51b6694"},
-]
-
-[package.dependencies]
-deprecation = ">=2.1.0"
-jwcrypto = ">=1.5.4,<2.0.0"
-requests = ">=2.20.0"
-requests-toolbelt = ">=0.6.0"
-
-[package.extras]
-docs = ["Sphinx (>=6.1.0,<7.0.0)", "alabaster (>=0.7.12,<0.8.0)", "commonmark (>=0.9.1,<0.10.0)", "m2r2 (>=0.3.2,<0.4.0)", "mock (>=4.0.3,<5.0.0)", "readthedocs-sphinx-ext (>=2.1.9,<3.0.0)", "recommonmark (>=0.7.1,<0.8.0)", "sphinx-autoapi (>=3.0.0,<4.0.0)", "sphinx-rtd-theme (>=1.0.0,<2.0.0)"]
-
-[[package]]
 name = "pyyaml"
 version = "6.0.2"
 description = "YAML parser and emitter for Python"
@@ -1141,20 +1080,6 @@ requests = ">=2.0.0"
 
 [package.extras]
 rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
-
-[[package]]
-name = "requests-toolbelt"
-version = "1.0.0"
-description = "A utility belt for advanced users of python-requests"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-files = [
-    {file = "requests-toolbelt-1.0.0.tar.gz", hash = "sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6"},
-    {file = "requests_toolbelt-1.0.0-py2.py3-none-any.whl", hash = "sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06"},
-]
-
-[package.dependencies]
-requests = ">=2.0.1,<3.0.0"
 
 [[package]]
 name = "setuptools"
