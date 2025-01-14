@@ -10,7 +10,7 @@
         </li>
         <li class="nav-item">
             {% url 'ftp_password' as ftp_password_url %}
-            <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">FTP Account</a>
+            <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">FTP Account (deprecated)</a>
         </li>
         <li class="nav-item">
             {% url 'access_token' as access_token_url %}
