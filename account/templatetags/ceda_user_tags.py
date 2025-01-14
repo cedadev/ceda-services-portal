@@ -56,17 +56,11 @@ def get_userid(context):
 
     # Legacy login or OIDC login
     if _use_legacy_login and hasattr(request, "authenticated_user"):
-        if settings.DEBUG:
-            print("auth_user")
         return request.authenticated_user.get("userid")
     elif hasattr(request, "user"):
-        if settings.DEBUG:
-            print("user")
         if request.user.is_authenticated:
             return request.user.username
     else:
-        if settings.DEBUG:
-            print("No user")
         return None
 
 

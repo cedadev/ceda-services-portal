@@ -52,7 +52,6 @@ class LoginMiddleware():
 
             # Prepare session for user
             user = User.objects.get(username=userid)
-            print(user)
 
             if not request.user.is_authenticated:
                 user = User.objects.filter(username=userid).first()
