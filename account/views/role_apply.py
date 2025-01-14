@@ -27,10 +27,14 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         """Add licence info for use in form and context."""
         # pylint: disable=attribute-defined-outside-init
         super().setup(request, *args, **kwargs)
+        self.licence_info = None
         try:
-            self.licence_info = self.get_licence_info(self.service.name)
+            # Make sure that the licence info value is a PDF (currently the only supported licence type)
+            licence_info = self.get_licence_info(self.service.name)
+            if licence_info and licence_info["url_link"] and licence_info["url_link"].endswith(".pdf"):
+                self.licence_info = licence_info
         except django.core.exceptions.ObjectDoesNotExist:
-            self.licence_info = None
+            pass
 
     def dispatch(self, request, *args, **kwargs):
         """Override dispatch to provide a nice error message if a service has no licence."""
