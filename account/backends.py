@@ -8,7 +8,7 @@ __license__ = "BSD - see LICENSE file in top-level package directory"
 
 import logging
 
-from oidc_auth.backends import OIDCAuthenticationBackend
+from oidc_auth.backends import UsernameOIDCAuthenticationBackend
 
 from account.models import Institution
 
@@ -16,13 +16,13 @@ from account.models import Institution
 log = logging.getLogger(__name__)
 
 
-class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
+class CEDAAuthenticationBackend(UsernameOIDCAuthenticationBackend):
 
     @staticmethod
     def _parse_user_attributes(claims):
 
         institution = None
-        institution_name = claims.get("institute", "")
+        institution_name = claims.get("institute", "None")
         institution, created = Institution.objects.get_or_create(
             name=institution_name,
             institution_type=claims.get("institute_type", "Other")
@@ -34,25 +34,21 @@ class CEDAAuthenticationBackend(OIDCAuthenticationBackend):
             institution.save()
 
         return {
-            "first_name": claims.get("given_name"),
-            "last_name": claims.get("family_name"),
             "discipline": claims.get("discipline", "Other"),
             "institution_id": institution.id
         }
 
-    def get_username(self, claims):
-
-        return claims.get("preferred_username")
-
     def create_user(self, claims):
 
-        email = claims.get('email')
         username = self.get_username(claims)
-
         attributes = self._parse_user_attributes(claims)
-        return self.UserModel.objects.create_user(username, email, **attributes)
+
+        user = self.UserModel.objects.create_user(username, **attributes)
+        return self.update_user(user, claims)
 
     def update_user(self, user, claims):
+
+        user = super().update_user(user, claims)
 
         attributes = self._parse_user_attributes(claims)
         for attribute, value in attributes.items():
