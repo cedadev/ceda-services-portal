@@ -17,7 +17,7 @@ python = "^3.11"
 jasmin-ldap = {git="https://github.com/cedadev/jasmin-ldap.git", tag="v1.0.2"}
 
 # Main CEDA Dependencies.
-jasmin-services = {git="https://github.com/cedadev/jasmin-services.git", rev="381387d8c50326100e60c0f176b7c82457d2fb0c", extras=["keycloak"]}
+jasmin-services = {git="https://github.com/cedadev/jasmin-services.git", rev="0294022b1ec0df8a946b14628805d7ca376fba29", extras=["keycloak"]}
 crypto-cookie = {git="https://github.com/cedadev/crypto-cookie.git", rev="b92dd9e6cc910d48d9380222c9273c8929666980"}
 django-oidc-extras = {git="https://github.com/cedadev/django-oidc-extras.git", rev="3210fea039f7f5c17dbbe9df104eecdf8cbfb4e6"}
 fwtheme-django = { git="https://github.com/cedadev/fwtheme-django.git", rev="786021bdb6f34cf693d44e96803a5df7d88b76fd"}
