@@ -1,57 +1,154 @@
 {% extends "fwtheme_django/layout.html" %}
 {% load static cookielaw_tags i18n artefacts %}
+{% load ceda_user_tags %}
 
-{% block content_main %}
+    {% block stylesheets %}
+        <!-- Bootstrap Core
+        CSS -->
+        <link rel="stylesheet" href="{% artefact "theme/css/main.css" %}" media="screen">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_serv/0.2/_assets/css/custom.min.css">
+        <link rel="stylesheet" href="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_serv/0.2/_assets/css/org-custom.css">
 
-    {% block content_header %}
-        <div class="page-header" id="banner">
-            <div class="row">
-                <div class="col-lg-8 col-md-7 col-sm-6">
-                    <h1 class="fs-3">{% block page_title %}Page title{% endblock %}</h1>
-                </div>
-                {% block info_panel %}
-                    <div class="col-lg-4 col-md-5 col-sm-6">
-                        <div class="sponsor">
-                            {% block notifications %}
-                                {% if messages %}
-                                    {% for message in messages %}
-                                        {% if 'success' in message.tags %}
-                                            <div class="alert alert-with-icon alert-success" role="alert">
-                                                <i class="fas fa-check-circle"></i> <span>{{ message }}</span>
-                                            </div>
-                                        {% elif 'error' in message.tags %}
-                                            <div class="alert alert-with-icon alert-danger" role="alert">
-                                                <i class="fas fa-exclamation-circle"></i> <span>{{ message }}</span>
-                                            </div>
-                                        {% elif 'warning' in message.tags %}
-                                            <div class="alert alert-with-icon alert-warning" role="alert">
-                                                <i class="fas fa-exclamation-triangle"></i> <span>{{ message }}</span>
-                                            </div>
-                                        {% else %}
-                                            <div class="alert alert-with-icon alert-info" role="alert">
-                                                <i class="fas fa-info-circle"></i> <span>{{ message }}</span>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endblock %}
+        {# some customisations go here before ceda theme styling #}
+        {% block stylesheets_pre_extra %}{% endblock stylesheets_pre_extra %}
 
-                        </div>
-                    </div>
-                {% endblock info_panel %}
-            </div>
-            <div class="row">
-                {% block breadcrumbs %}{% endblock %}
-            </div>
-        </div>
-    {% endblock content_header %}
+        <link href="{% static 'fwtheme_django/css/fw-custom.css' %}" rel="stylesheet">
 
-    {% block content_panel_super %} {% block content_panel %}
+        <!-- Custom Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer">        {# most further customisations can go here, after ceda theme styling #}
+        {% block stylesheets_extra %}{% endblock %}
+
+        <link rel="shortcut icon" href="{% static 'common/img/favicon.ico' %}">
+
+    {% endblock stylesheets %}
+
+
+{% block navbar_main %}
+{% login_url as login_url %}
+{% logout_url as logout_url %}
+{{ block.super }}
+{% endblock navbar_main %}
+
+    {% block navbar_branding %}
+    <a href="https://archive.ceda.ac.uk/" class="navbar-brand">
+        <img src="{% artefact "assets/img/ceda_archive_logo_transp_white_3_h80.png" %}" alt="CEDA logo">
+    </a>
+    {% endblock navbar_branding %}
+    
+    {% block navbar_dropdown %}
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav">
+          {% block navbar_options %}
+          <li class="nav-item">
+            <a class="nav-link" href="https://archive.ceda.ac.uk/about/">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.ceda.ac.uk/news/">News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://catalogue.ceda.ac.uk">Search Catalogue</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://data.ceda.ac.uk">Get Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://arrivals.ceda.ac.uk">Deposit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://archive.ceda.ac.uk/tools">Tools</a>
+          </li>
+          {% endblock navbar_options %}
+        </ul>
+      </div>
+
+    {% endblock navbar_dropdown %}
+
+    {% block user_status %}
+    {% if login_url and logout_url %}
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+      {% get_userid as userid %}
+      {% if userid %}
+        {# Authenticated user #}
+        <a class="nav-link dropdown-toggle ms-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ userid }}</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{{ account_console_url }}"><i class="fa fa-user fa-fw"></i> My account</a></li>
+          <li><a class="dropdown-item" href="{{ account_security_url }}"><i class="fa fa-lock fa-fw"></i> Change password</a></li>
+          {% logout_with_post as logout_with_post %}
+          {% if logout_with_post %}
+          <!-- The text colour doesn't change dynamically :( -->
+          <form action="{{ logout_url }}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-link dropdown-item" type="submit"><i class="fa fa-sign-out-alt fa-fw"></i> Sign out</button>
+          </form>
+          {% else %}
+          <li><a class="dropdown-item" href="{{ logout_url }}"><i class="fa fa-sign-out-alt fa-fw"></i> Sign out</a></li>
+          {% endif %}
+        </ul>
+      {% else %}
+        {# Unauthenticated user #}
+        <a class="nav-link dropdown-toggle ms-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="far fa-fw fa-user"></i> Sign in <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{{ login_url }}"><i class="fa fa-fw fa-sign-in-alt"></i> Sign in</a></li>
+          <li><a class="dropdown-item" href="{{ account_registration_url }}"><i class="fa fa-fw fa-user"></i> Register</a></li>
+        </ul>
+      {% endif %}
+      </li>
+    </ul>
+
+    {% endif %}
+    {% endblock user_status %}
+
+    {% block page_special %}
+    {% endblock %}
+
+      {% block content_main %}
+      {% block content_header %}
+
+      <div class="page-header" id="banner">
         <div class="row">
-            <div class="col-md-12">
-                {% block content %}{% endblock content%}
+          <div class="col-12">
+              <h1>CEDA Services</h1>
+          </div>
+          <div class="col-12">
+            <div class="sponsor">
+                <div class="alert alert-with-icon alert-warning" role="alert">
+                    <i class="fa fa-exclamation-triangle"></i> <span>Sorry, we're down for maintanence. Please check the CEDA <a href="https://www.ceda.ac.uk/status/">status page</a> to find out when we'll be back.</span>
+                </div>
             </div>
+          </div>
         </div>
-    {% endblock content_panel %} {% endblock content_panel_super %}
+      </div>
 
-{% endblock content_main %}
+      {% endblock content_header %}
+
+      {% endblock content_main %}
+
+    {% block footer %}
+    <footer>
+      <div class="container">
+          <div class="row d-flex justify-content-around border border-light border-bottom-0 border-left-0 border-right-0 pt-5 pb-2 mt-5">
+            <div class="col col-md-4 text-center ">
+                <a href="https://www.ncas.ac.uk" title="NCAS"><img src="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_serv/0.2/_assets/img/ncas_logo_transparent_blacktext.png" title="NCAS logo" alt="NCAS logo" ></a>
+            </div>
+            <div class="col-md-4">
+                <p class="text-center small">
+                    Copyright © 2018 <a href="https://www.stfc.ac.uk">STFC</a>
+                    All Rights Reserved<br>
+                    <a href="https://help.ceda.ac.uk/article/4641-accessibility" target="_blank">Accessibility</a> |
+                    <a href="https://help.ceda.ac.uk/article/4642-disclaimer" target="_blank">Disclaimer</a> |
+                    <a href="https://help.ceda.ac.uk/article/4639-privacy-and-cookies" target="_blank">Privacy and Cookies</a><br/>
+                    <a href="https://www.ceda.ac.uk" target="_blank">CEDA</a>
+                </p>
+            </div>
+            <div class="col col-md-4 text-center">
+                <a href="https://www.nceo.ac.uk" title="STFC"><img src="https://artefacts.ceda.ac.uk/themes/orgtheme_ceda_serv/0.2/_assets/img/nceologo200.png" title="NCEO logo" alt="NCEO logo"></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+      {% endblock footer %}
