@@ -24,7 +24,7 @@ fwtheme-django = { git="https://github.com/cedadev/fwtheme-django.git", rev="786
 fwtheme-django-ceda-serv = {git="https://github.com/cedadev/fwtheme-django-ceda-serv.git", rev="9d4a64d399d4421a0e2c633a6318586b4239452a"}
 jasmin-django-utils = {git="https://github.com/cedadev/jasmin-django-utils.git", rev="v1.0.9"}
 jasmin-ldap-django = {git="https://github.com/cedadev/jasmin-ldap-django.git", rev="2b708c9136f31e8819ffff00fcb95567c27ed659"}
-jasmin-notifications = {git="https://github.com/cedadev/jasmin-notifications.git", rev="v1.2.7"}
+jasmin-notifications = {git="https://github.com/cedadev/jasmin-notifications.git", rev="2bbffd65915ccd75c3f26af20cf0a1f6ba2faac1"}
 
 # Main external dependencies.
 Django="~5.1"
