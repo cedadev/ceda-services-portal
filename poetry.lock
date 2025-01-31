@@ -596,8 +596,8 @@ develop = false
 [package.source]
 type = "git"
 url = "https://github.com/cedadev/fwtheme-django-ceda-serv.git"
-reference = "9d4a64d399d4421a0e2c633a6318586b4239452a"
-resolved_reference = "9d4a64d399d4421a0e2c633a6318586b4239452a"
+reference = "cc922d8e1b0d31021d2362d6251c8b419973d387"
+resolved_reference = "cc922d8e1b0d31021d2362d6251c8b419973d387"
 
 [[package]]
 name = "h11"
@@ -1333,4 +1333,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "534d94889d4db64cd56efd9c73b77cc8303cde494786a4474a775ab137bd5292"
+content-hash = "79dc7fd5aac7d6ae49625baa2359862e3265f3182240ca300d07742c1c27b3b8"
