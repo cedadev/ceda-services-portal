@@ -24,3 +24,4 @@ Outstanding requests for the MANAGER role for all services:
 {% endfor %}{% endfor %}
 {% else %}
     None
+{% endif %}
