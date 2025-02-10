@@ -20,7 +20,7 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
 
     def __init__(self, *args, **kwargs):
         self.licence_url = django.conf.settings.CEDA_SERVICES["LICENCE_URL"]
-        self.httpx_client = httpx.Client()
+        self.httpx_client = httpx.Client(verify=django.conf.settings.CEDA_SERVICES["LICENCE_URL_VERIFY"])
         super().__init__(*args, **kwargs)
 
     def setup(self, request, *args, **kwargs):
@@ -73,6 +73,7 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         """Add licence url into the request data."""
         context = super().get_context_data(**kwargs)
         context["licence_url"] = self.licence_info["url_link"]
+        context["licence_description"] = self.licence_info["description"]
         return context
 
     def get_initial(self):
