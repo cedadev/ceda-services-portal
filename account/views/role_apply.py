@@ -73,7 +73,7 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         """Add licence url into the request data."""
         context = super().get_context_data(**kwargs)
         context["licence_url"] = self.licence_info["url_link"]
-        context["licence_description"] = self.licence_info["description"]
+        context["licence_description"] = self.licence_info.get("description", "")
         return context
 
     def get_initial(self):
