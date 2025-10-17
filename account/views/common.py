@@ -79,7 +79,7 @@ def create_access_token(password, username, force=False):
         "POST",
         url,
         headers=headers,
-        json=payload,
+        data=payload,
         verify=settings.OIDC_VERIFY_SSL,
         timeout=10,
     )
