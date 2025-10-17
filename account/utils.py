@@ -31,7 +31,9 @@ def keycloak_apply_jasmin_link(user, jasminaccountid):
         f"Applying keycloak attribute {jasminaccountid} to user {user.username}."
     )
     kc_user_id = keycloak_admin.get_user_id(user.username)
-    attributes = keycloak_admin.get_user(kc_user_id).get("attributes", {})
+    user = keycloak_admin.get_user(kc_user_id)
+    attributes = user.get("attributes", {})
     attributes.update({"jasminaccountid": jasminaccountid})
+    user["attributes"] = attributes
 
-    keycloak_admin.update_user(kc_user_id, {"attributes": attributes})
+    keycloak_admin.update_user(kc_user_id, user)
