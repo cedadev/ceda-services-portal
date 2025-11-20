@@ -11,6 +11,8 @@ __license__ = "BSD - see LICENSE file in top-level directory"
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django_countries import countries
+from datetime import datetime
+from django.utils.safestring import mark_safe
 
 from .models import (
     CEDAUser,
@@ -144,7 +146,7 @@ class AccessTokenAdmin(admin.ModelAdmin):
 
         def queryset(self, request, queryset):
             value = self.value()
-            now = datetime.datetime.now()
+            now = datetime.now()
 
             if value == "not_expired":
                 return queryset.filter(expiry__gt=now)
