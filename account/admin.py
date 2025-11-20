@@ -15,6 +15,7 @@ from django_countries import countries
 from .models import (
     CEDAUser,
     Institution,
+    AccessTokens,
 )
 from .forms import (
     CEDAUserCreateForm,
@@ -155,7 +156,7 @@ class AccessTokenAdmin(admin.ModelAdmin):
         id = self.user.id
 
         return mark_safe(
-            '<a href='/admin/account/cedauser/%s" title="View user details">%s</a>'
+            '<a href="/admin/account/cedauser/%s" title="View user details">%s</a>'
             % (id, username)
         )
 
