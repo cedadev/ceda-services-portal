@@ -1,7 +1,7 @@
 {% if metadata.all %}
     {% for metadata_item in metadata.all %}
         {% if metadata_item.key == 'licence_url' %}
-            <p>This licence you agreed when you made your application is available <a href="{{ metadata_item.value }}" target="_blank">here</a>.</p>
+            <p>The licence you agreed to when you made your application is available <a href="{{ metadata_item.value }}" target="_blank">here</a>.</p>
         {% endif %}
     {% endfor %}
     <hr />
