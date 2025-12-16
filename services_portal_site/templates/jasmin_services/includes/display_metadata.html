@@ -2,6 +2,11 @@
     {% for metadata_item in metadata.all %}
         {% if metadata_item.key == 'licence_url' %}
             <p>The licence you agreed to when you made your application is available <a href="{{ metadata_item.value }}" target="_blank">here</a>.</p>
+         
+            {% if metadata_item.value == 'https://artefacts.ceda.ac.uk/licences/missing_licence.pdf' %}
+                <p><B>WARNING</B> this is not a valid licence.</p>
+            {% endif %}
+
         {% endif %}
     {% endfor %}
     <hr />
