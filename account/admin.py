@@ -11,10 +11,13 @@ __license__ = "BSD - see LICENSE file in top-level directory"
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django_countries import countries
+from datetime import datetime
+from django.utils.safestring import mark_safe
 
 from .models import (
     CEDAUser,
     Institution,
+    AccessTokens,
 )
 from .forms import (
     CEDAUserCreateForm,
@@ -130,3 +133,39 @@ class CEDAUserAdmin(auth_admin.UserAdmin):
         """
         suspend_unresponsive_users(queryset)
     suspend_unresponsive_users.short_description = 'Suspend unresponsive users'
+
+@admin.register(AccessTokens)
+class AccessTokenAdmin(admin.ModelAdmin):
+
+    class IsExpiredFilter(admin.SimpleListFilter):
+        title = "Expired"
+        parameter_name = "expiry"
+
+        def lookups(self, request, model_admin):
+            return (("expired", "Expired"), ("not_expired", "Not expired"))
+
+        def queryset(self, request, queryset):
+            value = self.value()
+            now = datetime.now()
+
+            if value == "not_expired":
+                return queryset.filter(expiry__gt=now)
+            else:
+                return queryset.filter(expiry__lt=now)
+
+    def linked_username(self):
+        username = self.user.username
+        id = self.user.id
+
+        return mark_safe(
+            '<a href="/admin/account/cedauser/%s" title="View user details">%s</a>'
+            % (id, username)
+        )
+
+    linked_username.short_description = "Username"
+
+    # token_name.short_description = "Token name"
+    ordering = ("-expiry",)
+    list_display = ("id", linked_username, "expiry", "token_name")
+    search_fields = ("user__username", "token_name")
+    list_filter = (IsExpiredFilter,)
