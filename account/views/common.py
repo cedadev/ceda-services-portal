@@ -64,8 +64,16 @@ def create_access_token(password, username, force=False):
         return response
 
     url = settings.OIDC_OP_TOKEN_ENDPOINT
-    payload = f"username={ username }&password={ password }&client_id={settings.OIDC_RP_CLIENT_ID}&client_secret={settings.OIDC_RP_CLIENT_SECRET}&grant_type=password"
-    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    payload = {
+        "username": username,
+        "password": password,
+        "client_id": settings.OIDC_RP_CLIENT_ID,
+        "client_secret": settings.OIDC_RP_CLIENT_SECRET,
+        "grant_type": "password"
+    }
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
 
     response = requests.request(
         "POST",
