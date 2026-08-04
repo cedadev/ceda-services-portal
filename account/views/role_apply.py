@@ -37,13 +37,21 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
             pass
 
     def dispatch(self, request, *args, **kwargs):
-        """Override dispatch to provide a nice error message if a service has no licence."""
+        """Override dispatch to provide a nice error message if a service has no licence or more than one licence."""
         if self.licence_info is None:
             django.contrib.messages.error(
                 request,
-                f"You cannot apply for {self.service.name}, because no licence was found. Please contact support for assistance.",
+                f"You cannot apply for {self.service.name}, because no licence was found. Please contact support@ceda.ac.uk for assistance.",
             )
             return jasmin_services.views.common.redirect_to_service(self.service)
+
+        if len(self.licence_info) > 1:
+            django.contrib.messages.error(
+                request,
+                f"You cannot apply for {self.service.name} because more than one licence was found. Please contact support for assistance.",
+            )
+            return jasmin_services.views.common.redirect_to_service(self.service)
+    
         return super().dispatch(request, *args, **kwargs)
 
     def get_licence_info(self, service_name):
@@ -64,7 +72,8 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         # Exactly one licence should be returned.
         # We don't handle the case where more than one is returned.
         if len(licence_info) > 1:
-            raise django.core.exceptions.MultipleObjectsReturned()
+            logger.error("More than one licence returned for group %s.", service_name)
+
         # Cache the licence response for 10 minutes.
         cache.set(cache_key, licence_info, 600)
         return licence_info[0]
