@@ -28,6 +28,8 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
         # pylint: disable=attribute-defined-outside-init
         super().setup(request, *args, **kwargs)
         self.licence_info = None
+        self.licence_error = None
+
         try:
             # Make sure that the licence info value is a PDF (currently the only supported licence type)
             licence_info = self.get_licence_info(self.service.name)
@@ -38,14 +40,15 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
 
     def dispatch(self, request, *args, **kwargs):
         """Override dispatch to provide a nice error message if a service has no licence or more than one licence."""
-        if self.licence_info is None:
+
+        if self.licence_error == "none found":
             django.contrib.messages.error(
                 request,
                 f"You cannot apply for {self.service.name}, because no licence was found. Please contact support@ceda.ac.uk for assistance.",
             )
             return jasmin_services.views.common.redirect_to_service(self.service)
 
-        if len(self.licence_info) > 1:
+        if self.licence_error == "multiple":
             django.contrib.messages.error(
                 request,
                 f"You cannot apply for {self.service.name} because more than one licence was found. Please contact support for assistance.",
@@ -64,15 +67,18 @@ class CEDARoleApplyView(jasmin_services.views.RoleApplyView):
             licence_info = self.httpx_client.get(
                 self.licence_url, params={"group": service_name}
             ).json()
+
         # Annoyingly if there is an error the API returns 200 with a dict with a single key "error"
         # Otherwise, it returns a list of dicts of licences.
         if isinstance(licence_info, dict) and "error" in licence_info.keys():
             logger.error("Licence for group %s does not exist.", service_name)
+            self.licence_error = "none found"
             raise django.core.exceptions.ObjectDoesNotExist(str(licence_info["error"]))
         # Exactly one licence should be returned.
         # We don't handle the case where more than one is returned.
         if len(licence_info) > 1:
             logger.error("More than one licence returned for group %s.", service_name)
+            self.licence_error = "multiple"
 
         # Cache the licence response for 10 minutes.
         cache.set(cache_key, licence_info, 600)
