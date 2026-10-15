@@ -9,6 +9,10 @@ from .account_jasmin_link import (
     account_jasmin_token_exchange,
     jasmin_account,
 )
+
+from .account_globus_link import (
+    globus_account
+)
 from .api import ServiceCreate, access_token_api_create
 from .ftp_password import account_ftp_password
 from .role_apply import CEDARoleApplyView
@@ -21,6 +25,7 @@ __all__ = [
     "account_jasmin_link",
     "account_jasmin_token_exchange",
     "jasmin_account",
+    "globus_account",
     "ServiceCreate",
     "access_token_api_create",
     "account_ftp_password",

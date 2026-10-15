@@ -9,6 +9,10 @@
             <a class="nav-link {% if request.path == jasmin_link_url %}active{% endif %}" href="{{ jasmin_link_url }}">JASMIN Account Link</a>
         </li>
         <li class="nav-item">
+            {% url 'globus_account' as globus_link_url %}
+            <a class="nav-link {% if request.path == globus_link_url %}active{% endif %}" href="{{ globus_link_url }}">GLOBUS Account Link</a>
+        </li>
+        <li class="nav-item">
             {% url 'ftp_password' as ftp_password_url %}
             <a class="nav-link {% if request.path == ftp_password_url %}active{% endif %}" href="{{ ftp_password_url }}">FTP Account (deprecated)</a>
         </li>

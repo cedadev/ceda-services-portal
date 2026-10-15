@@ -1,0 +1,33 @@
+{% extends 'layout_sidebar.html' %}
+
+{% block page_title %}GLOBUS Account Link{% endblock %}
+{% block head_title %}GLOBUS Account Link{% endblock %}
+
+{% block service_breadcrumbs %}
+    <li class="breadcrumb-item active" aria-current="page">GLOBUS Account Link</li>
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 col-md-12">
+        <h3>Linking your GLOBUS account to CEDA</h3>
+        <div class="col-sm-12 col-md-12">
+            <p>
+                Linking to a <a href="https://jasmin.ac.uk/">GLOBUS</a> account allows you filesystem access to data on CEDA archive. Find out more <a href="https://help.ceda.ac.uk/article/5105-linking-your-jasmin-account">here</a>.
+            </p>
+{% if request.user.jasminaccountid %}
+            <p>
+                <b>Linked to JASMIN account: <code>{{ request.user.jasminaccountid }}</code></b>
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <a href="{{ jasmin_account }}" class="float-right btn btn-md btn-primary" style="color:white">JASMIN account</a>
+    </div>
+{% else %}
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <a href="{% url 'jasmin_link'%}" class="float-right btn btn-md btn-primary pointer" style="color:white; cursor: pointer;">Link Now</a>
+    </div>
+{% endif %}
+{% endblock %}
