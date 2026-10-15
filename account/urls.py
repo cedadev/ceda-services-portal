@@ -22,7 +22,10 @@ urlpatterns = [
             path('token/', views.access_token_generator, name = 'access_token'),
             path('token/create/', views.access_token_create, name = 'access_token_create'),
             path('token/delete/', views.access_token_delete, name = 'access_token_delete'),
-            path('globus/', views.globus_account, name='globus_account')
+            path('globus/', views.globus_account, name='globus_account'),
+            path('globus_authorise/', views.account_globus_authorise, name = 'globus_authorise'),
+            path('globus_token_exchange/', views.account_globus_token_exchange, name = 'globus_token_exchange'),
+            path('globus_link/', views.account_globus_link, name = 'globus_link'),
         ],),
     ),
     path("api/", include([

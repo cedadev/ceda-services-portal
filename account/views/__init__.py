@@ -11,7 +11,10 @@ from .account_jasmin_link import (
 )
 
 from .account_globus_link import (
-    globus_account
+    account_globus_authorise,
+    account_globus_link,
+    account_globus_token_exchange,
+    globus_account,
 )
 from .api import ServiceCreate, access_token_api_create
 from .ftp_password import account_ftp_password
@@ -25,6 +28,9 @@ __all__ = [
     "account_jasmin_link",
     "account_jasmin_token_exchange",
     "jasmin_account",
+    "account_globus_authorise",
+    "account_globus_link",
+    "account_globus_token_exchange",
     "globus_account",
     "ServiceCreate",
     "access_token_api_create",

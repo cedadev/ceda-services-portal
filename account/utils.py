@@ -37,3 +37,29 @@ def keycloak_apply_jasmin_link(user, jasminaccountid):
     user["attributes"] = attributes
 
     keycloak_admin.update_user(kc_user_id, user)
+
+
+def keycloak_apply_globus_link(user, globusaccountid):
+    """Add a GLOBUS account ID to a user as a Keycloak attribute."""
+
+    settings = django.conf.settings.GLOBUS_SERVICES["KEYCLOAK"]
+
+    keycloak_admin = keycloak.KeycloakAdmin(
+        server_url=settings.get("SERVER_URL"),
+        realm_name=settings.get("REALM_NAME"),
+        username=settings.get("USERNAME"),
+        password=settings.get("PASSWORD"),
+        user_realm_name=settings.get("USER_REALM_NAME", settings.get("REALM_NAME")),
+        verify=settings.get("VERIFY", True),
+    )
+
+    logger.info(
+        f"Applying keycloak attribute {globusaccountid} to user {user.username}."
+    )
+    kc_user_id = keycloak_admin.get_user_id(user.username)
+    user = keycloak_admin.get_user(kc_user_id)
+    attributes = user.get("attributes", {})
+    attributes.update({"globusaccountid": globusaccountid})
+    user["attributes"] = attributes
+
+    keycloak_admin.update_user(kc_user_id, user)

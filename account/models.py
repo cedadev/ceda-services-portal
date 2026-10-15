@@ -152,6 +152,8 @@ class CEDAUser(auth_models.AbstractUser, NotifiableUserMixin):
 
     jasminaccountid = models.CharField(unique=True, max_length=20, null=True, blank=True)
 
+    globusaccountid = models.CharField(unique=True, max_length=20, null=True, blank=True)
+
     has_ftp_password = models.BooleanField(
         default=False,
         help_text='Indicates if this user has created a FTP password.'
