@@ -93,3 +93,11 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Default portal settings
 
 AUTH_USER_MODEL = "account.CEDAUser"
+
+ARTEFACT_URL = "https://cdn.jsdelivr.net/gh/cedadev/orgtheme-ceda-serv@bootstrap5/orgtheme_ceda_serv/static/orgtheme/"
+
+
+
+GLOBUS_AUTH = {
+    "GLOBUS_ACCOUNT_URL": None,
+}
